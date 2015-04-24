@@ -1,7 +1,7 @@
 package BookedModdel;
 import java.util.ArrayList;
 
-public class clazz {
+public class Clazz {
 
     //public int bookedPersonsCount;
     public int bookedPersonsCount;

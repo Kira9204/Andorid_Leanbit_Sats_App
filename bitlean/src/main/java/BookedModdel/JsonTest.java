@@ -10,7 +10,11 @@ public class JsonTest
 	
 	public static void main(String[] args){
 		
-        String jsonString = "[{\n" +
+        String jsonString = "\n" +
+                "{\n" +
+                "\t\"url\": \"https:\\/\\/api2.sats.com\\/v1.0\\/se\\/training\\/activities\",\n" +
+                "\t\"userId\": \"551p46100\",\n" +
+                "\t\"activities\": [{\n" +
                 "\t\"booking\": {\n" +
                 "\t\"centerId\": \"567\",\n" +
                 "\t\"clazz\": {\n" +
@@ -70,10 +74,10 @@ public class JsonTest
                 "\t\"status\": \"PLANNED\",\n" +
                 "\t\"subType\": \"Shape\",\n" +
                 "\t\"type\": \"GROUP\"\n" +
-                "\t}]";
-        activities[] acts;
+                "\t}]}";
+        Activities acts;
         Gson gson = new GsonBuilder().create();
-        acts = gson.fromJson(jsonString, activities[].class);
+        acts = gson.fromJson(jsonString, Activities.class);
         int inni = 0;
         if(inni == 1){
         	
