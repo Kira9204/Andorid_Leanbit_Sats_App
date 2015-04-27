@@ -1,8 +1,6 @@
-package BookedModdel;
-import java.util.ArrayList;
-import java.util.Date;
+package se.segr.android.leanbit_sats_app;
 
-public class Activitie {
+public class Activity {
 
     public String comment;
     public String date;

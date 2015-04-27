@@ -1,5 +1,4 @@
-package BookedModdel;
-import java.util.ArrayList;
+package se.segr.android.leanbit_sats_app;
 
 public class Clazz {
 
