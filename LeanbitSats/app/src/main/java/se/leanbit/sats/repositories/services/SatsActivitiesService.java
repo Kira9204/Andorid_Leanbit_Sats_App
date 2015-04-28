@@ -72,7 +72,11 @@ public class SatsActivitiesService implements SatsActivityInterface
     @Override
     public Boolean isCustom(SatsActivity activity)
     {
-        return !activity.source.equalsIgnoreCase("SATS");
+        if(null == activity.booking)
+        {
+            return true;
+        }
+        return false;
     }
 
     @Override
