@@ -20,7 +20,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
     {
         Calendar activityDate = getDateCalendar(activity.date);
         int currentDate = activityDate.get(Calendar.DATE);
-        String currentMonth = months[activityDate.get(Calendar.MONTH)+1];
+        String currentMonth = months[activityDate.get(Calendar.MONTH)];
         return ""+currentDate+" "+currentMonth;
     }
 
@@ -50,8 +50,9 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         Calendar activityDate = getDateCalendar(activity.date);
         activityDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         StringBuilder builder = new StringBuilder();
-        builder.append(" " + activityDate.get(Calendar.DAY_OF_MONTH) + "-");
-        builder.append(" " + activityDate.get(Calendar.DAY_OF_WEEK) + "/" + (activityDate.get(Calendar.MONTH) + 1));
+        builder.append(" " + activityDate.get(Calendar.DAY_OF_MONTH) + " -");
+        activityDate.roll(Calendar.DAY_OF_YEAR, 6);
+        builder.append(" " + activityDate.get(Calendar.DAY_OF_MONTH) + "/" + (activityDate.get(Calendar.MONTH) + 1));
         return builder.toString();
     }
 

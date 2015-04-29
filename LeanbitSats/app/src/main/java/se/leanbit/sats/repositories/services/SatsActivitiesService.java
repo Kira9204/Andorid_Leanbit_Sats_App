@@ -18,7 +18,7 @@ public class SatsActivitiesService implements SatsActivityInterface
     public SatsActivity[] getActivitiesBetween(final String fromDate, final String toDate)
     {
         WebService webService = new WebService();
-        final String url = "http://leanbit.erikwelander.se/api.sats.com/v1.0/se/training/activities/";
+        final String url = "http://leanbit.erikwelander.se/api.sats.com/v1.0/se/training/activities";
         String jsonResponse = "";
         try
         {
@@ -44,29 +44,37 @@ public class SatsActivitiesService implements SatsActivityInterface
     @Override
     public String getGroupType(SatsActivity activity)
     {
-        return activity.type;
+       return activity.type;
     }
+
 
     @Override
     public String getRegion(SatsActivity activity)
     {
-        WebService webService = new WebService();
-        final String url = "https://api2.sats.com/v1.0/se/centers/";
-
-        String jsonResponse = "";
-        try
+        SatsActivity.SatsBooking  booking= activity.booking;
+        if(null != activity.booking)
         {
-            jsonResponse = webService.execute(url + activity.booking.centerId).get();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+            WebService webService = new WebService();
+            final String url = "https://api2.sats.com/v1.0/se/centers/";
 
-        Gson gson = new GsonBuilder().create();
-        SatsCenters satsCenters = gson.fromJson(jsonResponse, SatsCenters.class);
+            String jsonResponse = "";
+            try
+            {
+                jsonResponse = webService.execute(url + activity.booking.centerId).get();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
 
-        return satsCenters.center.name;
+            Gson gson = new GsonBuilder().create();
+            SatsCenters satsCenters = gson.fromJson(jsonResponse, SatsCenters.class);
+            if(null != satsCenters)
+            {
+                return satsCenters.center.name;
+            }
+            return "";
+        }
+        return "";
     }
 
     @Override
