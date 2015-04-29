@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="2dp"
+            android:layout_marginTop="10dp"
+
+              android:background="@drawable/shape"
+              android:id="@+id/custom_fragment"
+
+              android:layout_margin="20dp">
+    <LinearLayout
+        android:id="@+id/margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/whole_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:padding="0dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/left_box2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left|center"
+            android:paddingLeft="15dp"
+            android:layout_weight="1">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Styrketräning"
+                android:textColor="#000"
+                android:id="@+id/custom_activity_name"
+                android:textSize="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"/>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/imageButton4"
+                    android:clickable="false"
+                    android:src="@drawable/ic_time" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="50 min"
+                    android:textSize="12sp"
+                    android:id="@+id/custom_activity_duration"
+                    android:layout_gravity="right"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton4"
+                    android:src="@drawable/ic_comment" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="1  kommentar"
+                    android:textSize="12sp"
+                    android:id="@+id/custom_activity_comment"
+                    android:layout_gravity="right"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/right_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/progressbar_nmi_primary"
+                android:text="Detaljer"
+                android:textColor="#ffffffff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/custom_activity_button"
+                android:textSize="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view1">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#ffdddddd"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10sp"
+            android:orientation="horizontal"
+            android:id="@+id/Lagg_till_i_kalendern"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton"
+                android:src="@drawable/ic_calender"
+                android:layout_gravity="bottom"
+                android:adjustViewBounds="true"
+                android:baselineAlignBottom="false"
+                android:cropToPadding="false"
+                android:focusable="false" />
+            <TextView
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Lägg till i kalendern"
+                android:textSize="12dp"
+                android:id="@+id/custom_activity_calendar"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:background="#ffdddddd"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:orientation="horizontal"
+            android:id="@+id/Mer_om_passet"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton2"
+                android:src="@drawable/ic_more"
+                android:layout_gravity="top" />
+
+            <TextView
+                android:layout_width="101dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Träningsprogram"
+                android:textSize="12dp"
+                android:id="@+id/custom_activity_training_program"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

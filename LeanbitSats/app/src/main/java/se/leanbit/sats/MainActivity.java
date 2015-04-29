@@ -1,18 +1,34 @@
 package se.leanbit.sats;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import se.leanbit.sats.fragments.ListFragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import se.leanbit.sats.models.SatsActivity;
-import se.leanbit.sats.repositories.services.SatsActivitiesService;
-import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 
+public class MainActivity extends FragmentActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-public class MainActivity extends ActionBarActivity {
+        setContentView(R.layout.main_container);
 
+        Fragment mListFragment = new ListFragment();
+        FragmentManager fm = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.mainContainer, mListFragment, "listFrag")
+                .commit();
+
+        Log.d("onCreate", "onCreate fired ..............");
+    }
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

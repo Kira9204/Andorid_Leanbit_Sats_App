@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="105dp"
+              android:background="@drawable/shape"
+              android:id="@+id/future_fragment"
+              android:layout_margin="10dp">
+
+    <LinearLayout
+        android:id="@+id/whole_box"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:padding="3dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/left_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.4"
+            android:orientation="vertical"
+
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6">
+
+                        <TextView
+                            android:layout_width="37dp"
+                            android:layout_height="37dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="10"
+                            android:id="@+id/future_activity_hour"
+                            android:textColor="#ffffffff"
+                            android:background="@drawable/clock_background"
+                            android:textSize="28dp"
+                            android:gravity="center"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6">
+
+                        <TextView
+                            android:layout_width="37dp"
+                            android:layout_height="37dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="25"
+                            android:id="@+id/future_activity_minutes"
+                            android:textColor="#ffffffff"
+                            android:background="@drawable/clock_background"
+                            android:textSize="28dp"
+                            android:gravity="center"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/duration"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageButton3"
+                        android:src="@drawable/ic_time" />
+
+                    <TextView
+                        android:id="@+id/future_activity_duration"
+                        android:layout_width="57dp"
+                        android:layout_height="wrap_content"
+                        android:text="30 min"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/middle_box"
+            android:layout_weight="2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="1dp"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="SATS CORE"
+                android:id="@+id/future_activity_name"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textIsSelectable="false"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Hornstull"
+                android:id="@+id/future_activity_region"
+                android:typeface="normal"
+                android:textSize="12dp"
+                android:textColor="#fe000101"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Sven Svensson"
+                android:id="@+id/future_activity_instructor"
+                android:textSize="12dp"
+                android:textColor="#fe000101"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/right_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.00"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:gravity="center"
+                android:background="@drawable/progressbar_nmi_primary"
+                android:text="Avboka"
+                android:textColor="#ffffffff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/future_activity_cancel"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/que_box"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_que"
+                    android:src="@drawable/icon_queue" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="20"
+                    android:textColor="#ffff3393"
+                    android:id="@+id/future_activity_que"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view1">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#ffdddddd"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:layout_marginLeft="10sp"
+            android:orientation="horizontal"
+            android:id="@+id/Lagg_till_i_kalendern"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:src="@drawable/ic_calender"
+                android:layout_gravity="bottom" />
+            <TextView
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Lägg till i kalendern"
+                android:textSize="12dp"
+                android:id="@+id/future_activity_Calendar"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:background="#ffdddddd"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+
+            android:orientation="horizontal"
+            android:id="@+id/Mer_om_passet"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton2"
+                android:src="@drawable/ic_arrow_down"
+                android:layout_gravity="top" />
+
+            <TextView
+                android:layout_width="101dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Mer om passet"
+                android:textSize="12dp"
+                android:id="@+id/future_activity_pass"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
