@@ -14,9 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
         android:background="@drawable/shape"
         android:orientation="vertical"
         >
@@ -24,19 +21,16 @@
         <LinearLayout
             android:id="@+id/whole_box"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="3dp"
             android:orientation="horizontal"
-            android:padding="3dp">
+            android:padding="3dp"
+            android:layout_margin="5dp">
 
             <LinearLayout
                 android:id="@+id/left_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.4"
                 android:gravity="center"
 
                 android:orientation="vertical">
@@ -105,7 +99,8 @@
                             android:id="@+id/imageButton3"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_time"/>
+                            android:src="@drawable/ic_time"
+                            android:backgroundTint="#ffffffff"/>
 
                         <TextView
                             android:id="@+id/future_activity_duration"
@@ -125,7 +120,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="1dp"
-                android:layout_weight="2"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -164,17 +158,16 @@
 
             <LinearLayout
                 android:id="@+id/right_box"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="3.00"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="right">
 
 
                 <Button
                     android:id="@+id/future_activity_cancel"
                     android:layout_width="wrap_content"
-                    android:layout_height="37dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/progressbar_nmi_primary"
                     android:gravity="center"
                     android:paddingLeft="10dp"
@@ -187,26 +180,25 @@
                     android:id="@+id/que_box"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/image_que"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/icon_queue"/>
+                        android:src="@drawable/icon_queue"
+                        android:backgroundTint="#ffffffff"/>
 
                     <TextView
                         android:id="@+id/future_activity_que"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="20"
                         android:textColor="#ffff3393"
                         android:textSize="22sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:padding="5dp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -246,7 +238,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:src="@drawable/ic_calender"/>
+                    android:src="@drawable/ic_calender"
+                    android:backgroundTint="#ffffffff"/>
 
                 <TextView
                     android:id="@+id/future_activity_Calendar"
@@ -277,7 +270,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
-                    android:src="@drawable/ic_arrow_down"/>
+                    android:src="@drawable/ic_more"
+                    android:backgroundTint="#ffffffff"/>
 
                 <TextView
                     android:id="@+id/future_activity_pass"
