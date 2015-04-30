@@ -5,19 +5,21 @@
               android:layout_marginBottom="2dp"
             android:layout_marginTop="10dp"
 
-              android:background="@drawable/shape"
-              android:id="@+id/custom_fragment"
+            android:id="@+id/custom_fragment"
 
-              android:layout_margin="20dp">
+              android:layout_margin="20dp"
+              android:padding="10dp">
     <LinearLayout
         android:id="@+id/margin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:background="@drawable/shape"
+        >
     <LinearLayout
         android:id="@+id/whole_box"
         android:layout_width="match_parent"
@@ -36,7 +38,8 @@
             android:orientation="vertical"
             android:gravity="left|center"
             android:paddingLeft="15dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginBottom="0dp">
 
             <TextView
 
@@ -62,7 +65,8 @@
                     android:layout_height="25dp"
                     android:id="@+id/imageButton4"
                     android:clickable="false"
-                    android:src="@drawable/ic_time" />
+                    android:src="@drawable/ic_time"
+                    android:backgroundTint="#ffffffff"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -79,12 +83,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="0">
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton4"
-                    android:src="@drawable/ic_comment" />
+                    android:src="@drawable/ic_comment"
+                    android:backgroundTint="#ffffffff"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -157,7 +162,8 @@
                 android:adjustViewBounds="true"
                 android:baselineAlignBottom="false"
                 android:cropToPadding="false"
-                android:focusable="false" />
+                android:focusable="false"
+                android:backgroundTint="#ffffffff"/>
             <TextView
                 android:layout_width="121dp"
                 android:layout_height="wrap_content"
@@ -186,7 +192,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton2"
                 android:src="@drawable/ic_more"
-                android:layout_gravity="top" />
+                android:layout_gravity="top"
+                android:backgroundTint="#ffffffff"/>
 
             <TextView
                 android:layout_width="101dp"
