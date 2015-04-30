@@ -81,10 +81,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         if (getItemViewType(position) == PAST_ACTIVITY)
         {
 
-
             if (convertView == null)
             {
-
                 holder = new ViewHolder();
                 convertView = inflater.inflate(R.layout.past_activity, parent, false);
                 holder.textName = (TextView) convertView.findViewById(R.id.past_activity_name);
@@ -113,7 +111,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             {
                 if (convertView == null)
                 {
-
                     customHolder = new ViewHolderCustom();
                     convertView = inflater.inflate(R.layout.custom_activity, parent, false);
                     customHolder.textName = (TextView) convertView.findViewById(R.id.custom_activity_name);
@@ -127,7 +124,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
                 } else
                 {
-
                     customHolder = (ViewHolderCustom) convertView.getTag();
                     customHolder = setCustomHolderText(customHolder, position);
                 }
@@ -136,7 +132,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             {
                 if (convertView == null)
                 {
-
                     futureHolder = new ViewHolderFuture();
                     convertView = inflater.inflate(R.layout.future_activity, parent, false);
                     futureHolder.textName = (TextView) convertView.findViewById(R.id.future_activity_name);
@@ -154,7 +149,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
                 } else
                 {
-
                     futureHolder = (ViewHolderFuture) convertView.getTag();
                     futureHolder = setFutureViewHolder(futureHolder, position);
                 }
@@ -224,8 +218,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
     private void setPastActivity(ViewHolder holder, int position, View convertView, ViewGroup parent)
     {
-
-
         convertView = inflater.inflate(R.layout.past_activity, parent, false);
         holder.textName = (TextView) convertView.findViewById(R.id.past_activity_name);
         holder.textDate = (TextView) convertView.findViewById(R.id.past_activity_date);
