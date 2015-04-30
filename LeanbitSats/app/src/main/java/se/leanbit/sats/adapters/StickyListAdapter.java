@@ -21,7 +21,8 @@ import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 /**
  * Created by gina on 2015-04-22.
  */
-public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter
+{
 
     private static final int PAST_ACTIVITY = 0;
     private static final int CUSTOM_ACTIVITY = 1;
@@ -32,7 +33,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     private ArrayList<SatsActivity> mActivityList;
 
 
-    public StickyListAdapter(Context context, ArrayList<SatsActivity> list) {
+    public StickyListAdapter(Context context, ArrayList<SatsActivity> list)
+    {
         inflater = LayoutInflater.from(context);
         this.mActivityList = list;
         satsActivitiesService = new SatsActivitiesService();
@@ -40,40 +42,48 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     }
 
     @Override
-    public long getHeaderId(int i) {
-        if (satsActivitiesService.isPast(mActivityList.get(i))) {
+    public long getHeaderId(int i)
+    {
+        if (satsActivitiesService.isPast(mActivityList.get(i)))
+        {
             return satsTimeFormatService.getWeekNum(mActivityList.get(i));
         }
         return -1;
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return mActivityList.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return mActivityList.indexOf(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
 
         ViewHolder holder;
         ViewHolderFuture futureHolder;
         ViewHolderCustom customHolder;
 
 
-        if (getItemViewType(position) == PAST_ACTIVITY) {
+        if (getItemViewType(position) == PAST_ACTIVITY)
+        {
 
 
-            if (convertView == null) {
+            if (convertView == null)
+            {
 
                 holder = new ViewHolder();
                 convertView = inflater.inflate(R.layout.past_activity, parent, false);
@@ -86,7 +96,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 convertView.setTag(holder);
                 Log.d("past", "getView fired ..............");
 
-            } else {
+            } else
+            {
 
                 holder = (ViewHolder) convertView.getTag();
                 holder = setHolderText(holder, position);
@@ -95,10 +106,13 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             }
             return convertView;
 
-        } else {
+        } else
+        {
 
-            if (getItemViewType(position) == CUSTOM_ACTIVITY) {
-                if (convertView == null) {
+            if (getItemViewType(position) == CUSTOM_ACTIVITY)
+            {
+                if (convertView == null)
+                {
 
                     customHolder = new ViewHolderCustom();
                     convertView = inflater.inflate(R.layout.custom_activity, parent, false);
@@ -111,14 +125,17 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     convertView.setTag(customHolder);
                     customHolder = setCustomHolderText(customHolder, position);
 
-                } else {
+                } else
+                {
 
                     customHolder = (ViewHolderCustom) convertView.getTag();
                     customHolder = setCustomHolderText(customHolder, position);
                 }
                 return convertView;
-            } else {
-                if (convertView == null) {
+            } else
+            {
+                if (convertView == null)
+                {
 
                     futureHolder = new ViewHolderFuture();
                     convertView = inflater.inflate(R.layout.future_activity, parent, false);
@@ -135,7 +152,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
 
-                } else {
+                } else
+                {
 
                     futureHolder = (ViewHolderFuture) convertView.getTag();
                     futureHolder = setFutureViewHolder(futureHolder, position);
@@ -145,7 +163,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         }
     }
 
-    private ViewHolderFuture setFutureViewHolder(ViewHolderFuture futureHolder, int position) {
+    private ViewHolderFuture setFutureViewHolder(ViewHolderFuture futureHolder, int position)
+    {
         futureHolder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
         futureHolder.textInstructor.setText(satsActivitiesService.instructor(mActivityList.get(position)));
         futureHolder.textRegion.setText(satsActivitiesService.getRegion(mActivityList.get(position)));
@@ -159,43 +178,52 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         return futureHolder;
     }
 
-    private ViewHolderCustom setCustomHolderText(ViewHolderCustom customHolder, int position) {
+    private ViewHolderCustom setCustomHolderText(ViewHolderCustom customHolder, int position)
+    {
         customHolder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
         customHolder.textDuration.setText(satsActivitiesService.duration(mActivityList.get(position)) + " min");
         customHolder.buttonDetails.setText("Detaljer");
         customHolder.textCalendar.setText("Lägg till i kalender");
         customHolder.textTrainingProgram.setText("Träningsprogram");
-        if (satsActivitiesService.comments(mActivityList.get(position))) {
+        if (satsActivitiesService.comments(mActivityList.get(position)))
+        {
             customHolder.textComment.setText("1 kommentar");
-        } else {
+        } else
+        {
             customHolder.textComment.setText("Lägg till kommentar");
         }
         return customHolder;
     }
 
-    private ViewHolder setHolderText(ViewHolder holder, int position) {
+    private ViewHolder setHolderText(ViewHolder holder, int position)
+    {
         holder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
         holder.textDate.setText(satsTimeFormatService.getDate(mActivityList.get(position)));
-        if (satsActivitiesService.comments(mActivityList.get(position))) {
+        if (satsActivitiesService.comments(mActivityList.get(position)))
+        {
 
             holder.textComment.setText("1 kommentar");
 
-        } else {
+        } else
+        {
 
             holder.textComment.setText("Lägg till kommentar");
         }
-        if (satsActivitiesService.isCompleted(mActivityList.get(position))) {
+        if (satsActivitiesService.isCompleted(mActivityList.get(position)))
+        {
 
             holder.textCompleted.setText("Avklarat!");
             holder.imageCheck.setImageResource(R.drawable.checkmark_icon);
 
-        } else {
+        } else
+        {
             holder.textCompleted.setText("Avklarat?");
         }
         return holder;
     }
 
-    private void setPastActivity(ViewHolder holder, int position, View convertView, ViewGroup parent) {
+    private void setPastActivity(ViewHolder holder, int position, View convertView, ViewGroup parent)
+    {
 
 
         convertView = inflater.inflate(R.layout.past_activity, parent, false);
@@ -208,30 +236,37 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         holder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
         holder.textDate.setText(satsTimeFormatService.getDate(mActivityList.get(position)));
 
-        if (satsActivitiesService.comments(mActivityList.get(position))) {
+        if (satsActivitiesService.comments(mActivityList.get(position)))
+        {
             holder.textComment.setText(" 1 kommentar");
-        } else {
+        } else
+        {
             holder.textComment.setText("Lägg till kommentar");
         }
-        if (satsActivitiesService.isCompleted(mActivityList.get(position))) {
+        if (satsActivitiesService.isCompleted(mActivityList.get(position)))
+        {
             holder.textCompleted.setText("Avklarat!");
             holder.imageCheck.setImageResource(R.drawable.checkmark_icon);
 
-        } else {
+        } else
+        {
             holder.textCompleted.setText("Avklarat?");
         }
     }
 
     @Override
-    public View getHeaderView(int position, View convertView, ViewGroup parent) {
+    public View getHeaderView(int position, View convertView, ViewGroup parent)
+    {
         HeaderViewHolder holder;
 
-        if (convertView == null) {
+        if (convertView == null)
+        {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.header_view, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.text_header);
             convertView.setTag(holder);
-        } else {
+        } else
+        {
             holder = (HeaderViewHolder) convertView.getTag();
         }
         String headerText = "Vecka " + satsTimeFormatService.getWeekNum(mActivityList.get(position)) + " ( " + satsTimeFormatService.getWeekDates(mActivityList.get(position)) + " ) ";
@@ -241,7 +276,32 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         return convertView;
     }
 
-    class ViewHolderFuture {
+    public int getItemViewType(int position)
+    {
+
+        if (satsActivitiesService.isPast(mActivityList.get(position)) == true)
+        {
+            return PAST_ACTIVITY;
+        } else
+        {
+            if ((satsActivitiesService.isCustom(mActivityList.get(position)) == true))
+            {
+                return CUSTOM_ACTIVITY;
+            } else
+            {
+                return SATS_ACTIVITY;
+            }
+
+        }
+    }
+
+    public int getViewTypeCount()
+    {
+        return 3;
+    }
+
+    class ViewHolderFuture
+    {
         TextView textName;
         TextView textInstructor;
         TextView textRegion;
@@ -254,8 +314,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView textMinutes;
     }
 
-
-    class ViewHolderCustom {
+    class ViewHolderCustom
+    {
         TextView textName;
         TextView textDuration;
         Button buttonDetails;
@@ -264,35 +324,19 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView textTrainingProgram;
     }
 
-    class HeaderViewHolder {
+    class HeaderViewHolder
+    {
         TextView text;
     }
 
-    class ViewHolder {
+    class ViewHolder
+    {
         TextView textName;
         TextView textDate;
         TextView textComment;
         TextView textCompleted;
         ImageView imageMan;
         ImageView imageCheck;
-    }
-
-    public int getItemViewType(int position) {
-
-        if (satsActivitiesService.isPast(mActivityList.get(position)) == true) {
-            return PAST_ACTIVITY;
-        } else {
-            if ((satsActivitiesService.isCustom(mActivityList.get(position)) == true)) {
-                return CUSTOM_ACTIVITY;
-            } else {
-                return SATS_ACTIVITY;
-            }
-
-        }
-    }
-
-    public int getViewTypeCount() {
-        return 3;
     }
 
 
