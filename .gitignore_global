@@ -3,5 +3,5 @@
 #using "git add -f <file>".
 #Files that should be included must follow the folder hirarcy inside
 #"LeanbitSats/app/src/main/".
-*
-!.gitignore_global
+#*
+#!.gitignore_global
