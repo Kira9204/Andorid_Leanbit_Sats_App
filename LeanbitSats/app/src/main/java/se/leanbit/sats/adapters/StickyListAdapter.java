@@ -90,6 +90,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 holder.textComment = (TextView) convertView.findViewById(R.id.past_activity_comment);
                 holder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_completed);
                 holder.imageCheck = (ImageView) convertView.findViewById(R.id.image_checkbox);
+                holder.imageMan = (ImageView) convertView.findViewById(R.id.image_man);
                 holder = setHolderText(holder, position);
                 convertView.setTag(holder);
                 Log.d("past", "getView fired ..............");
@@ -167,8 +168,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.textCalendar.setText("Lägg till i kalender");
         futureHolder.textPass.setText("Mer om passet");
         futureHolder.buttonCancel.setText("Avboka");
-        futureHolder.textHour.setText(satsActivitiesService.startTimeHm(mActivityList.get(position)).substring(0, 2));
-        futureHolder.textMinutes.setText(satsActivitiesService.startTimeHm(mActivityList.get(position)).substring(3));
+        futureHolder.textHour.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[0]);
+        futureHolder.textMinutes.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[1]);
         return futureHolder;
     }
 
@@ -191,8 +192,23 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
     private ViewHolder setHolderText(ViewHolder holder, int position)
     {
-        holder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
+        String activityName = satsActivitiesService.getActivityName(mActivityList.get(position));
+        String activityTypeGroup = satsActivitiesService.getGroupType(mActivityList.get(position));
+
+        holder.textName.setText(activityName);
         holder.textDate.setText(satsTimeFormatService.getDate(mActivityList.get(position)));
+        switch (activityTypeGroup){
+            case "GROUP": holder = setPictureOfGroup(activityName, holder);
+
+                break;
+            case "GYM": holder = setPictureOfGym(activityName, holder);
+
+                break;
+            case "OTHER": holder = setPictureOfOther(activityName, holder);
+
+                break;
+            default: holder.imageMan.setImageResource(R.drawable.all_training_icons);
+        }
         if (satsActivitiesService.comments(mActivityList.get(position)))
         {
 
@@ -205,16 +221,51 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         }
         if (satsActivitiesService.isCompleted(mActivityList.get(position)))
         {
-
             holder.textCompleted.setText("Avklarat!");
             holder.imageCheck.setImageResource(R.drawable.checkmark_icon);
 
         } else
         {
             holder.textCompleted.setText("Avklarat?");
+            holder.imageCheck.setImageResource(R.drawable.checkmark_button_normal);
         }
         return holder;
     }
+    private ViewHolder setPictureOfOther(String activityName, ViewHolder holder) {
+        Log.d(activityName + "cycle", "SET PICTURE fired .............................................");
+
+        if(activityName.equals("walking")){
+            holder.imageMan.setImageResource(R.drawable.running_icon);
+        }else if (activityName.equals("football")){
+            holder.imageMan.setImageResource(R.drawable.all_training_icons);
+        }else if(activityName.equals("cycle")){
+            Log.d(activityName, "SET CYCLE fired .............................................");
+            holder.imageMan.setImageResource(R.drawable.cykling_icon);
+        }else{
+            holder.imageMan.setImageResource(R.drawable.all_training_icons);
+        }
+        return holder;
+    }
+
+    private ViewHolder setPictureOfGym(String activityName, ViewHolder holder) {
+        holder.imageMan.setImageResource(R.drawable.all_training_icons);
+        return holder;
+    }
+
+    private ViewHolder setPictureOfGroup(String activityName , ViewHolder holder) {
+        if(activityName.equals("SatsCycling")|| activityName.equals("Easy Cycling")|| activityName.equals("Cycling Pulse" )){
+            holder.imageMan.setImageResource(R.drawable.cykling_icon);
+        }else if(activityName.equals("shape") ){
+            holder.imageMan.setImageResource(R.drawable.strength_trainging_icon);
+        }else if (activityName.equals("GROUP")){
+            holder.imageMan.setImageResource(R.drawable.group_training_icon);
+        }else {
+            holder.imageMan.setImageResource(R.drawable.all_training_icons);
+        }
+
+        return holder;
+    }
+
 
     private void setPastActivity(ViewHolder holder, int position, View convertView, ViewGroup parent)
     {
