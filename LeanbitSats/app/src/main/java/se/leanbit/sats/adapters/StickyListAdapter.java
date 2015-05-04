@@ -48,7 +48,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         {
             return satsTimeFormatService.getWeekNum(mActivityList.get(i));
         }
-        return -1;
+        return i;
     }
 
     @Override
@@ -196,7 +196,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         String activityTypeGroup = satsActivitiesService.getGroupType(mActivityList.get(position));
 
         holder.textName.setText(activityName);
-        holder.textDate.setText(satsTimeFormatService.getDate(mActivityList.get(position)));
+        holder.textDate.setText(satsTimeFormatService.getDayName(mActivityList.get(position)) + " " + satsTimeFormatService.getDate(mActivityList.get(position)));
         switch (activityTypeGroup){
             case "GROUP": holder = setPictureOfGroup(activityName, holder);
 
@@ -301,19 +301,32 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     public View getHeaderView(int position, View convertView, ViewGroup parent)
     {
         HeaderViewHolder holder;
+        String headerText;
 
         if (convertView == null)
         {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.header_view, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.text_header);
+
+
+
             convertView.setTag(holder);
         } else
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-        String headerText = "Vecka " + satsTimeFormatService.getWeekNum(mActivityList.get(position)) + " ( " + satsTimeFormatService.getWeekDates(mActivityList.get(position)) + " ) ";
 
+        if(satsActivitiesService.isPast(mActivityList.get(position))){
+            headerText = "Vecka " + satsTimeFormatService.getWeekNum(mActivityList.get(position)) + " ( " + satsTimeFormatService.getWeekDates(mActivityList.get(position)) + " ) ";
+        }else {
+            if(satsTimeFormatService.isToday(mActivityList.get(position))){
+                headerText = "Idag, " + satsTimeFormatService.getDayName(mActivityList.get(position)) + "  " + satsTimeFormatService.getDate(mActivityList.get(position));
+            }
+            else {
+                headerText = satsTimeFormatService.getDayName(mActivityList.get(position)) + "  " + satsTimeFormatService.getDate(mActivityList.get(position));
+            }
+        }
         holder.text.setText(headerText);
 
         return convertView;
