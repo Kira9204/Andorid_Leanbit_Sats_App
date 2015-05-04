@@ -11,7 +11,7 @@
         android:layout_marginTop="25dp">
 
         <ImageView
-            android:id="@+id/all_training"
+            android:id="@+id/image_man"
             android:layout_height="40dp"
             android:layout_width="70dp"
             android:src="@drawable/all_training_icons"
@@ -116,7 +116,6 @@
             android:id="@+id/image_checkbox"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/checkmark_icon"
             android:layout_gravity="center" />
         <TextView
             android:id="@+id/past_activity_completed"
