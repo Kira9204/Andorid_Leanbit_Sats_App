@@ -13,15 +13,16 @@ import se.leanbit.sats.repositories.interfaces.SatsTimeFormatInterface;
  */
 public class SatsTimeFormatService implements SatsTimeFormatInterface
 {
-    private final String months[] = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September" ,"Oktober", "November", "Decemober"};
+    private final String months[] = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "Decemober"};
     private final String weekDays[] = {"Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"};
+
     @Override
     public String getDate(SatsActivity activity)
     {
         Calendar activityDate = getDateCalendar(activity.date);
         int currentDate = activityDate.get(Calendar.DATE);
         String currentMonth = months[activityDate.get(Calendar.MONTH)];
-        return ""+currentDate+" "+currentMonth;
+        return "" + currentDate + " " + currentMonth;
     }
 
     @Override
@@ -63,6 +64,18 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         return activityDate.get(activityDate.WEEK_OF_YEAR);
     }
 
+    public Boolean isToday(SatsActivity activity)
+    {
+        Calendar calendar = getDateCalendar(activity.date);
+        Calendar currentCalendar = Calendar.getInstance();
+        Date date = new Date();
+        currentCalendar.setTime(date);
+
+        boolean sameDay = calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR);
+        return sameDay;
+    }
+
     private Calendar getDateCalendar(String date)
     {
 
@@ -71,8 +84,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         try
         {
             activityDate = dateFormat.parse(date);
-        }
-        catch (ParseException e)
+        } catch (ParseException e)
         {
             e.printStackTrace();
         }

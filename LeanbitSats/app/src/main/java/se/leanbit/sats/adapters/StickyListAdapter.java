@@ -77,6 +77,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         ViewHolderFuture futureHolder;
         ViewHolderCustom customHolder;
 
+        satsTimeFormatService.isToday(mActivityList.get(position));
+
 
         if (getItemViewType(position) == PAST_ACTIVITY)
         {
@@ -169,6 +171,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.buttonCancel.setText("Avboka");
         futureHolder.textHour.setText(satsActivitiesService.startTimeHm(mActivityList.get(position)).substring(0, 2));
         futureHolder.textMinutes.setText(satsActivitiesService.startTimeHm(mActivityList.get(position)).substring(3));
+
         return futureHolder;
     }
 
@@ -176,6 +179,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     {
         customHolder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
         customHolder.textDuration.setText(satsActivitiesService.duration(mActivityList.get(position)) + " min");
+
         customHolder.buttonDetails.setText("Detaljer");
         customHolder.textCalendar.setText("Lägg till i kalender");
         customHolder.textTrainingProgram.setText("Träningsprogram");
