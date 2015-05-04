@@ -95,7 +95,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 convertView.setTag(holder);
                 Log.d("past", "getView fired ..............");
 
-            } else
+            }
+            else
             {
 
                 holder = (ViewHolder) convertView.getTag();
@@ -277,7 +278,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         holder.imageCheck = (ImageView) convertView.findViewById(R.id.image_checkbox);
         convertView.setTag(holder);
         holder.textName.setText(satsActivitiesService.getActivityName(mActivityList.get(position)));
-        holder.textDate.setText(satsTimeFormatService.getDate(mActivityList.get(position)));
+        holder.textDate.setText(satsTimeFormatService.getDayName(mActivityList.get(position))+" "+satsTimeFormatService.getDate(mActivityList.get(position)));
 
         if (satsActivitiesService.comments(mActivityList.get(position)))
         {
