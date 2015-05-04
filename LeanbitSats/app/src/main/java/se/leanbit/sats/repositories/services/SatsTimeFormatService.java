@@ -14,7 +14,7 @@ import se.leanbit.sats.repositories.interfaces.SatsTimeFormatInterface;
 public class SatsTimeFormatService implements SatsTimeFormatInterface
 {
     private final String months[] = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "Decemober"};
-    private final String weekDays[] = {"Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"};
+    private final String weekDays[] = {"", "Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"};
 
     @Override
     public String getDate(SatsActivity activity)

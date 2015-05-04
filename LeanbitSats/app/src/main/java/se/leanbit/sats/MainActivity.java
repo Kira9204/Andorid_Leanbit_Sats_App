@@ -23,7 +23,7 @@ public class MainActivity extends FragmentActivity {
         FragmentManager fm = getFragmentManager();
 
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.mainContainer, mListFragment, "listFrag")
+        fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
                 .commit();
 
         Log.d("onCreate", "onCreate fired ..............");
