@@ -26,7 +26,7 @@ public class ListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
-        SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-05-20");
+        SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-05-29");
 
         ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
         for(int i = 0; i < activities.length; i++)

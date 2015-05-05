@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -171,7 +172,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.imageQue.setImageResource(R.drawable.done_2_icon);
         }else{
             futureHolder.textQue.setText(""+ queCounter);
-
+            futureHolder.imageQue.setImageResource(R.drawable.icon_queue);
         }
 
 
