@@ -100,7 +100,8 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_time"
-                            android:backgroundTint="#ffffffff"/>
+                            android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                            android:padding="5dp"/>
 
                         <TextView
                             android:id="@+id/future_activity_duration"
@@ -187,7 +188,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_queue"
-                        android:backgroundTint="#ffffffff"/>
+                        android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                        android:padding="5dp"/>
 
                     <TextView
                         android:id="@+id/future_activity_que"
@@ -239,7 +241,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:src="@drawable/ic_calender"
-                    android:backgroundTint="#ffffffff"/>
+                    android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                    android:padding="5dp"/>
 
                 <TextView
                     android:id="@+id/future_activity_Calendar"
@@ -271,7 +274,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
                     android:src="@drawable/ic_more"
-                    android:backgroundTint="#ffffffff"/>
+                    android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                    android:paddingLeft="10dp" android:paddingRight="10dp"/>
 
                 <TextView
                     android:id="@+id/future_activity_pass"
