@@ -1,7 +1,2 @@
-#Ignore everything except this file.
-#Additional directories/files should be added by a case-by-case basis
-#using "git add -f <file>".
-#Files that should be included must follow the folder hirarcy inside
-#"LeanbitSats/app/src/main/".
-#*
-#!.gitignore_global
+.DS_Store
+.gitignore_global
