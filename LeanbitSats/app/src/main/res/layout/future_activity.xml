@@ -63,7 +63,7 @@
                                 android:gravity="center"
                                 android:text="10"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="#ffffffff"
+                                android:textColor="@color/white_color_button"
                                 android:textSize="28dp"/>
                         </RelativeLayout>
 
@@ -80,7 +80,7 @@
                                 android:gravity="center"
                                 android:text="25"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="#ffffffff"
+                                android:textColor="@color/white_color_button"
                                 android:textSize="28dp"
                                 />
                         </RelativeLayout>
@@ -100,7 +100,8 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_time"
-                            android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                            android:backgroundTint="@color/white_color_button"
+                            android:background="@android:color/transparent"
                             android:padding="5dp"/>
 
                         <TextView
@@ -143,7 +144,7 @@
                     android:paddingTop="3dp"
                     android:text="Hornstull"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#4c000101"
+                    android:textColor="@color/gray_color_background_text"
                     android:textSize="12dp"
                     android:typeface="normal"/>
 
@@ -153,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sven Svensson"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#4c000101"
+                    android:textColor="@color/gray_color_background_text"
                     android:textSize="12dp"/>
             </LinearLayout>
 
@@ -174,7 +175,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="Avboka"
-                    android:textColor="#ffffffff"
+                    android:textColor="@color/white_color_button"
                     android:textSize="12dp"/>
 
                 <LinearLayout
@@ -188,7 +189,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_queue"
-                        android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                        android:backgroundTint="@color/white_color_button"
+                        android:background="@android:color/transparent"
                         android:padding="5dp"/>
 
                     <TextView
@@ -197,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="20"
-                        android:textColor="#ffff3393"
+                        android:textColor="@color/fuchsia_color"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:padding="5dp"/>
@@ -216,7 +218,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="#ffdddddd"/>
+                android:background="@color/light_gray_foreground"/>
 
         </LinearLayout>
 
@@ -241,7 +243,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:src="@drawable/ic_calender"
-                    android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
+                    android:backgroundTint="@color/white_color_button"
+                    android:background="@android:color/transparent"
                     android:padding="5dp"/>
 
                 <TextView
@@ -257,7 +260,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="30dp"
-                android:background="#ffdddddd"/>
+                android:background="@color/light_gray_foreground"/>
 
             <LinearLayout
                 android:id="@+id/Mer_om_passet"
@@ -274,8 +277,10 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
                     android:src="@drawable/ic_more"
-                    android:backgroundTint="#ffffffff" android:background="@android:color/transparent"
-                    android:paddingLeft="10dp" android:paddingRight="10dp"/>
+                    android:backgroundTint="@color/white_color_button"
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
 
                 <TextView
                     android:id="@+id/future_activity_pass"
@@ -283,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="Mer om passet"
-                    android:textColor="#4c000101"
+                    android:textColor="@color/gray_color_background_text"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textSize="12dp"/>
             </LinearLayout>

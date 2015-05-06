@@ -2,4 +2,9 @@
 <resources>
     <color name="list_fragment_option_frame">#BDB8B8</color>
     <color name="list_fragment_option_border">#ffffff</color>
+    <color name="black_color_text">#000000</color>
+    <color name="gray_color_background_text">#ff8f9093</color>
+    <color name="light_gray_foreground">#EAEBF0</color>
+    <color name="white_color_button">#FFFFFF</color>
+    <color name="fuchsia_color">#ffff3393</color>
 </resources>
