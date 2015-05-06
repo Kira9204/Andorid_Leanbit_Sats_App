@@ -168,12 +168,11 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.textDuration.setText("" + satsActivitiesService.duration(mActivityList.get(position)) + " min");
         int queCounter = satsActivitiesService.que(mActivityList.get(position));
         if(queCounter == 0){
-            futureHolder.textQue.setText("");
-            futureHolder.imageQue.setImageResource(R.drawable.done_2_icon);
+        futureHolder.textQue.setText("");
+        futureHolder.imageQue.setImageResource(R.drawable.done_2_icon);
         }else{
             futureHolder.textQue.setText(""+ queCounter);
             futureHolder.imageQue.setImageResource(R.drawable.icon_queue);
-
         }
 
 
