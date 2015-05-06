@@ -63,7 +63,7 @@
                                 android:gravity="center"
                                 android:text="10"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/white_color_button"
+                                android:textColor="@color/white"
                                 android:textSize="28dp"/>
                         </RelativeLayout>
 
@@ -80,7 +80,7 @@
                                 android:gravity="center"
                                 android:text="25"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/white_color_button"
+                                android:textColor="@color/white"
                                 android:textSize="28dp"
                                 />
                         </RelativeLayout>
@@ -95,12 +95,11 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageButton
+                        <ImageView
                             android:id="@+id/imageButton3"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_time"
-                            android:backgroundTint="@color/white_color_button"
                             android:background="@android:color/transparent"
                             android:padding="5dp"/>
 
@@ -109,6 +108,7 @@
                             android:layout_width="57dp"
                             android:layout_height="wrap_content"
                             android:text="30 min"
+                            android:textColor="@color/secondary_color"
 
                             />
                     </LinearLayout>
@@ -134,6 +134,7 @@
                     android:textIsSelectable="false"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:textColor="@color/primary_color"
                     />
 
                 <TextView
@@ -144,7 +145,7 @@
                     android:paddingTop="3dp"
                     android:text="Hornstull"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/gray_color_background_text"
+                    android:textColor="@color/secondary_color"
                     android:textSize="12dp"
                     android:typeface="normal"/>
 
@@ -154,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sven Svensson"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/gray_color_background_text"
+                    android:textColor="@color/secondary_color"
                     android:textSize="12dp"/>
             </LinearLayout>
 
@@ -175,7 +176,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="Avboka"
-                    android:textColor="@color/white_color_button"
+                    android:textColor="@color/white"
                     android:textSize="12dp"/>
 
                 <LinearLayout
@@ -184,12 +185,12 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/image_que"
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_queue"
-                        android:backgroundTint="@color/white_color_button"
+                        android:backgroundTint="@color/white"
                         android:background="@android:color/transparent"
                         android:padding="5dp"/>
 
@@ -199,8 +200,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="20"
-                        android:textColor="@color/fuchsia_color"
-                        android:textSize="22sp"
+                        android:textColor="@color/pink"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:padding="5dp"/>
                 </LinearLayout>
@@ -218,7 +219,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="@color/light_gray_foreground"/>
+                android:background="@color/third_color"/>
 
         </LinearLayout>
 
@@ -237,13 +238,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:src="@drawable/ic_calender"
-                    android:backgroundTint="@color/white_color_button"
+                    android:backgroundTint="@color/white"
                     android:background="@android:color/transparent"
                     android:padding="5dp"/>
 
@@ -254,30 +255,30 @@
                     android:layout_marginLeft="5dp"
                     android:text="Lägg till i kalendern"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp"
+                    android:textColor="@color/secondary_color"/>
             </LinearLayout>
 
             <View
                 android:layout_width="2dp"
                 android:layout_height="30dp"
-                android:background="@color/light_gray_foreground"/>
+                android:background="@color/third_color"/>
 
             <LinearLayout
                 android:id="@+id/Mer_om_passet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:layout_weight="0.4"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
                     android:src="@drawable/ic_more"
-                    android:backgroundTint="@color/white_color_button"
+                    android:backgroundTint="@color/white"
                     android:background="@android:color/transparent"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"/>
@@ -288,10 +289,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="Mer om passet"
-                    android:textColor="@color/gray_color_background_text"
+                    android:textColor="@color/secondary_color"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textSize="12dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+

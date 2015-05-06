@@ -46,8 +46,9 @@
                     android:layout_weight="1"
                     android:text="Styrketräning"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black_color_text"
-                    android:textSize="16dp"/>
+                    android:textColor="@color/primary_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
@@ -56,13 +57,12 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imageButton4"
+                    <ImageView
+                        android:id="@+id/imageViewTime"
                         android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:backgroundTint="@color/white_color_button"
-                        android:clickable="false"
-                        android:src="@drawable/ic_time" android:background="@android:color/transparent"/>
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_time"
+                        android:layout_marginTop="2dp" />
 
                     <TextView
                         android:id="@+id/custom_activity_duration"
@@ -73,7 +73,9 @@
                         android:paddingLeft="5dp"
                         android:text="50 min"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        android:textColor="@color/secondary_color"
+                        android:layout_marginTop="2dp" />
 
                 </LinearLayout>
 
@@ -83,12 +85,11 @@
                     android:layout_weight="0"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imageButton4"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/imageViewComment"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white_color_button"
-                        android:src="@drawable/ic_comment" android:background="@android:color/transparent"
+                        android:src="@drawable/ic_comment"
                         android:padding="5dp"/>
 
                     <TextView
@@ -100,7 +101,8 @@
                         android:paddingLeft="5dp"
                         android:text="1  kommentar"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        android:textColor="@color/secondary_color"/>
 
                 </LinearLayout>
 
@@ -124,8 +126,8 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="Detaljer"
-                    android:textColor="@color/white_color_button"
-                    android:textSize="12dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -138,7 +140,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="@color/light_gray_foreground"/>
+                android:background="@color/third_color"/>
 
         </LinearLayout>
 
@@ -157,17 +159,16 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageViewCalender"
+                    android:layout_width="35dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
                     android:adjustViewBounds="true"
-                    android:backgroundTint="@color/white_color_button"
                     android:baselineAlignBottom="false"
                     android:cropToPadding="false"
                     android:focusable="false"
-                    android:src="@drawable/ic_calender" android:background="@android:color/transparent"
+                    android:src="@drawable/ic_calender"
                     android:padding="5dp"/>
 
                 <TextView
@@ -177,13 +178,14 @@
                     android:layout_marginLeft="5dp"
                     android:text="Lägg till i kalendern"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp"
+                    android:textColor="@color/secondary_color"/>
             </LinearLayout>
 
             <View
                 android:layout_width="2dp"
                 android:layout_height="30dp"
-                android:background="@color/light_gray_foreground"/>
+                android:background="@color/third_color"/>
 
             <LinearLayout
                 android:id="@+id/Mer_om_passet"
@@ -194,14 +196,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageViewMoreAboutPass"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
-                    android:backgroundTint="@color/white_color_button"
-                    android:src="@drawable/ic_more" android:background="@android:color/transparent"
-                    android:paddingLeft="10dp" android:paddingRight="10dp"/>
+                    android:src="@drawable/ic_more"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
 
                 <TextView
                     android:id="@+id/custom_activity_training_program"
@@ -210,8 +212,8 @@
                     android:layout_marginLeft="5dp"
                     android:text="Träningsprogram"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/gray_color_background_text"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp"
+                    android:textColor="@color/secondary_color"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
