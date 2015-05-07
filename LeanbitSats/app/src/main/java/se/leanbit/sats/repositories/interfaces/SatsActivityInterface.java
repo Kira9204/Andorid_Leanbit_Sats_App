@@ -5,15 +5,15 @@ import se.leanbit.sats.models.SatsActivity;
 
 public interface SatsActivityInterface
 {
-    String getActivityName(SatsActivity activity);
-    String getGroupType(SatsActivity activity);
-    String getRegion(SatsActivity activity);
-    Boolean isCustom(SatsActivity activity);
-    int que(SatsActivity activity);
-    int duration(SatsActivity activity);
-    Boolean isCompleted(SatsActivity activity);
-    String instructor(SatsActivity activity);
-    String startTimeHm(SatsActivity activity);
-    Boolean comments(SatsActivity activity);
-    Boolean isPast(SatsActivity activity);
+    String getActivityName(final SatsActivity activity);
+    String getGroupType(final SatsActivity activity);
+    String getRegion(final SatsActivity activity);
+    Boolean isCustom(final SatsActivity activity);
+    int que(final SatsActivity activity);
+    int duration(final SatsActivity activity);
+    Boolean isCompleted(final SatsActivity activity);
+    String instructor(final SatsActivity activity);
+    String startTimeHm(final SatsActivity activity);
+    Boolean comments(final SatsActivity activity);
+    Boolean isPast(final SatsActivity activity);
 }

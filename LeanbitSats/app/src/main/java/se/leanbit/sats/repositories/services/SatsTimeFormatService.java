@@ -8,32 +8,29 @@ import java.util.Date;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.interfaces.SatsTimeFormatInterface;
 
-/**
- * Created by erik on 2015-04-28.
- */
 public class SatsTimeFormatService implements SatsTimeFormatInterface
 {
     private final String months[] = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "Decemober"};
     private final String weekDays[] = {"", "Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"};
 
     @Override
-    public String getDate(SatsActivity activity)
+    public String getDate(final SatsActivity activity)
     {
-        Calendar activityDate = getDateCalendar(activity.date);
-        int currentDate = activityDate.get(Calendar.DATE);
-        String currentMonth = months[activityDate.get(Calendar.MONTH)];
+        final Calendar activityDate = getDateCalendar(activity.date);
+        final int currentDate = activityDate.get(Calendar.DATE);
+        final String currentMonth = months[activityDate.get(Calendar.MONTH)];
         return "" + currentDate + " " + currentMonth;
     }
 
     @Override
-    public String getDayName(SatsActivity activity)
+    public String getDayName(final SatsActivity activity)
     {
-        Calendar activityDate = getDateCalendar(activity.date);
+        final Calendar activityDate = getDateCalendar(activity.date);
         return weekDays[activityDate.get(activityDate.DAY_OF_WEEK)];
     }
 
     @Override
-    public String[] getHoursMinutes(SatsActivity activity)
+    public String[] getHoursMinutes(final SatsActivity activity)
     {
         String split[] = activity.date.split(" ");
         String timeSplit[] = split[1].split(":");
@@ -45,7 +42,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
     }
 
     @Override
-    public String getWeekDates(SatsActivity activity)
+    public String getWeekDates(final SatsActivity activity)
     {
         //Vecka 14 (30/3-5/4)
         Calendar activityDate = getDateCalendar(activity.date);
@@ -58,27 +55,26 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
     }
 
     @Override
-    public int getWeekNum(SatsActivity activity)
+    public int getWeekNum(final SatsActivity activity)
     {
-        Calendar activityDate = getDateCalendar(activity.date);
+        final Calendar activityDate = getDateCalendar(activity.date);
         return activityDate.get(activityDate.WEEK_OF_YEAR);
     }
 
-    public Boolean isToday(SatsActivity activity)
+    public Boolean isToday(final SatsActivity activity)
     {
         Calendar calendar = getDateCalendar(activity.date);
         Calendar currentCalendar = Calendar.getInstance();
         Date date = new Date();
         currentCalendar.setTime(date);
 
-        boolean sameDay = calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
-                calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR);
+        final boolean sameDay = calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR)
+            && calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR);
         return sameDay;
     }
 
-    private Calendar getDateCalendar(String date)
+    private Calendar getDateCalendar(final String date)
     {
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date activityDate = new Date();
         try

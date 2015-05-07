@@ -1,14 +1,19 @@
 package se.leanbit.sats.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
+import se.leanbit.sats.MainActivity;
 import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.StickyListAdapter;
 import se.leanbit.sats.models.SatsActivity;
@@ -23,16 +28,17 @@ public class ListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
-        SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-05-29");
+       final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
+        SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-06-30");
 
-        ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
+        final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
         for(int i = 0; i < activities.length; i++)
         {
             listOfActivities.add(activities[i]);
         }
+
         View view = inflater.inflate(R.layout.stickylist_headersview, container, false);
 
         StickyListHeadersListView stickyList = (StickyListHeadersListView) view;
@@ -40,6 +46,33 @@ public class ListFragment extends Fragment
         StickyListAdapter activityListAdapter = new StickyListAdapter(getActivity(),listOfActivities);
 
         stickyList.setAdapter(activityListAdapter);
+
+        stickyList.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount)
+            {
+
+                Log.d("onScroll ", firstVisibleItem + "-" + visibleItemCount + "-" + totalItemCount + (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem))));
+                if (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem)))
+                {
+                    TextView tv = (TextView) view.getRootView().findViewById(R.id.header_text);
+                    tv.setText("Tidigare Träning");
+                }
+                else
+                {
+                    TextView tv = (TextView) view.getRootView().findViewById(R.id.header_text);
+                    tv.setText("Kommande träning");
+                }
+            }
+        });
         return view;
     }
 }

@@ -36,22 +36,22 @@ public class SatsActivitiesService implements SatsActivityInterface
     }
 
     @Override
-    public String getActivityName(SatsActivity activity)
+    public String getActivityName(final SatsActivity activity)
     {
         return activity.subType;
     }
 
     @Override
-    public String getGroupType(SatsActivity activity)
+    public String getGroupType(final SatsActivity activity)
     {
        return activity.type;
     }
 
 
     @Override
-    public String getRegion(SatsActivity activity)
+    public String getRegion(final SatsActivity activity)
     {
-        SatsActivity.SatsBooking  booking= activity.booking;
+        final SatsActivity.SatsBooking booking = activity.booking;
         if(null != activity.booking)
         {
             WebService webService = new WebService();
@@ -78,54 +78,50 @@ public class SatsActivitiesService implements SatsActivityInterface
     }
 
     @Override
-    public Boolean isCustom(SatsActivity activity)
+    public Boolean isCustom(final SatsActivity activity)
     {
-        if(null == activity.booking)
-        {
-            return true;
-        }
-        return false;
+        return null == activity.booking;
     }
 
     @Override
-    public int que(SatsActivity activity)
+    public int que(final SatsActivity activity)
     {
         return activity.booking.positionInQueue;
     }
 
     @Override
-    public int duration(SatsActivity activity)
+    public int duration(final SatsActivity activity)
     {
         return activity.durationInMinutes;
     }
 
     @Override
-    public Boolean isCompleted(SatsActivity activity)
+    public Boolean isCompleted(final SatsActivity activity)
     {
         return activity.status.equalsIgnoreCase("COMPLETED");
     }
 
     @Override
-    public String instructor(SatsActivity activity)
+    public String instructor(final SatsActivity activity)
     {
         return activity.booking.clazz.instructorId;
     }
 
     @Override
-    public String startTimeHm(SatsActivity activity)
+    public String startTimeHm(final SatsActivity activity)
     {
         return activity.booking.clazz.startTime;
     }
     @Override
-    public Boolean comments(SatsActivity activity)
+    public Boolean comments(final SatsActivity activity)
     {
         return activity.comment.length() > 0;
     }
 
     @Override
-    public Boolean isPast(SatsActivity activity)
+    public Boolean isPast(final SatsActivity activity)
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date activityDate = new Date();
         try
         {

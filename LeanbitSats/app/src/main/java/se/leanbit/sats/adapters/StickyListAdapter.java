@@ -146,7 +146,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder.buttonCancel = (Button) convertView.findViewById(R.id.future_activity_cancel);
                     futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour);
                     futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minutes);
-                    futureHolder.imageQue = (ImageButton) convertView.findViewById(R.id.image_que);
+                    futureHolder.imageQue = (ImageView) convertView.findViewById(R.id.image_que);
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
 
@@ -343,7 +343,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView textRegion;
         TextView textDuration;
         TextView textQue;
-        ImageButton imageQue;
+        ImageView imageQue;
         TextView textCalendar;
         TextView textPass;
         Button buttonCancel;
