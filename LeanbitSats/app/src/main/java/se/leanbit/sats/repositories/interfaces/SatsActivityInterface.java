@@ -1,6 +1,8 @@
 package se.leanbit.sats.repositories.interfaces;
 
 
+import java.util.LinkedHashMap;
+
 import se.leanbit.sats.models.SatsActivity;
 
 public interface SatsActivityInterface
@@ -16,4 +18,6 @@ public interface SatsActivityInterface
     String startTimeHm(final SatsActivity activity);
     Boolean comments(final SatsActivity activity);
     Boolean isPast(final SatsActivity activity);
+    public int getMaxTraning(final SatsActivity activity[]);
+    public LinkedHashMap<String, Integer> getTraningMap(final SatsActivity activity[]);
 }

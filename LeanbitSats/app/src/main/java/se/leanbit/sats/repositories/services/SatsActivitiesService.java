@@ -1,4 +1,7 @@
 package se.leanbit.sats.repositories.services;
+
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -6,14 +9,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.concurrent.ExecutionException;
 
 import se.leanbit.sats.models.SatsActivities;
 import se.leanbit.sats.models.SatsActivity;
+import se.leanbit.sats.models.SatsCenter;
 import se.leanbit.sats.models.SatsCenters;
 import se.leanbit.sats.repositories.interfaces.SatsActivityInterface;
 
 public class SatsActivitiesService implements SatsActivityInterface
 {
+    private static HashMap<String, String> centerMap = new HashMap<>();
 
     public SatsActivity[] getActivitiesBetween(final String fromDate, final String toDate)
     {
@@ -23,14 +31,30 @@ public class SatsActivitiesService implements SatsActivityInterface
         try
         {
             jsonResponse = webService.execute(url + "/" + fromDate + "/" + toDate).get();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
 
-        Gson gson = new GsonBuilder().create();
-        SatsActivities satsActivities = gson.fromJson(jsonResponse, SatsActivities.class);
+        activitiesParser activitiesParser = new activitiesParser();
+        SatsActivities satsActivities = new SatsActivities();
+        try
+        {
+
+            satsActivities = activitiesParser.execute(jsonResponse).get();
+
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        } catch (ExecutionException e)
+        {
+            e.printStackTrace();
+        }
+
+        for (SatsActivity act : satsActivities.activities)
+        {
+            getRegion(act);
+        }
 
         return satsActivities.activities;
     }
@@ -44,7 +68,7 @@ public class SatsActivitiesService implements SatsActivityInterface
     @Override
     public String getGroupType(final SatsActivity activity)
     {
-       return activity.type;
+        return activity.type;
     }
 
 
@@ -52,8 +76,12 @@ public class SatsActivitiesService implements SatsActivityInterface
     public String getRegion(final SatsActivity activity)
     {
         final SatsActivity.SatsBooking booking = activity.booking;
-        if(null != activity.booking)
+        if (null != activity.booking)
         {
+        if (centerMap.containsKey(activity.booking.centerId))
+        {
+            return centerMap.get(activity.booking.centerId);
+        }
             WebService webService = new WebService();
             final String url = "https://api2.sats.com/v1.0/se/centers/";
 
@@ -66,13 +94,25 @@ public class SatsActivitiesService implements SatsActivityInterface
                 e.printStackTrace();
             }
 
-            Gson gson = new GsonBuilder().create();
-            SatsCenters satsCenters = gson.fromJson(jsonResponse, SatsCenters.class);
-            if(null != satsCenters)
+            centerParser centerParser = new centerParser();
+            try
             {
-                return satsCenters.center.name;
+
+                SatsCenters satsCenters = centerParser.execute(jsonResponse).get();
+                if (null != satsCenters)
+                {
+                    centerMap.put(activity.booking.centerId, satsCenters.center.name);
+                    return satsCenters.center.name;
+                }
+
+                return "";
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            } catch (ExecutionException e)
+            {
+                e.printStackTrace();
             }
-            return "";
         }
         return "";
     }
@@ -112,6 +152,7 @@ public class SatsActivitiesService implements SatsActivityInterface
     {
         return activity.booking.clazz.startTime;
     }
+
     @Override
     public Boolean comments(final SatsActivity activity)
     {
@@ -126,11 +167,73 @@ public class SatsActivitiesService implements SatsActivityInterface
         try
         {
             activityDate = dateFormat.parse(activity.date);
-        }
-        catch (ParseException e)
+        } catch (ParseException e)
         {
             e.printStackTrace();
         }
         return (new Date().after(activityDate));
     }
+
+    public LinkedHashMap<String, Integer> getTraningMap(final SatsActivity activity[])
+    {
+        SatsTimeFormatService satsTimeFormatService = new SatsTimeFormatService();
+        LinkedHashMap<String, Integer> traningMap = new LinkedHashMap<>();
+        for (int i = 0; i < activity.length; i++)
+        {
+
+            if (traningMap.containsKey(satsTimeFormatService.getWeekDates(activity[i])))
+            {
+                int currentTraningNum = traningMap.get(satsTimeFormatService.getWeekDates(activity[i]));
+                currentTraningNum = currentTraningNum + 1;
+                traningMap.put(satsTimeFormatService.getWeekDates(activity[i]), currentTraningNum);
+            } else
+            {
+                traningMap.put(satsTimeFormatService.getWeekDates(activity[i]), 1);
+            }
+
+        }
+        return traningMap;
+    }
+
+    public int getMaxTraning(final SatsActivity activity[])
+    {
+        LinkedHashMap<String, Integer> traningMap = new LinkedHashMap<>();
+        traningMap = getTraningMap(activity);
+
+        int topTraningCount = 0;
+        for (Integer value : traningMap.values())
+        {
+            if (topTraningCount < value)
+            {
+                topTraningCount = value;
+            }
+        }
+
+        return topTraningCount;
+    }
+
+    private class activitiesParser extends AsyncTask<String, String, SatsActivities>
+    {
+
+        @Override
+        protected SatsActivities doInBackground(String... params)
+        {
+            Gson gson = new GsonBuilder().create();
+            SatsActivities satsActivities = gson.fromJson(params[0], SatsActivities.class);
+            return satsActivities;
+        }
+    }
+
+    private class centerParser extends AsyncTask<String, String, SatsCenters>
+    {
+
+        @Override
+        protected SatsCenters doInBackground(String... params)
+        {
+            Gson gson = new GsonBuilder().create();
+            SatsCenters satsCenters = gson.fromJson(params[0], SatsCenters.class);
+            return satsCenters;
+        }
+    }
 }
+

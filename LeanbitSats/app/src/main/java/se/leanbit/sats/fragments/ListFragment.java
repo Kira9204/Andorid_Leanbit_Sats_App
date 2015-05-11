@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -32,6 +33,12 @@ public class ListFragment extends Fragment
     {
        final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
         SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-06-30");
+
+/*
+    detta är om man vill få ut hur många träningspass och en map men antalet träningar med talet som värde och veckan som key.
+        LinkedHashMap traningMap = satsActivitiesService.getTraningMap(activities);
+        int totTraning = satsActivitiesService.getMaxTraning(activities);
+*/
 
         final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
         for(int i = 0; i < activities.length; i++)
