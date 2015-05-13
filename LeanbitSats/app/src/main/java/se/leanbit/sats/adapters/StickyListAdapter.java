@@ -5,11 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 
@@ -88,10 +84,10 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 convertView = inflater.inflate(R.layout.past_activity, parent, false);
                 pastHolder.textName = (TextView) convertView.findViewById(R.id.past_activity_name);
                 pastHolder.textDate = (TextView) convertView.findViewById(R.id.past_activity_date);
-                pastHolder.textComment = (TextView) convertView.findViewById(R.id.past_activity_comment);
-                pastHolder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_completed);
-                pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.image_checkbox);
-                pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.image_man);
+                pastHolder.textComment = (TextView) convertView.findViewById(R.id.past_activity_comment_text);
+                pastHolder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_checkmark_text);
+                pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.past_activity_checkmark_image);
+                pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
                 Log.d("past", "getView fired ..............");
@@ -116,11 +112,11 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     customHolder = new ViewHolderCustom();
                     convertView = inflater.inflate(R.layout.custom_activity, parent, false);
                     customHolder.textName = (TextView) convertView.findViewById(R.id.custom_activity_name);
-                    customHolder.textDuration = (TextView) convertView.findViewById(R.id.custom_activity_duration);
-                    customHolder.textComment = (TextView) convertView.findViewById(R.id.custom_activity_comment);
-                    customHolder.buttonDetails = (Button) convertView.findViewById(R.id.custom_activity_button);
-                    customHolder.textCalendar = (TextView) convertView.findViewById(R.id.custom_activity_calendar);
-                    customHolder.textTrainingProgram = (TextView) convertView.findViewById((R.id.custom_activity_training_program));
+                    customHolder.textDuration = (TextView) convertView.findViewById(R.id.custom_activity_duration_text);
+                    customHolder.textComment = (TextView) convertView.findViewById(R.id.custom_activity_comment_text);
+                    customHolder.buttonDetails = (Button) convertView.findViewById(R.id.custom_activity_button_details);
+                    customHolder.textCalendar = (TextView) convertView.findViewById(R.id.custom_activity_calendar_text);
+                    customHolder.textTrainingProgram = (TextView) convertView.findViewById((R.id.custom_activity_workout_text));
                     convertView.setTag(customHolder);
                     customHolder = setCustomHolderText(customHolder, position);
 
@@ -139,14 +135,14 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder.textName = (TextView) convertView.findViewById(R.id.future_activity_name);
                     futureHolder.textInstructor = (TextView) convertView.findViewById(R.id.future_activity_instructor);
                     futureHolder.textRegion = (TextView) convertView.findViewById(R.id.future_activity_region);
-                    futureHolder.textDuration = (TextView) convertView.findViewById(R.id.future_activity_duration);
-                    futureHolder.textQue = (TextView) convertView.findViewById(R.id.future_activity_que);
-                    futureHolder.textCalendar = (TextView) convertView.findViewById(R.id.future_activity_Calendar);
-                    futureHolder.textPass = (TextView) convertView.findViewById(R.id.future_activity_pass);
-                    futureHolder.buttonCancel = (Button) convertView.findViewById(R.id.future_activity_cancel);
-                    futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour);
-                    futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minutes);
-                    futureHolder.imageQue = (ImageView) convertView.findViewById(R.id.image_que);
+                    futureHolder.textDuration = (TextView) convertView.findViewById(R.id.future_activity_duration_text);
+                    futureHolder.textQue = (TextView) convertView.findViewById(R.id.future_activity_que_text);
+                    futureHolder.textCalendar = (TextView) convertView.findViewById(R.id.future_activity_calendar_text);
+                    futureHolder.textPass = (TextView) convertView.findViewById(R.id.future_activity_workout_text);
+                    futureHolder.buttonCancel = (Button) convertView.findViewById(R.id.future_activity_button_cancel);
+                    futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour_text);
+                    futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minute_text);
+                    futureHolder.imageQue = (ImageView) convertView.findViewById(R.id.future_activity_que_image);
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
 
@@ -330,6 +326,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
         }
     }
+
 
     public int getViewTypeCount()
     {
