@@ -7,6 +7,7 @@ import se.leanbit.sats.models.SatsActivity;
 
 public interface SatsActivityInterface
 {
+    SatsActivity[] getActivitiesBetween(final String fromDate, final String toDate);
     String getActivityName(final SatsActivity activity);
     String getGroupType(final SatsActivity activity);
     String getRegion(final SatsActivity activity);
@@ -15,9 +16,13 @@ public interface SatsActivityInterface
     int duration(final SatsActivity activity);
     Boolean isCompleted(final SatsActivity activity);
     String instructor(final SatsActivity activity);
-    String startTimeHm(final SatsActivity activity);
     Boolean comments(final SatsActivity activity);
     Boolean isPast(final SatsActivity activity);
-    public int getMaxTraning(final SatsActivity activity[]);
-    public LinkedHashMap<String, Integer> getTraningMap(final SatsActivity activity[]);
+
+    //Returns an integer the represents the number of passes we had on our most busy week.
+    int getMaxTraning(final SatsActivity activity[]);
+    //Returns a week based map.
+    //Example KEY: int (week)
+    //Example VALUE: int (number of activities this week)
+    LinkedHashMap<Integer, Integer> getTraningMap(final SatsActivity activity[]);
 }

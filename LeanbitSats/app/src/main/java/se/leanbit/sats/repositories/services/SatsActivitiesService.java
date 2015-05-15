@@ -23,6 +23,7 @@ public class SatsActivitiesService implements SatsActivityInterface
 {
     private static HashMap<String, String> centerMap = new HashMap<>();
 
+    @Override
     public SatsActivity[] getActivitiesBetween(final String fromDate, final String toDate)
     {
         WebService webService = new WebService();
@@ -148,12 +149,6 @@ public class SatsActivitiesService implements SatsActivityInterface
     }
 
     @Override
-    public String startTimeHm(final SatsActivity activity)
-    {
-        return activity.booking.clazz.startTime;
-    }
-
-    @Override
     public Boolean comments(final SatsActivity activity)
     {
         return activity.comment.length() > 0;
@@ -174,10 +169,25 @@ public class SatsActivitiesService implements SatsActivityInterface
         return (new Date().after(activityDate));
     }
 
-    public LinkedHashMap<String, Integer> getTraningMap(final SatsActivity activity[])
+    public LinkedHashMap<Integer, Integer> getTraningMap(final SatsActivity activity[])
     {
         SatsTimeFormatService satsTimeFormatService = new SatsTimeFormatService();
-        LinkedHashMap<String, Integer> traningMap = new LinkedHashMap<>();
+        LinkedHashMap<Integer, Integer> traningMap = new LinkedHashMap<>();
+
+        for(int i = 0; i < activity.length; i++)
+        {
+            final int currentWeek = satsTimeFormatService.getWeekNum(activity[i]);
+            if (traningMap.containsKey(currentWeek))
+            {
+                traningMap.put(currentWeek, traningMap.get(currentWeek)+1);
+            }
+            else
+            {
+                traningMap.put(currentWeek, 1);
+            }
+        }
+
+        /*
         for (int i = 0; i < activity.length; i++)
         {
 
@@ -192,14 +202,14 @@ public class SatsActivitiesService implements SatsActivityInterface
             }
 
         }
+
+        */
         return traningMap;
     }
 
     public int getMaxTraning(final SatsActivity activity[])
     {
-        LinkedHashMap<String, Integer> traningMap = new LinkedHashMap<>();
-        traningMap = getTraningMap(activity);
-
+        LinkedHashMap<Integer, Integer> traningMap = getTraningMap(activity);
         int topTraningCount = 0;
         for (Integer value : traningMap.values())
         {
@@ -208,7 +218,6 @@ public class SatsActivitiesService implements SatsActivityInterface
                 topTraningCount = value;
             }
         }
-
         return topTraningCount;
     }
 

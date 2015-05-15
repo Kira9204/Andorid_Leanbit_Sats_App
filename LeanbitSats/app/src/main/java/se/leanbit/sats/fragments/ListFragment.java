@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -32,20 +33,28 @@ public class ListFragment extends Fragment
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
        final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
-        SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-06-30");
+        final SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-06-30");
 
 /*
     detta är om man vill få ut hur många träningspass och en map men antalet träningar med talet som värde och veckan som key.
         LinkedHashMap traningMap = satsActivitiesService.getTraningMap(activities);
         int totTraning = satsActivitiesService.getMaxTraning(activities);
 */
-
         final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
         for(int i = 0; i < activities.length; i++)
         {
             listOfActivities.add(activities[i]);
         }
 
+        Log.e("WHAT_IS", "MAX ACTIVITIES: "+satsActivitiesService.getMaxTraning(activities));
+        LinkedHashMap<Integer, Integer> traningMap = satsActivitiesService.getTraningMap(activities);
+        Integer trainingMapKeys[] = traningMap.keySet().toArray(new Integer[traningMap.keySet().size()]);
+        for(int i = 0; i < trainingMapKeys.length; i++)
+        {
+            Log.e("WHAT_IS", "Week num: "+trainingMapKeys[i]+" num activities: "+traningMap.get(trainingMapKeys[i]));
+        }
+        //Log.e("WHAT_IS", "MAP: KEYS (WEEK): "+satsActivitiesService.getTraningMap(activities).keySet().toString());
+        //Log.e("WHAT_IS", "MAP: VALUES: "+satsActivitiesService.getTraningMap(activities).values().toString());
         View view = inflater.inflate(R.layout.stickylist_headersview, container, false);
 
         StickyListHeadersListView stickyList = (StickyListHeadersListView) view;
