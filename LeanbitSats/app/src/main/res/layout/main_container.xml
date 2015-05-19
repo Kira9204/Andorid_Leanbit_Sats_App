@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -77,8 +78,9 @@
                 android:id="@+id/header_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/abc_text_size_title_material"
+                android:textSize="16dp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="Hello World"
                 />
 
@@ -97,7 +99,7 @@
         android:layout_height="match_parent"
         android:id="@+id/drawerPane"
         android:layout_gravity="bottom|start"
-        android:layout_marginTop="40.4dp">
+        android:layout_marginTop="42dp">
 
         <!-- List of Actions (pages) -->
         <ListView
@@ -105,6 +107,6 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
-            android:background="#fff" />
+            android:background="@color/gray_dark" />
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

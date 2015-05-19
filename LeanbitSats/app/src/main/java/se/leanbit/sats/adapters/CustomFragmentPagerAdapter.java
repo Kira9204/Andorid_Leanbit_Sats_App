@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import se.leanbit.sats.R;
 import se.leanbit.sats.fragments.PagerFragment;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;

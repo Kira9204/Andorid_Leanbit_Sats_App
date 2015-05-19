@@ -102,13 +102,14 @@ public class CustomCircleDraw extends View
         super.onDraw(canvas);
 
         canvas.drawRect(0, 0, mWidth, mTopBarHeight, mPaintRectangle);
-       // canvas.drawLine(0, 0, mWidth, 0, mPaintDivider);
         mSegmentHeight = (mHeight - (mTopBarHeight + mBottomBarHeight)) / (mMaxAntalPass + 1);
         drawLines(canvas);
-        if(mIsCurrentWeek){
+        if(mIsCurrentWeek)
+        {
             drawCirclesBeforeLine(canvas);
         }
-        if(mIsPastWeek){
+        if(mIsPastWeek)
+        {
             drawCirclesBeforeLine(canvas);
             drawCirclesAfterLine(canvas);
         }
@@ -137,8 +138,6 @@ public class CustomCircleDraw extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
-
-       // Log.d("onSizeChanged", "sizeChanged...............x");
     }
 
     @Override
@@ -157,7 +156,6 @@ public class CustomCircleDraw extends View
 
     public void drawLines(Canvas canvas)
     {
-       // Log.d("draw lines", "max antal pass................................... " + mMaxAntalPass);
         if (mMaxAntalPass < 7)
         {
             canvas.drawLine(0, mSegmentHeight, mWidth, mSegmentHeight + mTopBarHeight, mPaintDivider);
@@ -166,7 +164,8 @@ public class CustomCircleDraw extends View
                 canvas.drawLine(0, (mSegmentHeight * (i)) + mTopBarHeight, mWidth, (mSegmentHeight * (i)) + mTopBarHeight, mPaintDivider);
             }
 
-        } else
+        }
+        else
         {
             for (int i = 0; i < 8; i++)
             {
@@ -213,10 +212,12 @@ public class CustomCircleDraw extends View
     {
         canvas.drawLine(mWidth / 2, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
+    /*
     private void drawCirclesCurrentLine(Canvas canvas)
     {
         canvas.drawLine(mWidth / 2-mCircleSize, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
+    */
     private float nextCirclePos()
     {
         if (mPassNextWeek == -1)

@@ -50,23 +50,20 @@ public class ListFragment extends Fragment implements PagerScrollListener
         stickyList.setOnScrollListener(new AbsListView.OnScrollListener()
         {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
-            }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount)
             {
-               // Log.d("onScroll ", firstVisibleItem + "-" + visibleItemCount + "-" + totalItemCount + (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem))));
                 if (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem)))
                 {
                     TextView tv = (TextView) view.getRootView().findViewById(R.id.header_text);
-                    tv.setText("Tidigare Träning");
+                    tv.setText("TIDIGARE TRÄNING");
                 }
                 else
                 {
                     TextView tv = (TextView) view.getRootView().findViewById(R.id.header_text);
-                    tv.setText("Kommande träning");
+                    tv.setText("KOMMANDE TRÄNING");
                 }
             }
         });
