@@ -14,4 +14,7 @@
     <dimen name="pink_marker_size">20dp</dimen>
     <dimen name="pink_marker_left_size">25dp</dimen>
     <dimen name="shadow_size">26dp</dimen>
+    <dimen name="stickylist_vertical_padding">12dp</dimen>
+    <dimen name="stickylist_horizontal_padding">12dp</dimen>
+
 </resources>
