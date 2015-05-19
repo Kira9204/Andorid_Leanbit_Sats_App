@@ -12,7 +12,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
 {
     private final String months[] = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "Decemober"};
     private final String weekDays[] = {"", "Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"};
-
+    private final static int YEAR = 2015;
     @Override
     public String getDate(final SatsActivity activity)
     {
@@ -88,5 +88,60 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(activityDate);
         return calendar;
+    }
+    public Boolean weekIsPast(int weekNum)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.WEEK_OF_YEAR, weekNum);
+        calendar.set(Calendar.YEAR, YEAR);
+
+        Date date = new Date();
+        Calendar currentCal = Calendar.getInstance();
+        currentCal.setTime(date);
+        if (currentCal.after(calendar) && weekNum != currentCal.get(Calendar.WEEK_OF_YEAR))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isCurrentWeek(int weekNum)
+    {
+
+        Date date = new Date();
+        Calendar currentCal = Calendar.getInstance();
+        currentCal.setTime(date);
+        int currentWeekNum = currentCal.get(Calendar.WEEK_OF_YEAR);
+
+        if (weekNum == currentWeekNum)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public String getStartEndOFWeekByWeekNum(int enterWeek)
+    {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.WEEK_OF_YEAR, enterWeek);
+        calendar.set(Calendar.YEAR, YEAR);
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        StringBuilder builder = new StringBuilder();
+        builder.append(" " + calendar.get(Calendar.DAY_OF_MONTH) + " -");
+        calendar.roll(Calendar.DAY_OF_YEAR, 6);
+        builder.append(" " + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+
+        return builder.toString();
+    }
+    public int getCurrentWeekNum()
+    {
+        Date date = new Date();
+        Calendar currentCal = Calendar.getInstance();
+        currentCal.setTime(date);
+        return currentCal.get(Calendar.WEEK_OF_YEAR);
     }
 }

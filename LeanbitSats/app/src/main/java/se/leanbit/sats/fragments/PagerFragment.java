@@ -25,23 +25,17 @@ public class PagerFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
-        final SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01","2015-06-30");
-        final SatsTimeFormatService satsTimeFormatService= new SatsTimeFormatService();
-
-        final ArrayList<SatsActivity> mActivityList = new ArrayList<>();
-        for(int i = 0; i < activities.length; i++)
-        {
-            mActivityList.add(activities[i]);
-        }
-
-
         Bundle args = getArguments();
         int position = args.getInt("page_position");
         CustomCircleDraw fragmentLayout = (CustomCircleDraw)inflater.inflate(R.layout.pager_draw_circle, container, false);
-
         setFillOnCircle(position,fragmentLayout);
-        fragmentLayout.setWeekDates(satsTimeFormatService.getWeekDates(mActivityList.get(position -1)));
+        fragmentLayout.setWeekDates(args.getString("week_dates"));
+        fragmentLayout.setIsCurrentWeek(args.getBoolean("is_current_week"));
+        fragmentLayout.setMaxAntalPass(args.getInt("max_antal_pass"));
+        fragmentLayout.setAntalPass(args.getInt("pass_per_vecka"));
+        fragmentLayout.setPassNextWeek(args.getInt("pass_next_week"));
+        fragmentLayout.setPassLastWeek(args.getInt("pass_last_week"));
+        fragmentLayout.isPastWeek(args.getBoolean("is_past_Week"));
         changeColor(position, fragmentLayout);
         return fragmentLayout;
     }
@@ -55,7 +49,6 @@ public class PagerFragment extends Fragment
         }
 
     }
-
 
     private View changeColor(int position, View view)
     {

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:local="http://schemas.android.com/apk/res-auto"
-                                   android:id="@+id/toolbar1"
+                                   android:id="@+id/action_bar_container"
                                    android:layout_width="match_parent"
                                    android:layout_height="40dp"
-                                   android:background="#fff"
-
-    >
+                                   android:background="#fff">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/action_bar_layout"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:gravity="left|center_vertical"
-                  android:id="@+id/toolbar_layout"
-                  android:weightSum="1"
-                  android:paddingLeft="3dp">
+                  android:weightSum="1">
 
-        <!--
+
             <ImageView
-                android:id="@+id/logo_settings"
+                android:id="@+id/action_bar_logo_settings"
                 android:src="@drawable/meny_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
@@ -29,18 +26,18 @@
                 android:cropToPadding="true" />
 
         <ImageView
+            android:id="@+id/action_bar_logo_sats"
             android:gravity="left"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:id="@+id/imageView"
 
             android:src="@drawable/sats_logo"
             android:layout_margin="0dp"
             android:layout_weight="0.1"
             android:clickable="false" />
--->
+
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/action_bar_text_training"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -54,7 +51,7 @@
 
 
         <ImageView
-            android:id="@+id/logo_refresh"
+            android:id="@+id/action_bar_logo_refresh"
             android:src="@drawable/refresh_icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
