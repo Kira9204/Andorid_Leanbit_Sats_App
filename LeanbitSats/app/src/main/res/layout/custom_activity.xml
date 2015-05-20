@@ -33,12 +33,12 @@
 
         <ImageView
             android:id="@+id/custom_activity_duration_image"
-            android:layout_width="25dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/custom_activity_name"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_time"/>
 
@@ -55,22 +55,22 @@
             android:text="50 min"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/secondary_color"
-            android:textSize="12sp"/>
+            android:textSize="12dp" />
 
         <ImageView
             android:id="@+id/custom_activity_comment_image"
-            android:layout_width="26dp"
-            android:layout_height="16dp"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/custom_activity_duration_image"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/ic_comment"/>
 
         <TextView
             android:id="@+id/custom_activity_comment_text"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/custom_activity_comment_image"
             android:layout_gravity="right"
@@ -86,7 +86,7 @@
 
         <Button
             android:id="@+id/custom_activity_button_details"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -113,19 +113,20 @@
 
         <ImageView
             android:id="@+id/custom_activity_calendar_image"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/custom_activity_lower_separator"
             android:layout_gravity="bottom"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="false"
             android:cropToPadding="false"
             android:focusable="false"
             android:padding="5dp"
-            android:src="@drawable/ic_calender"/>
+            android:src="@drawable/ic_calender"
+            android:layout_marginLeft="20dp" />
 
         <TextView
             android:id="@+id/custom_activity_calendar_text"
@@ -144,7 +145,7 @@
         <View
             android:id="@+id/custom_activity_lower_separator2"
             android:layout_width="1dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_alignTop="@+id/custom_activity_lower_separator"
             android:layout_centerHorizontal="true"
             android:background="@color/third_color"/>
@@ -152,15 +153,16 @@
 
         <ImageView
             android:id="@+id/custom_activity_workout_image"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/custom_activity_lower_separator"
             android:layout_gravity="top"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:layout_toEndOf="@+id/custom_activity_lower_separator2"
             android:layout_toRightOf="@+id/custom_activity_lower_separator2"
             android:padding="5dp"
-            android:src="@drawable/ic_more"/>
+            android:src="@drawable/ic_more"
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/custom_activity_workout_text"

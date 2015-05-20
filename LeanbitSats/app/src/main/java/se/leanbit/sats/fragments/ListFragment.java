@@ -42,17 +42,12 @@ public class ListFragment extends Fragment implements PagerScrollListener
         View view = inflater.inflate(R.layout.stickylist_headersview, container, false);
 
         StickyListHeadersListView stickyList = (StickyListHeadersListView) view;
-
         StickyListAdapter activityListAdapter = new StickyListAdapter(getActivity(),listOfActivities);
         stickyList.setAdapter(activityListAdapter);
-
-
         stickyList.setOnScrollListener(new AbsListView.OnScrollListener()
         {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
-            }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount)
@@ -71,9 +66,9 @@ public class ListFragment extends Fragment implements PagerScrollListener
             }
         });
         int mPosition = 0;
-
         mList = (StickyListHeadersListView)view;
         mList.setSelection(mPosition);
+
         return view;
     }
 

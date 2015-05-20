@@ -9,7 +9,9 @@ import se.leanbit.sats.R;
 
 public class DrawerListAdapter extends BaseAdapter
 {
+
     Context mContext;
+
     public DrawerListAdapter(Context context)
     {
         mContext = context;
@@ -37,6 +39,7 @@ public class DrawerListAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View view;
+
         if (convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,6 +49,7 @@ public class DrawerListAdapter extends BaseAdapter
         {
             view = convertView;
         }
+
         return view;
     }
 }

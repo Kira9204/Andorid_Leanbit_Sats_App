@@ -14,9 +14,6 @@ import android.view.View;
 
 import se.leanbit.sats.R;
 
-/**
- * Created by gina on 2015-05-13.
- */
 public class CustomCircleDraw extends View
 {
     private final Rect textBounds = new Rect();
@@ -86,8 +83,6 @@ public class CustomCircleDraw extends View
         mPinkMarker = Bitmap.createScaledBitmap(bitmap,(int)mPinkMarkerSize,(int)mPinkMarkerSize,false);
         mIsCurrentWeek = true;
         mIsPastWeek = false;
-
-
     }
 
     public void drawCircleFill(boolean drawCircleFill)
@@ -96,7 +91,6 @@ public class CustomCircleDraw extends View
         invalidate();
         requestLayout();
     }
-
 
     protected void onDraw(Canvas canvas)
     {
@@ -108,18 +102,21 @@ public class CustomCircleDraw extends View
 
         if (mIsPastWeek)
         {
-            if(mIsLastBeforeWeek){
+            if(mIsLastBeforeWeek)
+            {
                 drawCirclesBeforeLine(canvas);
                 canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize, mPaintFill);
-            }else{
+            }
+            else
+            {
                 drawCirclesBeforeLine(canvas);
                 drawCirclesAfterLine(canvas);
                 canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize, mPaintFill);
             }
 
-        } else
+        }
+        else
         {
-
             canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize - mCircleStroke / 2, mPaintEmpty);
             mPaintText.setColor(Color.BLACK);
         }
@@ -140,7 +137,6 @@ public class CustomCircleDraw extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
-
        // Log.d("onSizeChanged", "sizeChanged...............x");
     }
 
@@ -167,7 +163,8 @@ public class CustomCircleDraw extends View
                 canvas.drawLine(0, (mSegmentHeight * (i)) + mTopBarHeight, mWidth, (mSegmentHeight * (i)) + mTopBarHeight, mPaintDivider);
             }
 
-        } else
+        }
+        else
         {
             for (int i = 0; i < 8; i++)
             {
@@ -214,10 +211,7 @@ public class CustomCircleDraw extends View
     {
         canvas.drawLine(mWidth / 2, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
-    private void drawCirclesCurrentLine(Canvas canvas)
-    {
-        canvas.drawLine(mWidth / 2-mCircleSize, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
-    }
+
     private float nextCirclePos()
     {
         if (mPassNextWeek == -1)
