@@ -3,6 +3,7 @@
     android:id="@+id/future_activity_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#fcfefd"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -12,6 +13,7 @@
         android:layout_marginLeft="@dimen/stickylist_horizontal_padding"
         android:layout_marginRight="@dimen/stickylist_vertical_padding"
         android:layout_marginTop="@dimen/stickylist_horizontal_padding"
+        android:elevation="2dp"
         android:background="@drawable/shape">
 
         <TextView
@@ -105,7 +107,7 @@
         <Button
             android:id="@+id/future_activity_button_cancel"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
@@ -184,7 +186,7 @@
         <View
             android:id="@+id/future_activity_separator2"
             android:layout_width="1dp"
-            android:layout_height="30dp"
+            android:layout_height="32dp"
             android:layout_alignTop="@+id/future_activity_separator"
             android:layout_centerHorizontal="true"
             android:background="@color/third_color"/>
@@ -217,15 +219,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/secondary_color"
             android:textSize="12dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/future_activity_array_index"
-            android:layout_alignTop="@+id/future_activity_button_cancel"
-            android:layout_alignLeft="@+id/future_activity_separator2"
-            android:layout_alignStart="@+id/future_activity_separator2"
-            android:textColor="#fff"/>
 
     </RelativeLayout>
 </LinearLayout>

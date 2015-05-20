@@ -64,13 +64,13 @@
     <color name="orange">#fe6417</color>
     <color name="green">#95d600</color>
     <color name="gray_dark">#333333</color>
-    <color name="gray_light">#f5f5f5</color>
+    <color name="gray_light">#eeeeef</color>
     <color name="listview_pressed_dark">#141414</color>
 
 
     <!--scrollView colors-->
-    <color name="scroll_view_lightgrey">#ffe3e1e3</color>
-    <color name="scroll_view_darkgrey">#ffd3d1d2</color>
+    <color name="scroll_view_lightgrey">#fcfefd</color>
+    <color name="scroll_view_darkgrey">#eeeeef</color>
     <color name="scroll_view_divider">#ffaba9aa</color>
     <color name="circle_orange">#ffff7825</color>
         
