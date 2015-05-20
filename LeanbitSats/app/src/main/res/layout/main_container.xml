@@ -117,6 +117,6 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
-            android:background="#696969" />
+            android:background="#fcfefd" />
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

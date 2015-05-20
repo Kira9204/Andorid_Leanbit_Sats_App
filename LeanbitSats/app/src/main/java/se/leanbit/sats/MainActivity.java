@@ -59,9 +59,7 @@ public class MainActivity extends ActionBarActivity
             listOfWeeks.add(item);
         }
 
-
         setContentView(R.layout.main_container);
-
 
         final Fragment mListFragment = new ListFragment();
         final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService, satsTimeFormatService, activities, listOfWeeks, weekMap);
@@ -140,7 +138,7 @@ public class MainActivity extends ActionBarActivity
                 }
                 listener.onPagePositionChanged(antalPass);
 
-                Log.d("onPageScrolled", " " + position + " position" + antalPass + " antalPass " + positionOffset + " position offset " + " positionOffsetPixels" + positionOffsetPixels);
+                //Log.d("onPageScrolled", " " + position + " position" + antalPass + " antalPass " + positionOffset + " position offset " + " positionOffsetPixels" + positionOffsetPixels);
             }
 
             @Override

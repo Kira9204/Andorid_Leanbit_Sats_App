@@ -1,25 +1,13 @@
 package se.leanbit.sats.fragments;
 
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import java.util.ArrayList;
 
 import se.leanbit.sats.R;
-import se.leanbit.sats.models.SatsActivity;
-import se.leanbit.sats.repositories.services.SatsActivitiesService;
-import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 
-/**
- * Created by gina on 2015-05-12.
- */
 public class PagerFragment extends Fragment
 {
     @Override
@@ -68,5 +56,4 @@ public class PagerFragment extends Fragment
 
         return view;
     }
-
 }

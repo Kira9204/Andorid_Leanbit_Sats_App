@@ -227,12 +227,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text=""
             android:id="@+id/future_activity_array_index"
-            android:layout_alignTop="@+id/future_activity_button_cancel"
-            android:layout_alignLeft="@+id/future_activity_separator2"
-            android:layout_alignStart="@+id/future_activity_separator2"
-            android:textColor="#fff"/>
+            android:textColor="#fcfefd"
+            android:layout_above="@+id/future_activity_instructor"
+            android:layout_alignStart="@+id/future_activity_workout_image"/>
 
     </RelativeLayout>
 </LinearLayout>
