@@ -104,10 +104,12 @@ public class CustomCircleDraw extends View
         canvas.drawRect(0, 0, mWidth, mTopBarHeight, mPaintRectangle);
         mSegmentHeight = (mHeight - (mTopBarHeight + mBottomBarHeight)) / (mMaxAntalPass + 1);
         drawLines(canvas);
-        if(mIsCurrentWeek){
+        if(mIsCurrentWeek)
+        {
             drawCirclesBeforeLine(canvas);
         }
-        if(mIsPastWeek){
+        if(mIsPastWeek)
+        {
             drawCirclesBeforeLine(canvas);
             drawCirclesAfterLine(canvas);
         }
@@ -128,7 +130,6 @@ public class CustomCircleDraw extends View
         canvas.drawRect(0, mHeight - mBottomBarHeight, mWidth, mHeight, mPaintRectangle);
         canvas.drawLine(0, mHeight - mBottomBarHeight, mWidth, mHeight - mBottomBarHeight, mPaintDivider);
         drawTextCentred(canvas, mPaintWeekDates, mWeekdates, mWidth / 2, mHeight - (mBottomBarHeight) / 2); //weekdatesText
-        canvas.drawLine(0, mHeight-1, mWidth, mHeight-1, mPaintDivider);
     }
 
 
@@ -136,8 +137,6 @@ public class CustomCircleDraw extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
-
-       // Log.d("onSizeChanged", "sizeChanged...............x");
     }
 
     @Override
@@ -163,7 +162,8 @@ public class CustomCircleDraw extends View
                 canvas.drawLine(0, (mSegmentHeight * (i)) + mTopBarHeight, mWidth, (mSegmentHeight * (i)) + mTopBarHeight, mPaintDivider);
             }
 
-        } else
+        }
+        else
         {
             for (int i = 0; i < 8; i++)
             {
@@ -209,10 +209,6 @@ public class CustomCircleDraw extends View
     private void drawCirclesBeforeLine(Canvas canvas)
     {
         canvas.drawLine(mWidth / 2, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
-    }
-    private void drawCirclesCurrentLine(Canvas canvas)
-    {
-        canvas.drawLine(mWidth / 2-mCircleSize, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
     private float nextCirclePos()
     {
