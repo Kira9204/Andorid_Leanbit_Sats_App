@@ -104,12 +104,10 @@ public class CustomCircleDraw extends View
         canvas.drawRect(0, 0, mWidth, mTopBarHeight, mPaintRectangle);
         mSegmentHeight = (mHeight - (mTopBarHeight + mBottomBarHeight)) / (mMaxAntalPass + 1);
         drawLines(canvas);
-        if(mIsCurrentWeek)
-        {
+        if(mIsCurrentWeek){
             drawCirclesBeforeLine(canvas);
         }
-        if(mIsPastWeek)
-        {
+        if(mIsPastWeek){
             drawCirclesBeforeLine(canvas);
             drawCirclesAfterLine(canvas);
         }
@@ -138,6 +136,8 @@ public class CustomCircleDraw extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
+
+       // Log.d("onSizeChanged", "sizeChanged...............x");
     }
 
     @Override
@@ -158,14 +158,12 @@ public class CustomCircleDraw extends View
     {
         if (mMaxAntalPass < 7)
         {
-            canvas.drawLine(0, mSegmentHeight, mWidth, mSegmentHeight + mTopBarHeight, mPaintDivider);
             for (int i = 0; i < mMaxAntalPass + 1; i++)
             {
                 canvas.drawLine(0, (mSegmentHeight * (i)) + mTopBarHeight, mWidth, (mSegmentHeight * (i)) + mTopBarHeight, mPaintDivider);
             }
 
-        }
-        else
+        } else
         {
             for (int i = 0; i < 8; i++)
             {
@@ -212,12 +210,10 @@ public class CustomCircleDraw extends View
     {
         canvas.drawLine(mWidth / 2, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
-    /*
     private void drawCirclesCurrentLine(Canvas canvas)
     {
         canvas.drawLine(mWidth / 2-mCircleSize, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
-    */
     private float nextCirclePos()
     {
         if (mPassNextWeek == -1)

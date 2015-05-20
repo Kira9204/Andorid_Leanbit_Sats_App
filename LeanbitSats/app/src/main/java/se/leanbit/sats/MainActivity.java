@@ -21,6 +21,7 @@ import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
 import se.leanbit.sats.adapters.DrawerListAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
 import se.leanbit.sats.fragments.ListFragment;
+import android.util.Log;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
@@ -97,21 +98,14 @@ public class MainActivity extends ActionBarActivity
                 int maxAntalPass = 0;
 
                 int currentWeekPosition =listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum());
-                if(position < currentWeekPosition+3)
-                {
-                    if(positionOffset <0.4)
-                    {
-                        pinkMarkerImageView.setImageResource(R.drawable.calendet_mark_left);
+                if(position < currentWeekPosition+3){
+                    if(positionOffset <0.4){
+                        pinkMarkerImageView.setImageDrawable(null);
                     }
-                }
-                if(position >currentWeekPosition+1)
-                {
-                    if(positionOffset >0.3)
-                    {
-                        pinkMarkerImageView.setImageResource(R.drawable.back_to_now_left);
-                    }
-                }
-
+                }if(position >currentWeekPosition+1) {
+                if(positionOffset >0.3){
+                    pinkMarkerImageView.setImageResource(R.drawable.back_to_now_left); }
+            }
                 for (Integer key : weekMap.keySet())
                 {
                     maxAntalPass += weekMap.get(key);
@@ -122,18 +116,26 @@ public class MainActivity extends ActionBarActivity
                     int passThisWeek = weekMap.get(weekNum);
                     antalPass = antalPass + passThisWeek;
                 }
-                if(antalPass > maxAntalPass-1)
-                {
+                if(antalPass > maxAntalPass-1){
                     antalPass = maxAntalPass-1;
                 }
                 listener.onPagePositionChanged(antalPass);
+
+               // Log.d("onPageScrolled", " " + position + " position" + antalPass + " antalPass " + positionOffset + " position offset " + " positionOffsetPixels" + positionOffsetPixels);
             }
 
             @Override
-            public void onPageSelected(int position) {}
+            public void onPageSelected(int position)
+            {
+
+                // Log.d("onPageSelected"," " +position +" position.............................");
+            }
 
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state)
+            {
+                // Log.d("onPageScrollStateCh"," " +state +" state............");
+            }
         });
 
         FragmentManager fm = getFragmentManager();
@@ -141,17 +143,35 @@ public class MainActivity extends ActionBarActivity
         fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
             .commit();
 
+
+//      Set ToolBar as  ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
+           //toolbar.setNavigationIcon(R.drawable.action_bar_menu);
+        //toolbar.setTitle("Settings");
+        //toolbar.setSubtitle("Settings menu");
+        //toolbar.setMinimumHeight(150);
 
         final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
         final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
         mToolbarRefreshIcon = (ImageView) findViewById(R.id.action_bar_logo_refresh);
+        //getSupportActionBar().setIcon(R.drawable.meny_icon);
+        // Set an OnMenuItemClickListener to handle menu item clicks
+        /*
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                // Handle the menu item
+                return true;
+            }
+        });
+*/
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        //mDrawerLayout.setScrimColor(Color.parseColor("ff444444"));
-        mDrawerLayout.setScrimColor(Color.argb(100,68,68,68));
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
 
         // Populate the Navigtion Drawer with options
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
@@ -176,7 +196,6 @@ public class MainActivity extends ActionBarActivity
         public void onClick(View v) {
             Animation rotation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
             mToolbarRefreshIcon.startAnimation(rotation);
-
         }
     };
 
