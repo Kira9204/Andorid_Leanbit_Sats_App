@@ -19,6 +19,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         final Calendar activityDate = getDateCalendar(activity.date);
         final int currentDate = activityDate.get(Calendar.DATE);
         final String currentMonth = months[activityDate.get(Calendar.MONTH)];
+
         return "" + currentDate + " " + currentMonth;
     }
 
@@ -51,6 +52,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         builder.append(" " + activityDate.get(Calendar.DAY_OF_MONTH) + " -");
         activityDate.roll(Calendar.DAY_OF_YEAR, 6);
         builder.append(" " + activityDate.get(Calendar.DAY_OF_MONTH) + "/" + (activityDate.get(Calendar.MONTH) + 1));
+
         return builder.toString();
     }
 
@@ -58,6 +60,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
     public int getWeekNum(final SatsActivity activity)
     {
         final Calendar activityDate = getDateCalendar(activity.date);
+
         return activityDate.get(activityDate.WEEK_OF_YEAR);
     }
 
@@ -70,6 +73,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
 
         final boolean sameDay = calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR)
             && calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR);
+
         return sameDay;
     }
 
@@ -87,6 +91,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(activityDate);
+
         return calendar;
     }
     public Boolean weekIsPast(int weekNum)
@@ -103,6 +108,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         {
             return true;
         }
+
         return false;
     }
 
@@ -118,6 +124,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         {
             return true;
         }
+
         return false;
     }
 
@@ -142,6 +149,7 @@ public class SatsTimeFormatService implements SatsTimeFormatInterface
         Date date = new Date();
         Calendar currentCal = Calendar.getInstance();
         currentCal.setTime(date);
+
         return currentCal.get(Calendar.WEEK_OF_YEAR);
     }
 }

@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import se.leanbit.sats.R;
 import se.leanbit.sats.fragments.PagerFragment;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 
-/**
- * Created by gina on 2015-05-12.
- */
 public class CustomFragmentPagerAdapter extends FragmentStatePagerAdapter
 {
     final ArrayList<SatsActivity> mListOfActivities;
@@ -56,20 +56,33 @@ public class CustomFragmentPagerAdapter extends FragmentStatePagerAdapter
         args.putInt("pass_per_vecka", mWeekMap.get(mListOfWeeks.get(position)));
         args.putInt("week_num", mListOfWeeks.get(position));
         args.putBoolean("is_past_Week", mSatsTimeFormatService.weekIsPast(mListOfWeeks.get(position)));
-        if(position < mWeekMap.size()-1){
+
+        if((position +1)< mListOfWeeks.size())
+        {
+            args.putBoolean("is_last_before_week",mSatsTimeFormatService.isCurrentWeek(mListOfWeeks.get(position+1)));
+        }
+        if(position < mWeekMap.size()-1)
+        {
             args.putInt("pass_next_week", mWeekMap.get(mListOfWeeks.get(position+1)));
-        }else{
+        }
+        else
+        {
             args.putInt("pass_next_week", -1);
         }
-        if(position ==0){
+
+        if(position ==0)
+        {
             args.putInt("pass_last_week", -1);
-        }else{
+        }
+        else
+        {
             args.putInt("pass_last_week", mWeekMap.get(mListOfWeeks.get(position-1)));
         }
         fragment.setArguments(args);
 
         return fragment;
     }
+
 
     @Override
     public int getCount()

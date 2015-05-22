@@ -1,7 +1,6 @@
 package se.leanbit.sats.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +41,8 @@ public class ListFragment extends Fragment implements PagerScrollListener
         View view = inflater.inflate(R.layout.stickylist_headersview, container, false);
 
         StickyListHeadersListView stickyList = (StickyListHeadersListView) view;
-
         StickyListAdapter activityListAdapter = new StickyListAdapter(getActivity(),listOfActivities);
         stickyList.setAdapter(activityListAdapter);
-
-
         stickyList.setOnScrollListener(new AbsListView.OnScrollListener()
         {
             @Override
@@ -55,6 +51,7 @@ public class ListFragment extends Fragment implements PagerScrollListener
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount)
             {
+               // Log.d("onScroll ", firstVisibleItem + "-" + visibleItemCount + "-" + totalItemCount + (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem))));
                 if (satsActivitiesService.isPast(listOfActivities.get(firstVisibleItem)))
                 {
                     TextView tv = (TextView) view.getRootView().findViewById(R.id.header_text);
@@ -68,9 +65,9 @@ public class ListFragment extends Fragment implements PagerScrollListener
             }
         });
         int mPosition = 0;
-
         mList = (StickyListHeadersListView)view;
         mList.setSelection(mPosition);
+
         return view;
     }
 

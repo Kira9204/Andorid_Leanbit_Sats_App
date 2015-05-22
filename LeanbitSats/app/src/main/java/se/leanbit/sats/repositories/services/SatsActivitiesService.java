@@ -1,6 +1,5 @@
 package se.leanbit.sats.repositories.services;
 
-import android.content.ReceiverCallNotAllowedException;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -16,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 import se.leanbit.sats.models.SatsActivities;
 import se.leanbit.sats.models.SatsActivity;
-import se.leanbit.sats.models.SatsCenter;
 import se.leanbit.sats.models.SatsCenters;
 import se.leanbit.sats.repositories.interfaces.SatsActivityInterface;
 
@@ -97,7 +95,8 @@ public class SatsActivitiesService implements SatsActivityInterface
             try
             {
                 jsonResponse = webService.execute(url + activity.booking.centerId).get();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -114,14 +113,17 @@ public class SatsActivitiesService implements SatsActivityInterface
                 }
 
                 return "";
-            } catch (InterruptedException e)
+            }
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
-            } catch (ExecutionException e)
+            }
+            catch (ExecutionException e)
             {
                 e.printStackTrace();
             }
         }
+
         return "";
     }
 
@@ -166,13 +168,16 @@ public class SatsActivitiesService implements SatsActivityInterface
     {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date activityDate = new Date();
+
         try
         {
             activityDate = dateFormat.parse(activity.date);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
+
         return (new Date().after(activityDate));
     }
 
@@ -187,7 +192,8 @@ public class SatsActivitiesService implements SatsActivityInterface
             if (traningMap.containsKey(currentWeek))
             {
                 traningMap.put(currentWeek, traningMap.get(currentWeek) + 1);
-            } else
+            }
+            else
             {
                 traningMap.put(currentWeek, 1);
             }
@@ -198,6 +204,7 @@ public class SatsActivitiesService implements SatsActivityInterface
         Date startDate = new Date();
         Date endDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         try
         {
             startDate = simpleDateFormat.parse(fromDate);
@@ -205,7 +212,8 @@ public class SatsActivitiesService implements SatsActivityInterface
 
             endDate = simpleDateFormat.parse(toDate);
             endCal.setTime(endDate);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -221,29 +229,13 @@ public class SatsActivitiesService implements SatsActivityInterface
             {
                 completeTraningMap.put(i, traningMap.get(i));
 
-            } else
+            }
+            else
             {
                 completeTraningMap.put(i, 0);
             }
         }
 
-        /*
-        for (int i = 0; i < activity.length; i++)
-        {
-
-            if (traningMap.containsKey(satsTimeFormatService.getWeekDates(activity[i])))
-            {
-                int currentTraningNum = traningMap.get(satsTimeFormatService.getWeekDates(activity[i]));
-                currentTraningNum = currentTraningNum + 1;
-                traningMap.put(satsTimeFormatService.getWeekDates(activity[i]), currentTraningNum);
-            } else
-            {
-                traningMap.put(satsTimeFormatService.getWeekDates(activity[i]), 1);
-            }
-
-        }
-
-        */
         return completeTraningMap;
     }
 
