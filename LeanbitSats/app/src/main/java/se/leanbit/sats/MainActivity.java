@@ -13,15 +13,19 @@ import android.util.DisplayMetrics;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
 import se.leanbit.sats.adapters.DrawerListAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
 import se.leanbit.sats.fragments.ListFragment;
+
 import android.util.Log;
+
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
@@ -37,6 +41,7 @@ public class MainActivity extends ActionBarActivity
     private RelativeLayout mDrawerPane;
     private ImageView mToolbarRefreshIcon;
     private boolean mDrawerIsOpen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,8 +68,8 @@ public class MainActivity extends ActionBarActivity
 
         final Fragment mListFragment = new ListFragment();
         final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService, satsTimeFormatService, activities, listOfWeeks, weekMap);
-        final ImageView leftShadow =(ImageView) findViewById(R.id.shadow_left);
-        final ImageView rightShadow =(ImageView) findViewById(R.id.shadow_right);
+        final ImageView leftShadow = (ImageView) findViewById(R.id.shadow_left);
+        final ImageView rightShadow = (ImageView) findViewById(R.id.shadow_right);
 
         final ImageView markerLeft = (ImageView) findViewById(R.id.marker_left);
         final ImageView markerRight = (ImageView) findViewById(R.id.marker_right);
@@ -76,48 +81,59 @@ public class MainActivity extends ActionBarActivity
 
         RelativeLayout.LayoutParams lpRight = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
         RelativeLayout.LayoutParams lpLeft = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        lpRight.width = (int)dimenPix;
-        lpLeft.width = (int)dimenPix;
-        lpRight.setMargins((int)(screenWidth/5*2)-(int)dimenPix,(int)getResources().getDimension(R.dimen.height_of_top_rectangle),0,(int)getResources().getDimension(R.dimen.height_of_bottom_rectangle));
-        lpLeft.setMargins((int)(screenWidth/5*3),(int)getResources().getDimension(R.dimen.height_of_top_rectangle),0,(int)getResources().getDimension(R.dimen.height_of_bottom_rectangle));
+        lpRight.width = (int) dimenPix;
+        lpLeft.width = (int) dimenPix;
+        lpRight.setMargins((int) (screenWidth / 5 * 2) - (int) dimenPix, (int) getResources().getDimension(R.dimen.height_of_top_rectangle), 0, (int) getResources().getDimension(R.dimen.height_of_bottom_rectangle));
+        lpLeft.setMargins((int) (screenWidth / 5 * 3), (int) getResources().getDimension(R.dimen.height_of_top_rectangle), 0, (int) getResources().getDimension(R.dimen.height_of_bottom_rectangle));
         leftShadow.setLayoutParams(lpLeft);
         rightShadow.setLayoutParams(lpRight);
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
         mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum())-2);
+        mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
             {
+
+
+
                 PagerScrollListener listener = (PagerScrollListener) mListFragment;
                 position += 2;
                 int antalPass = 0;
                 int maxAntalPass = 0;
 
-                int currentWeekPosition =listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum());
-                if(position >currentWeekPosition+1)
+                int currentWeekPosition = listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum());
+
+                if (position < currentWeekPosition + 3)
                 {
-                    if(positionOffset >0.3)
-                    {
-                        markerLeft.setImageResource(R.drawable.back_to_now_left);
-                    }
-                    else
+                    if (positionOffset < 0.4)
                     {
                         markerLeft.setImageDrawable(null);
                     }
                 }
-                if(position < currentWeekPosition-2)
+                if (position > currentWeekPosition + 1)
                 {
-                    if(positionOffset <0.7)
+                    if (positionOffset > 0.3)
                     {
-                        markerRight.setImageResource(R.drawable.forward_to_now);
+                        markerLeft.setImageResource(R.drawable.back_to_now_left);
                     }
-                    else
+                }
+
+                if (position > currentWeekPosition - 4)
+                {
+                    if (positionOffset > 0.7)
                     {
                         markerRight.setImageDrawable(null);
+                    }
+                }
+                if (position < currentWeekPosition - 2)
+                {
+                    if (positionOffset < 0.7)
+                    {
+                        markerRight.setImageResource(R.drawable.forward_to_now);
                     }
                 }
 
@@ -126,15 +142,15 @@ public class MainActivity extends ActionBarActivity
                 {
                     maxAntalPass += weekMap.get(key);
                 }
-                for (int i = 0; i < position ; i++)
+                for (int i = 0; i < position; i++)
                 {
                     int weekNum = listOfWeeks.get(i);
                     int passThisWeek = weekMap.get(weekNum);
                     antalPass = antalPass + passThisWeek;
                 }
-                if(antalPass > maxAntalPass-1)
+                if (antalPass > maxAntalPass - 1)
                 {
-                    antalPass = maxAntalPass-1;
+                    antalPass = maxAntalPass - 1;
                 }
                 listener.onPagePositionChanged(antalPass);
 
@@ -157,7 +173,7 @@ public class MainActivity extends ActionBarActivity
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
-            .commit();
+                .commit();
 
 
 //      Set ToolBar as  ActionBar
@@ -170,13 +186,16 @@ public class MainActivity extends ActionBarActivity
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerLayout.setScrimColor(Color.argb(100,51,51,51));
+        mDrawerLayout.setScrimColor(Color.argb(100, 51, 51, 51));
         //mDrawerLayout.setScrimColor(Color.TRANSPARENT);
 
         // Populate the Navigtion Drawer with options
+        String[] listForDrawer = makeMapList();
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
         ListView drawerList = (ListView) findViewById(R.id.navList);
-        DrawerListAdapter drawerListAdapter = new DrawerListAdapter(this);
+
+        ArrayAdapter<String> drawerListAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, listForDrawer);
         drawerList.setAdapter(drawerListAdapter);
         mDrawerIsOpen = false;
 
@@ -189,11 +208,19 @@ public class MainActivity extends ActionBarActivity
         toolbar.inflateMenu(R.menu.menu_main);
     }
 
+    private String[] makeMapList()
+    {
+        String[] values = new String[]{"Karta"
+
+        };
+        return values;
+    }
 
     private View.OnClickListener actionBarRefreshListener = new View.OnClickListener()
     {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
             Animation rotation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
             mToolbarRefreshIcon.startAnimation(rotation);
         }
@@ -204,11 +231,10 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onClick(View v)
         {
-            if(!mDrawerIsOpen)
+            if (!mDrawerIsOpen)
             {
                 mDrawerLayout.openDrawer(mDrawerPane);
-            }
-            else
+            } else
             {
                 mDrawerLayout.closeDrawer(mDrawerPane);
             }

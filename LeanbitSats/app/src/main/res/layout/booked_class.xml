@@ -2,121 +2,143 @@
 
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="false"
-    android:orientation="vertical"
-    android:padding="10dp">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="false"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/bokad_class"
-    >
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Zumba"
-        android:textColor="@color/primary_color"
-        android:id="@+id/Class"
-        android:textSize="16dp"
-        android:layout_weight="0.70"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/bokad_class"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Zumba"
+            android:textColor="@color/primary_color"
+            android:id="@+id/Class"
+            android:textSize="20dp"
+            android:layout_weight="0.70"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="30 min"
-                android:textColor="@color/secondary_color"
-                android:id="@+id/duration"
-                android:textSize="16dp"
-                android:layout_weight="4"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="45min"
+            android:textColor="@color/secondary_color"
+            android:id="@+id/duration"
+            android:textSize="20dp"
+            android:layout_weight="4"
 
-                android:layout_alignTop="@+id/booked_class_que_image"
-                android:layout_toRightOf="@+id/Class"
-                android:layout_toEndOf="@+id/Class"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="29dp" />
+            android:layout_alignTop="@+id/Class"
+            android:layout_toRightOf="@+id/Class"
+            android:layout_toEndOf="@+id/Class"
+            android:layout_marginLeft="3dp" />
 
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/booked_class_que_image"
+            android:src="@drawable/icon_queue"
+            android:layout_margin="3dp"
+            android:layout_weight="0.5"
+            android:layout_alignTop="@+id/Class"
+            android:layout_toLeftOf="@+id/queue"
+            android:layout_toStartOf="@+id/queue"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="88"
+
+            android:textColor="@color/satsyou_red"
+            android:id="@+id/queue"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/Class" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_below="@id/Class"
+            android:layout_marginTop="10dp">
+
+
+            <com.google.android.youtube.player.YouTubeThumbnailView
+                android:id="@+id/youtubethumbnailview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+              />
+
+
+            <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youtubeplayerview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 />
+
+
+            <!--    <FrameLayout
+
+                    android:id="@+id/placeholder"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="top|center"
+                    android:onClick="gone"
+                    android:layout_marginTop="10dp">
+                    android:background="@drawable/workout"
+                </FrameLayout> -->
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/booked_class_container_bottom"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape1"
+            android:layout_alignRight="@+id/queue"
+            android:layout_alignEnd="@+id/queue"
+            android:layout_alignLeft="@+id/Class"
+            android:layout_alignStart="@+id/Class"
+            android:layout_below="@+id/frameLayout1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/booked_class_que_image"
-                android:src="@drawable/icon_queue"
-
+                android:id="@+id/rate_img_star_1"
+                android:src="@drawable/star_on"
                 android:layout_weight="0.5"
-                android:layout_marginRight="30dp"
-                android:layout_marginEnd="45dp"
-                android:layout_alignTop="@+id/Class"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="false"
-                android:layout_marginBottom="5dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="8"
-                android:textColor="@color/satsyou_red"
-                android:id="@+id/queue"
-                android:textSize="22sp"
-                android:textStyle="bold"
-
-                android:layout_weight="0.5"
-                android:layout_alignTop="@+id/booked_class_que_image"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp" />
-
-
-
-        <VideoView
-            android:layout_width="fill_parent"
-            android:layout_height="265dp"
-            android:id="@+id/booked_class_video"
-            android:layout_below="@+id/booked_class_que_image"
-            android:layout_alignLeft="@+id/Class"
-            android:layout_alignStart="@+id/Class"
-            android:layout_alignRight="@+id/queue"
-            android:layout_alignEnd="@+id/queue"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
-
-    <RelativeLayout
-        android:id="@+id/booked_class_container_bottom"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@drawable/shape1"
-        android:layout_below="@+id/booked_class_video"
-        android:layout_marginTop="35dp"
-        android:layout_alignRight="@+id/queue"
-        android:layout_alignEnd="@+id/queue"
-        android:layout_alignLeft="@+id/Class"
-        android:layout_alignStart="@+id/Class">
-
-
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/rate_img_star_1"
-              android:src="@drawable/star_on"
-              android:layout_weight="0.5"
-              android:layout_alignTop="@+id/rate_img_star_5"
-              android:layout_toRightOf="@+id/rate_img_star_3"
-              android:layout_toEndOf="@+id/rate_img_star_3" />
+                android:layout_alignTop="@+id/rate_img_star_5"
+                android:layout_toRightOf="@+id/rate_img_star_3"
+                android:layout_toEndOf="@+id/rate_img_star_3" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -162,264 +184,241 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="23 st"
+                android:text="23st"
                 android:textColor="@color/secondary_color"
                 android:id="@+id/booked_class_review_num"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:layout_alignBottom="@+id/rate_img_star_4"
-                android:layout_toRightOf="@+id/rate_img_star_4"
-                android:layout_toEndOf="@+id/rate_img_star_4" android:layout_marginRight="4dp"/>
+                android:layout_alignTop="@+id/booked_class_review_text"
+                android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=" har recenserat zumba"
+                android:textColor="@color/secondary_color"
+                android:id="@+id/booked_class_review_text"
+                android:textSize="13dp"
+                android:layout_toRightOf="@+id/booked_class_review_num"
+                android:layout_above="@+id/booked_class_instructor" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="har recenserat zumba"
-                android:textColor="@color/secondary_color"
-                android:id="@+id/booked_class_review_text"
-                android:textSize="14dp"
-                android:layout_alignTop="@+id/booked_class_review_num"
-                android:layout_toRightOf="@+id/booked_class_review_num"
-                android:layout_toEndOf="@+id/booked_class_review_num" />
-
-
-
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Center:"
-            android:id="@+id/booked_class_center_name"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
+                android:text="Center:"
+                android:id="@+id/booked_class_center_name"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
                 android:layout_alignTop="@+id/rate_img_star_1"
                 android:layout_marginTop="50dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="SATS"
+                android:text="SATS Bromma"
                 android:id="@+id/booked_class_instructor"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/secondary_color"
                 android:layout_alignTop="@+id/booked_class_center_name"
                 android:layout_toRightOf="@+id/rate_img_star_1"
                 android:layout_toEndOf="@+id/rate_img_star_1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bromma"
-                    android:id="@+id/booked_class_station_name"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_color"
-                    android:layout_alignTop="@+id/booked_class_instructor"
-                    android:layout_toRightOf="@+id/booked_class_instructor"
-                    android:layout_toEndOf="@+id/booked_class_instructor" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Torsdag 12 November"
+                android:id="@+id/booked_class_day"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/secondary_color"
+                android:layout_below="@+id/booked_class_instructor"
+                android:layout_alignLeft="@+id/booked_class_instructor"
+                android:layout_alignStart="@+id/booked_class_instructor" />
 
 
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Torsdag"
-                    android:id="@+id/booked_class_day"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/secondary_color"
-            android:layout_below="@+id/booked_class_instructor"
-            android:layout_alignLeft="@+id/booked_class_instructor"
-            android:layout_alignStart="@+id/booked_class_instructor" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datum:"
+                android:id="@+id/booked_class_date"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_below="@+id/booked_class_center_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instruktör:"
+                android:id="@+id/booked_class_instructor_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_below="@+id/booked_class_day"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Datum:"
-            android:id="@+id/booked_class_date"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_below="@+id/booked_class_center_name"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Annika Bottne"
+                android:id="@+id/booked_class_instructor_name"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/secondary_color"
+                android:layout_below="@+id/booked_class_day"
+                android:layout_toRightOf="@+id/booked_class_instructor_text"
+                android:layout_toEndOf="@+id/booked_class_instructor_text" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12 November"
-            android:id="@+id/booked_class_date_day_month"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/secondary_color"
-            android:layout_below="@+id/booked_class_station_name"
-            android:layout_toRightOf="@+id/rate_img_star_5"
-            android:layout_toEndOf="@+id/rate_img_star_5" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Latinamirkanska rytmer och rörelseglädje karakttäriserar denna heta dansklass. Join the party!"
+                android:id="@+id/booked_class_description"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/secondary_color"
+                android:layout_below="@+id/booked_class_instructor_text"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="false"
+                android:layout_marginTop="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Instruktör:"
-            android:id="@+id/booked_class_instructor_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_below="@+id/booked_class_day"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kondition"
+                android:id="@+id/booked_class_fitness_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_below="@+id/booked_class_description"
+                android:layout_alignRight="@+id/booked_class_instructor_text"
+                android:layout_alignEnd="@+id/booked_class_instructor_text"
+                android:layout_marginTop="40dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Annika Bottne"
-            android:id="@+id/booked_class_instructor_name"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/secondary_color"
-            android:layout_below="@+id/booked_class_day"
-            android:layout_toRightOf="@+id/rate_img_star_2"
-            android:layout_toEndOf="@+id/rate_img_star_2" />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progress_bg"
+                android:id="@+id/booked_class_fitness_progressbar"
+                android:background="@drawable/progress_bg"
+                android:layout_below="@+id/booked_class_description"
+                android:layout_alignRight="@+id/booked_class_review_text"
+                android:layout_alignEnd="@+id/booked_class_review_text"
+                android:layout_marginTop="40dp"
+                android:layout_alignBottom="@+id/booked_class_fitness_text"
+                android:layout_toRightOf="@+id/rate_img_star_4"
+                android:layout_toEndOf="@+id/rate_img_star_4"
+                android:max="100"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latinamirkanska rytmer och rörelseglädje karakttäriserar denna heta dansklass. Join the party!"
-            android:id="@+id/booked_class_description"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/secondary_color"
-            android:layout_below="@+id/booked_class_instructor_text"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:layout_marginTop="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spänst"
+                android:id="@+id/booked_class_resilience_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_below="@+id/booked_class_balance_progressbar"
+                android:layout_alignRight="@+id/booked_class_balance_text"
+                android:layout_alignEnd="@+id/booked_class_balance_text"
+                android:layout_marginTop="32dp"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kondition:"
-            android:id="@+id/booked_class_fitness_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_below="@+id/booked_class_description"
-            android:layout_alignRight="@+id/booked_class_instructor_text"
-            android:layout_alignEnd="@+id/booked_class_instructor_text"
-            android:layout_marginTop="40dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Styrka"
+                android:id="@+id/booked_class_strength_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_alignTop="@+id/booked_class_strength_progressbar"
+                android:layout_alignLeft="@+id/booked_class_balance_text"
+                android:layout_alignStart="@+id/booked_class_balance_text" />
 
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/booked_class_fitness_progressbar"
-            android:background="@drawable/progress_bg"
-            android:layout_below="@+id/booked_class_description"
-            android:layout_alignLeft="@+id/booked_class_station_name"
-            android:layout_alignStart="@+id/booked_class_station_name"
-            android:layout_alignRight="@+id/booked_class_review_text"
-            android:layout_alignEnd="@+id/booked_class_review_text"
-            android:layout_marginTop="40dp" />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/booked_class_strength_progressbar"
+                android:background="@drawable/progress_bg"
+                android:layout_marginTop="32dp"
+                android:layout_below="@+id/booked_class_fitness_progressbar"
+                android:layout_alignLeft="@+id/booked_class_fitness_progressbar"
+                android:layout_alignStart="@+id/booked_class_fitness_progressbar"
+                android:layout_alignRight="@+id/booked_class_fitness_progressbar"
+                android:layout_alignEnd="@+id/booked_class_fitness_progressbar"
+                android:max="100"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Spänst"
-            android:id="@+id/booked_class_resilience_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_below="@+id/booked_class_balance_progressbar"
-            android:layout_alignRight="@+id/booked_class_balance_text"
-            android:layout_alignEnd="@+id/booked_class_balance_text"
-            android:layout_marginTop="32dp" />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/booked_class_flexibility_progressbar"
+                android:background="@drawable/progress_bg"
+                android:layout_below="@+id/booked_class_strength_progressbar"
+                android:layout_marginTop="38dp"
+                android:layout_alignRight="@+id/booked_class_strength_progressbar"
+                android:layout_alignEnd="@+id/booked_class_strength_progressbar"
+                android:layout_alignLeft="@+id/booked_class_strength_progressbar"
+                android:layout_alignStart="@+id/booked_class_strength_progressbar"
+                android:max="100"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Styrka:"
-            android:id="@+id/booked_class_strength_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_alignTop="@+id/booked_class_strength_progressbar"
-            android:layout_alignLeft="@+id/booked_class_balance_text"
-            android:layout_alignStart="@+id/booked_class_balance_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rörlighet"
+                android:id="@+id/booked_class_flexibility_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_alignBottom="@+id/booked_class_flexibility_progressbar"
+                android:layout_alignRight="@+id/booked_class_fitness_text"
+                android:layout_alignEnd="@+id/booked_class_fitness_text" />
 
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/booked_class_strength_progressbar"
-            android:background="@drawable/progress_bg"
-            android:layout_marginTop="32dp"
-            android:layout_below="@+id/booked_class_fitness_progressbar"
-            android:layout_alignLeft="@+id/booked_class_fitness_progressbar"
-            android:layout_alignStart="@+id/booked_class_fitness_progressbar"
-            android:layout_alignRight="@+id/booked_class_fitness_progressbar"
-            android:layout_alignEnd="@+id/booked_class_fitness_progressbar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Balans"
+                android:id="@+id/booked_class_balance_text"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_alignTop="@+id/booked_class_balance_progressbar"
+                android:layout_toLeftOf="@+id/booked_class_day"
+                android:layout_toStartOf="@+id/booked_class_day" />
 
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/booked_class_flexibility_progressbar"
-            android:background="@drawable/progress_bg"
-            android:layout_below="@+id/booked_class_strength_progressbar"
-            android:layout_marginTop="38dp"
-            android:layout_alignRight="@+id/booked_class_strength_progressbar"
-            android:layout_alignEnd="@+id/booked_class_strength_progressbar"
-            android:layout_alignLeft="@+id/booked_class_strength_progressbar"
-            android:layout_alignStart="@+id/booked_class_strength_progressbar" />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/booked_class_balance_progressbar"
+                android:background="@drawable/progress_bg"
+                android:layout_marginTop="34dp"
+                android:layout_below="@+id/booked_class_flexibility_text"
+                android:layout_alignLeft="@+id/booked_class_flexibility_progressbar"
+                android:layout_alignStart="@+id/booked_class_flexibility_progressbar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rörlighet"
-            android:id="@+id/booked_class_flexibility_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_alignBottom="@+id/booked_class_flexibility_progressbar"
-            android:layout_alignRight="@+id/booked_class_fitness_text"
-            android:layout_alignEnd="@+id/booked_class_fitness_text" />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/booked_class_resilience_progressbar"
+                android:background="@drawable/progress_bg"
+                android:layout_alignTop="@+id/booked_class_resilience_text"
+                android:layout_alignLeft="@+id/booked_class_balance_progressbar"
+                android:layout_alignStart="@+id/booked_class_balance_progressbar"
+                android:max="100"
+                android:progress="30"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Balans"
-            android:id="@+id/booked_class_balance_text"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_color"
-            android:layout_alignTop="@+id/booked_class_balance_progressbar"
-            android:layout_toLeftOf="@+id/booked_class_day"
-            android:layout_toStartOf="@+id/booked_class_day" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/booked_class_balance_progressbar"
-            android:background="@drawable/progress_bg"
-            android:layout_marginTop="35dp"
-            android:layout_below="@+id/booked_class_flexibility_progressbar"
-            android:layout_alignRight="@+id/booked_class_flexibility_progressbar"
-            android:layout_alignEnd="@+id/booked_class_flexibility_progressbar"
-            android:layout_toRightOf="@+id/booked_class_instructor"
-            android:layout_toEndOf="@+id/booked_class_instructor" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/booked_class_resilience_progressbar"
-            android:background="@drawable/progress_bg"
-            android:layout_alignBottom="@+id/booked_class_resilience_text"
-            android:layout_alignLeft="@+id/booked_class_balance_progressbar"
-            android:layout_alignStart="@+id/booked_class_balance_progressbar"
-            android:layout_alignTop="@+id/booked_class_resilience_text"
-            android:layout_alignRight="@+id/booked_class_review_text"/>
-
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 </ScrollView>
