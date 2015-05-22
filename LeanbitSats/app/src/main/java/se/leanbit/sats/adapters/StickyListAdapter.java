@@ -1,6 +1,7 @@
 package se.leanbit.sats.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,14 @@ import se.leanbit.sats.R;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
+import se.leanbit.sats.BookedActivity;
 
-public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter
+
+/**
+ * Created by gina on 2015-04-22.
+ */
+public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter, View.OnClickListener
 {
-
     private static final int PAST_ACTIVITY = 0;
     private static final int CUSTOM_ACTIVITY = 1;
     private static final int SATS_ACTIVITY = 2;
@@ -41,7 +46,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         {
             return satsTimeFormatService.getWeekNum(mActivityList.get(i));
         }
-
         return i;
     }
 
@@ -54,7 +58,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     @Override
     public Object getItem(int position)
     {
-        return mActivityList.indexOf(position);
+        return mActivityList.get(position);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
 
         ViewHolderPast pastHolder;
@@ -87,17 +91,15 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
-                //Log.d("past", "getView fired ..............");
 
-            } else
+            }
+            else
             {
 
                 pastHolder = (ViewHolderPast) convertView.getTag();
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
-                //Log.d("past", "getView fired ..............");
             }
-
             return convertView;
 
         }
@@ -125,7 +127,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     customHolder = (ViewHolderCustom) convertView.getTag();
                     customHolder = setCustomHolderText(customHolder, position);
                 }
-
                 return convertView;
             }
             else
@@ -145,6 +146,26 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour_text);
                     futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minute_text);
                     futureHolder.imageQue = (ImageView) convertView.findViewById(R.id.future_activity_que_image);
+                    futureHolder.workOut = (ImageView) convertView.findViewById(R.id.future_activity_workout_image);
+                    futureHolder.arrayIndex = (TextView) convertView.findViewById(R.id.future_activity_array_index);
+
+                    futureHolder.workOut.setOnClickListener(new View.OnClickListener()
+                    {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(view.getContext(), BookedActivity.class);
+
+                        TextView tv = (TextView) view.getRootView().findViewById(R.id.future_activity_array_index);
+                        int index = Integer.parseInt((String) tv.getText());
+
+                        SatsActivity activity = mActivityList.get(index);
+                        intent.putExtra("Activity", activity);
+                        view.getContext().startActivity(intent);
+                        }
+                    });
+
+
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
 
@@ -154,7 +175,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder = (ViewHolderFuture) convertView.getTag();
                     futureHolder = setFutureViewHolder(futureHolder, position);
                 }
-
                 return convertView;
             }
         }
@@ -184,7 +204,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.buttonCancel.setText("Avboka");
         futureHolder.textHour.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[0]);
         futureHolder.textMinutes.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[1]);
-
+        futureHolder.arrayIndex.setText(""+position);
         return futureHolder;
     }
 
@@ -199,11 +219,11 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         if (satsActivitiesService.comments(mActivityList.get(position)))
         {
             customHolder.textComment.setText("1 kommentar");
-        } else
+        }
+        else
         {
             customHolder.textComment.setText("Lägg till kommentar");
         }
-
         return customHolder;
     }
 
@@ -214,6 +234,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
         pastHolder.textName.setText(activityName);
         pastHolder.textDate.setText(satsTimeFormatService.getDayName(mActivityList.get(position)) + " " + satsTimeFormatService.getDate(mActivityList.get(position)));
+
         switch (activityTypeGroup)
         {
             case "GROUP":
@@ -248,10 +269,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             pastHolder.textCompleted.setText("Avklarat?");
             pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_normal);
         }
-
         return pastHolder;
     }
-
     private ViewHolderPast setPictureOfOther(String activityName, ViewHolderPast pastHolder)
     {
         if(activityName.equals("walking"))
@@ -270,14 +289,12 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         {
             pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         }
-
         return pastHolder;
     }
 
     private ViewHolderPast setPictureOfGym(String activityName, ViewHolderPast pastHolder)
     {
         pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
-
         return pastHolder;
     }
 
@@ -299,7 +316,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         {
             pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         }
-
         return pastHolder;
     }
 
@@ -338,13 +354,11 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             }
         }
         holder.text.setText(headerText);
-
         return convertView;
     }
 
     public int getItemViewType(int position)
     {
-
         if (satsActivitiesService.isPast(mActivityList.get(position)))
         {
             return PAST_ACTIVITY;
@@ -359,12 +373,24 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             {
                 return SATS_ACTIVITY;
             }
+
         }
     }
+
 
     public int getViewTypeCount()
     {
         return 3;
+    }
+
+
+    public void onClick(View v)
+    {
+        Intent intent = new Intent(v.getContext(), BookedActivity.class);
+        int i = v.getId();
+        SatsActivity activity = mActivityList.get(i);
+        intent.putExtra("Activity", activity);
+        v.getContext().startActivity(intent);
     }
 
     class ViewHolderFuture
@@ -380,6 +406,8 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         Button buttonCancel;
         TextView textHour;
         TextView textMinutes;
+        TextView arrayIndex;
+        ImageView workOut;
     }
 
     class ViewHolderCustom
@@ -406,4 +434,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         ImageView imageMan;
         ImageView imageCheck;
     }
+
+
 }
