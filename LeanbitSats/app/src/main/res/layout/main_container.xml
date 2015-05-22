@@ -10,8 +10,8 @@
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:id="@+id/mainContainer"
-                  android:background="#fcfefd"
                   >
+
             <include layout="@layout/action_bar"
                      android:id="@+id/toolbar1"/>
 
@@ -23,9 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.2"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp"
-            android:background="#fcfefd"
-            android:layout_marginTop="15dp">
+            android:layout_marginBottom="10dp">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -68,14 +66,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="@dimen/margin_pink_marker_left"
                     android:src="@drawable/calendet_mark_left"/>
-                <ImageView
-                    android:id="@+id/marker_right"
-                    android:layout_width="@dimen/pink_marker_left_size"
-                    android:layout_height="@dimen/pink_marker_left_size"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/margin_pink_marker_left"
-                    android:src="@drawable/calendet_mark_right"/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -83,15 +73,14 @@
                       android:orientation="vertical"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
-                      android:background="#fcfefd"
                       android:layout_weight="1">
             <TextView
                 android:id="@+id/header_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:textColor="@color/black"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="Hello World"
                 />
 
@@ -110,13 +99,14 @@
         android:layout_height="match_parent"
         android:id="@+id/drawerPane"
         android:layout_gravity="bottom|start"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="42dp">
+
         <!-- List of Actions (pages) -->
         <ListView
             android:id="@+id/navList"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
-            android:background="#fcfefd" />
+            android:background="@color/gray_dark" />
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

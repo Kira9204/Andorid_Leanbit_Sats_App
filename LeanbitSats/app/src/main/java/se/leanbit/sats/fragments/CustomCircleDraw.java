@@ -9,10 +9,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import se.leanbit.sats.R;
 
+/**
+ * Created by gina on 2015-05-13.
+ */
 public class CustomCircleDraw extends View
 {
     private final Rect textBounds = new Rect();
@@ -39,7 +43,6 @@ public class CustomCircleDraw extends View
     private float mPinkMarkerSize;
     private Boolean mIsPastWeek;
     private Boolean mIsCurrentWeek;
-    private boolean mIsLastBeforeWeek;
 
     public CustomCircleDraw(Context context, AttributeSet attrs)
     {
@@ -82,6 +85,8 @@ public class CustomCircleDraw extends View
         mPinkMarker = Bitmap.createScaledBitmap(bitmap,(int)mPinkMarkerSize,(int)mPinkMarkerSize,false);
         mIsCurrentWeek = true;
         mIsPastWeek = false;
+
+
     }
 
     public void drawCircleFill(boolean drawCircleFill)
@@ -91,6 +96,7 @@ public class CustomCircleDraw extends View
         requestLayout();
     }
 
+
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
@@ -98,37 +104,32 @@ public class CustomCircleDraw extends View
         canvas.drawRect(0, 0, mWidth, mTopBarHeight, mPaintRectangle);
         mSegmentHeight = (mHeight - (mTopBarHeight + mBottomBarHeight)) / (mMaxAntalPass + 1);
         drawLines(canvas);
-
+        if(mIsCurrentWeek)
+        {
+            drawCirclesBeforeLine(canvas);
+        }
+        if(mIsPastWeek)
+        {
+            drawCirclesBeforeLine(canvas);
+            drawCirclesAfterLine(canvas);
+        }
         if (mIsPastWeek)
         {
-            if(mIsLastBeforeWeek)
-            {
-                drawCirclesBeforeLine(canvas);
-                canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize, mPaintFill);
-            }
-            else
-            {
-                drawCirclesBeforeLine(canvas);
-                drawCirclesAfterLine(canvas);
-                canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize, mPaintFill);
-            }
-
-        }
-        else
+            canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize, mPaintFill);
+            drawTextCentred(canvas, mPaintText, "" + mAntalPass, mWidth / 2, circlePosition());
+        } else
         {
             canvas.drawCircle(mWidth / 2, circlePosition(), mCircleSize - mCircleStroke / 2, mPaintEmpty);
             mPaintText.setColor(Color.BLACK);
+            drawTextCentred(canvas, mPaintText, "" + mAntalPass, mWidth / 2, circlePosition());
         }
-
         if (mIsCurrentWeek)
         {
             canvas.drawBitmap(mPinkMarker, (mWidth / 2) - mPinkMarkerSize/2, mTopBarHeight -mPinkMarkerSize/5, null);
         }
-        drawTextCentred(canvas, mPaintText, "" + mAntalPass, mWidth / 2, circlePosition());
         canvas.drawRect(0, mHeight - mBottomBarHeight, mWidth, mHeight, mPaintRectangle);
         canvas.drawLine(0, mHeight - mBottomBarHeight, mWidth, mHeight - mBottomBarHeight, mPaintDivider);
         drawTextCentred(canvas, mPaintWeekDates, mWeekdates, mWidth / 2, mHeight - (mBottomBarHeight) / 2); //weekdatesText
-        canvas.drawLine(0, mHeight-1, mWidth, mHeight-1, mPaintDivider);
     }
 
 
@@ -136,7 +137,6 @@ public class CustomCircleDraw extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
-       // Log.d("onSizeChanged", "sizeChanged...............x");
     }
 
     @Override
@@ -210,7 +210,6 @@ public class CustomCircleDraw extends View
     {
         canvas.drawLine(mWidth / 2, circlePosition(), -(mWidth / 2), lastCirclePos(), mPaintEmpty);
     }
-
     private float nextCirclePos()
     {
         if (mPassNextWeek == -1)
@@ -253,10 +252,4 @@ public class CustomCircleDraw extends View
         requestLayout();
     }
 
-    public void isLastBeforeWeek(boolean is_last_before_week)
-    {
-        this.mIsLastBeforeWeek = is_last_before_week;
-        invalidate();
-        requestLayout();
-    }
 }
