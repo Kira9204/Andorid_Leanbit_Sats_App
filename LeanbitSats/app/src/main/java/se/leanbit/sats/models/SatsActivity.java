@@ -1,6 +1,8 @@
 package se.leanbit.sats.models;
 
-public class SatsActivity
+import java.io.Serializable;
+
+public class SatsActivity implements Serializable
 {
     public SatsBooking booking;
     public String comment;
@@ -13,7 +15,7 @@ public class SatsActivity
     public String subType;
     public String type;
 
-    public class SatsBooking
+    public class SatsBooking implements Serializable
     {
         public String centerId;
         public SatsBookingClass clazz;
@@ -21,7 +23,7 @@ public class SatsActivity
         public int positionInQueue;
         public String status;
 
-        public class SatsBookingClass
+        public class SatsBookingClass implements Serializable
         {
             public int bookedPersonsCount;
             public String[] classCategoryIds;

@@ -5,13 +5,13 @@ import se.leanbit.sats.models.SatsActivity;
 public interface SatsTimeFormatInterface
 {
     //Example: 3 April
-    public String getDate(SatsActivity activity);
+    public String getDate(final SatsActivity activity);
     //Example: fredag
-    public String getDayName(SatsActivity activity);
+    public String getDayName(final SatsActivity activity);
     //Return an array with hours and minutes as separate strings
-    public String[] getHoursMinutes(SatsActivity activity);
+    public String[] getHoursMinutes(final SatsActivity activity);
     //Example: 25 - 31/1
-    public String getWeekDates(SatsActivity activity);
+    public String getWeekDates(final SatsActivity activity);
     //Example 1
-    public int getWeekNum(SatsActivity activity);
+    public int getWeekNum(final SatsActivity activity);
 }

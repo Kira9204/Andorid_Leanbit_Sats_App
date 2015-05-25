@@ -11,6 +11,9 @@
     <color name="secondary_color">#ff828282</color>
     <color name="third_color">#88828282</color>
     <color name="unselected_color">#ffe1e1e1</color>
+
+
+
     
     <color name="satsyou_blue">#ffc2d2e7</color>
     
@@ -61,7 +64,14 @@
     <color name="orange">#fe6417</color>
     <color name="green">#95d600</color>
     <color name="gray_dark">#333333</color>
-    <color name="gray_light">#f5f5f5</color>
+    <color name="gray_light">#eeeeef</color>
     <color name="listview_pressed_dark">#141414</color>
+
+
+    <!--scrollView colors-->
+    <color name="scroll_view_lightgrey">#fcfefd</color>
+    <color name="scroll_view_darkgrey">#eeeeef</color>
+    <color name="scroll_view_divider">#ffaba9aa</color>
+    <color name="circle_orange">#ffff7825</color>
         
 </resources>

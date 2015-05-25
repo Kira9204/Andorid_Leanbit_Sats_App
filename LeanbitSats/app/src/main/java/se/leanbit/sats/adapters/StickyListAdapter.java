@@ -1,15 +1,11 @@
 package se.leanbit.sats.adapters;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 
@@ -18,13 +14,14 @@ import se.leanbit.sats.R;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
+import se.leanbit.sats.BookedActivity;
+
 
 /**
  * Created by gina on 2015-04-22.
  */
-public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter
+public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter, View.OnClickListener
 {
-
     private static final int PAST_ACTIVITY = 0;
     private static final int CUSTOM_ACTIVITY = 1;
     private static final int SATS_ACTIVITY = 2;
@@ -61,7 +58,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     @Override
     public Object getItem(int position)
     {
-        return mActivityList.indexOf(position);
+        return mActivityList.get(position);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
 
         ViewHolderPast pastHolder;
@@ -88,25 +85,25 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 convertView = inflater.inflate(R.layout.past_activity, parent, false);
                 pastHolder.textName = (TextView) convertView.findViewById(R.id.past_activity_name);
                 pastHolder.textDate = (TextView) convertView.findViewById(R.id.past_activity_date);
-                pastHolder.textComment = (TextView) convertView.findViewById(R.id.past_activity_comment);
-                pastHolder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_completed);
-                pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.image_checkbox);
-                pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.image_man);
+                pastHolder.textComment = (TextView) convertView.findViewById(R.id.past_activity_comment_text);
+                pastHolder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_checkmark_text);
+                pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.past_activity_checkmark_image);
+                pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
-                Log.d("past", "getView fired ..............");
 
-            } else
+            }
+            else
             {
 
                 pastHolder = (ViewHolderPast) convertView.getTag();
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
-                Log.d("past", "getView fired ..............");
             }
             return convertView;
 
-        } else
+        }
+        else
         {
 
             if (getItemViewType(position) == CUSTOM_ACTIVITY)
@@ -116,21 +113,23 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     customHolder = new ViewHolderCustom();
                     convertView = inflater.inflate(R.layout.custom_activity, parent, false);
                     customHolder.textName = (TextView) convertView.findViewById(R.id.custom_activity_name);
-                    customHolder.textDuration = (TextView) convertView.findViewById(R.id.custom_activity_duration);
-                    customHolder.textComment = (TextView) convertView.findViewById(R.id.custom_activity_comment);
-                    customHolder.buttonDetails = (Button) convertView.findViewById(R.id.custom_activity_button);
-                    customHolder.textCalendar = (TextView) convertView.findViewById(R.id.custom_activity_calendar);
-                    customHolder.textTrainingProgram = (TextView) convertView.findViewById((R.id.custom_activity_training_program));
+                    customHolder.textDuration = (TextView) convertView.findViewById(R.id.custom_activity_duration_text);
+                    customHolder.textComment = (TextView) convertView.findViewById(R.id.custom_activity_comment_text);
+                    customHolder.buttonDetails = (Button) convertView.findViewById(R.id.custom_activity_button_details);
+                    customHolder.textCalendar = (TextView) convertView.findViewById(R.id.custom_activity_calendar_text);
+                    customHolder.textTrainingProgram = (TextView) convertView.findViewById((R.id.custom_activity_workout_text));
                     convertView.setTag(customHolder);
                     customHolder = setCustomHolderText(customHolder, position);
 
-                } else
+                }
+                else
                 {
                     customHolder = (ViewHolderCustom) convertView.getTag();
                     customHolder = setCustomHolderText(customHolder, position);
                 }
                 return convertView;
-            } else
+            }
+            else
             {
                 if (convertView == null)
                 {
@@ -139,18 +138,39 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder.textName = (TextView) convertView.findViewById(R.id.future_activity_name);
                     futureHolder.textInstructor = (TextView) convertView.findViewById(R.id.future_activity_instructor);
                     futureHolder.textRegion = (TextView) convertView.findViewById(R.id.future_activity_region);
-                    futureHolder.textDuration = (TextView) convertView.findViewById(R.id.future_activity_duration);
-                    futureHolder.textQue = (TextView) convertView.findViewById(R.id.future_activity_que);
-                    futureHolder.textCalendar = (TextView) convertView.findViewById(R.id.future_activity_Calendar);
-                    futureHolder.textPass = (TextView) convertView.findViewById(R.id.future_activity_pass);
-                    futureHolder.buttonCancel = (Button) convertView.findViewById(R.id.future_activity_cancel);
-                    futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour);
-                    futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minutes);
-                    futureHolder.imageQue = (ImageButton) convertView.findViewById(R.id.image_que);
+                    futureHolder.textDuration = (TextView) convertView.findViewById(R.id.future_activity_duration_text);
+                    futureHolder.textQue = (TextView) convertView.findViewById(R.id.future_activity_que_text);
+                    futureHolder.textCalendar = (TextView) convertView.findViewById(R.id.future_activity_calendar_text);
+                    futureHolder.textPass = (TextView) convertView.findViewById(R.id.future_activity_workout_text);
+                    futureHolder.buttonCancel = (Button) convertView.findViewById(R.id.future_activity_button_cancel);
+                    futureHolder.textHour = (TextView) convertView.findViewById(R.id.future_activity_hour_text);
+                    futureHolder.textMinutes = (TextView) convertView.findViewById(R.id.future_activity_minute_text);
+                    futureHolder.imageQue = (ImageView) convertView.findViewById(R.id.future_activity_que_image);
+                    futureHolder.workOut = (ImageView) convertView.findViewById(R.id.future_activity_workout_image);
+                    futureHolder.arrayIndex = (TextView) convertView.findViewById(R.id.future_activity_array_index);
+
+                    futureHolder.workOut.setOnClickListener(new View.OnClickListener()
+                    {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(view.getContext(), BookedActivity.class);
+
+                        TextView tv = (TextView) view.getRootView().findViewById(R.id.future_activity_array_index);
+                        int index = Integer.parseInt((String) tv.getText());
+
+                        SatsActivity activity = mActivityList.get(index);
+                        intent.putExtra("Activity", activity);
+                        view.getContext().startActivity(intent);
+                        }
+                    });
+
+
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
 
-                } else
+                }
+                else
                 {
                     futureHolder = (ViewHolderFuture) convertView.getTag();
                     futureHolder = setFutureViewHolder(futureHolder, position);
@@ -167,21 +187,24 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         futureHolder.textRegion.setText(satsActivitiesService.getRegion(mActivityList.get(position)));
         futureHolder.textDuration.setText("" + satsActivitiesService.duration(mActivityList.get(position)) + " min");
         int queCounter = satsActivitiesService.que(mActivityList.get(position));
-        if(queCounter == 0){
-        futureHolder.textQue.setText("");
-        futureHolder.imageQue.setImageResource(R.drawable.done_2_icon);
-        }else{
+
+        if(queCounter == 0)
+        {
+            futureHolder.textQue.setText("");
+            futureHolder.imageQue.setImageResource(R.drawable.done_2_icon);
+        }
+        else
+        {
             futureHolder.textQue.setText(""+ queCounter);
             futureHolder.imageQue.setImageResource(R.drawable.icon_queue);
         }
-
-
 
         futureHolder.textCalendar.setText("Lägg till i kalender");
         futureHolder.textPass.setText("Mer om passet");
         futureHolder.buttonCancel.setText("Avboka");
         futureHolder.textHour.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[0]);
         futureHolder.textMinutes.setText(satsTimeFormatService.getHoursMinutes(mActivityList.get(position))[1]);
+        futureHolder.arrayIndex.setText(""+position);
         return futureHolder;
     }
 
@@ -192,10 +215,12 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         customHolder.buttonDetails.setText("Detaljer");
         customHolder.textCalendar.setText("Lägg till i kalender");
         customHolder.textTrainingProgram.setText("Träningsprogram");
+
         if (satsActivitiesService.comments(mActivityList.get(position)))
         {
             customHolder.textComment.setText("1 kommentar");
-        } else
+        }
+        else
         {
             customHolder.textComment.setText("Lägg till kommentar");
         }
@@ -209,70 +234,88 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
 
         pastHolder.textName.setText(activityName);
         pastHolder.textDate.setText(satsTimeFormatService.getDayName(mActivityList.get(position)) + " " + satsTimeFormatService.getDate(mActivityList.get(position)));
-        switch (activityTypeGroup){
-            case "GROUP": pastHolder = setPictureOfGroup(activityName, pastHolder);
 
+        switch (activityTypeGroup)
+        {
+            case "GROUP":
+                pastHolder = setPictureOfGroup(activityName, pastHolder);
                 break;
-            case "GYM": pastHolder = setPictureOfGym(activityName, pastHolder);
-
+            case "GYM":
+                pastHolder = setPictureOfGym(activityName, pastHolder);
                 break;
-            case "OTHER": pastHolder = setPictureOfOther(activityName, pastHolder);
-
+            case "OTHER":
+                pastHolder = setPictureOfOther(activityName, pastHolder);
                 break;
-            default: pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
+            default:
+                pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         }
+
         if (satsActivitiesService.comments(mActivityList.get(position)))
         {
-
             pastHolder.textComment.setText("1 kommentar");
-
-        } else
+        }
+        else
         {
-
             pastHolder.textComment.setText("Lägg till kommentar");
         }
+
         if (satsActivitiesService.isCompleted(mActivityList.get(position)))
         {
             pastHolder.textCompleted.setText("Avklarat!");
             pastHolder.imageCheck.setImageResource(R.drawable.checkmark_icon);
-
-        } else
+        }
+        else
         {
             pastHolder.textCompleted.setText("Avklarat?");
             pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_normal);
         }
         return pastHolder;
     }
-    private ViewHolderPast setPictureOfOther(String activityName, ViewHolderPast pastHolder) {
-
-        if(activityName.equals("walking")){
+    private ViewHolderPast setPictureOfOther(String activityName, ViewHolderPast pastHolder)
+    {
+        if(activityName.equals("walking"))
+        {
             pastHolder.imageMan.setImageResource(R.drawable.running_icon);
-        }else if (activityName.equals("football")){
+        }
+        else if (activityName.equals("football"))
+        {
             pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
-        }else if(activityName.equals("cycle")){
+        }
+        else if(activityName.equals("cycle"))
+        {
             pastHolder.imageMan.setImageResource(R.drawable.cykling_icon);
-        }else{
+        }
+        else
+        {
             pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         }
         return pastHolder;
     }
 
-    private ViewHolderPast setPictureOfGym(String activityName, ViewHolderPast pastHolder) {
+    private ViewHolderPast setPictureOfGym(String activityName, ViewHolderPast pastHolder)
+    {
         pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         return pastHolder;
     }
 
-    private ViewHolderPast setPictureOfGroup(String activityName , ViewHolderPast pastHolder) {
-        if(activityName.equals("SatsCycling")|| activityName.equals("Easy Cycling")|| activityName.equals("Cycling Pulse" )){
+    private ViewHolderPast setPictureOfGroup(String activityName , ViewHolderPast pastHolder)
+    {
+        if(activityName.equals("SatsCycling")|| activityName.equals("Easy Cycling")|| activityName.equals("Cycling Pulse" ))
+        {
             pastHolder.imageMan.setImageResource(R.drawable.cykling_icon);
-        }else if(activityName.equals("shape") ){
+        }
+        else if(activityName.equals("shape") )
+        {
             pastHolder.imageMan.setImageResource(R.drawable.strength_trainging_icon);
-        }else if (activityName.equals("GROUP")){
+        }
+        else if (activityName.equals("GROUP"))
+        {
             pastHolder.imageMan.setImageResource(R.drawable.group_training_icon);
-        }else {
+        }
+        else
+        {
             pastHolder.imageMan.setImageResource(R.drawable.all_training_icons);
         }
-
         return pastHolder;
     }
 
@@ -288,42 +331,45 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.header_view, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.text_header);
-
-
-
             convertView.setTag(holder);
-        } else
+        }
+        else
         {
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
-        if(satsActivitiesService.isPast(mActivityList.get(position))){
+        if(satsActivitiesService.isPast(mActivityList.get(position)))
+        {
             headerText = "Vecka " + satsTimeFormatService.getWeekNum(mActivityList.get(position)) + " ( " + satsTimeFormatService.getWeekDates(mActivityList.get(position)) + " ) ";
-        }else {
-            if(satsTimeFormatService.isToday(mActivityList.get(position))){
+        }
+        else
+        {
+            if(satsTimeFormatService.isToday(mActivityList.get(position)))
+            {
                 headerText = "Idag, " + satsTimeFormatService.getDayName(mActivityList.get(position)) + "  " + satsTimeFormatService.getDate(mActivityList.get(position));
             }
-            else {
+            else
+            {
                 headerText = satsTimeFormatService.getDayName(mActivityList.get(position)) + "  " + satsTimeFormatService.getDate(mActivityList.get(position));
             }
         }
         holder.text.setText(headerText);
-
         return convertView;
     }
 
     public int getItemViewType(int position)
     {
-
-        if (satsActivitiesService.isPast(mActivityList.get(position)) == true)
+        if (satsActivitiesService.isPast(mActivityList.get(position)))
         {
             return PAST_ACTIVITY;
-        } else
+        }
+        else
         {
-            if ((satsActivitiesService.isCustom(mActivityList.get(position)) == true))
+            if ((satsActivitiesService.isCustom(mActivityList.get(position))))
             {
                 return CUSTOM_ACTIVITY;
-            } else
+            }
+            else
             {
                 return SATS_ACTIVITY;
             }
@@ -331,9 +377,20 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         }
     }
 
+
     public int getViewTypeCount()
     {
         return 3;
+    }
+
+
+    public void onClick(View v)
+    {
+        Intent intent = new Intent(v.getContext(), BookedActivity.class);
+        int i = v.getId();
+        SatsActivity activity = mActivityList.get(i);
+        intent.putExtra("Activity", activity);
+        v.getContext().startActivity(intent);
     }
 
     class ViewHolderFuture
@@ -343,12 +400,14 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView textRegion;
         TextView textDuration;
         TextView textQue;
-        ImageButton imageQue;
+        ImageView imageQue;
         TextView textCalendar;
         TextView textPass;
         Button buttonCancel;
         TextView textHour;
         TextView textMinutes;
+        TextView arrayIndex;
+        ImageView workOut;
     }
 
     class ViewHolderCustom
