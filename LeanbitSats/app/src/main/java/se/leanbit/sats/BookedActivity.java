@@ -147,6 +147,7 @@ public class BookedActivity extends YouTubeBaseActivity implements
 
         final YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.booked_class_youtubeplayerview);
         youTubePlayerView.setVisibility(youTubePlayerView.GONE);
+        youTubePlayerView.initialize(Config.DEVELOPER_KEY, this);
         final YouTubeThumbnailView youTubeThumbnailView = (YouTubeThumbnailView) findViewById(R.id.booked_class_youtubethumbnailview);
         youTubeThumbnailView.initialize(YOUTUBE_API_KEY, this);
 
@@ -164,10 +165,12 @@ public class BookedActivity extends YouTubeBaseActivity implements
                     youTubePlayerView.setVisibility(view.VISIBLE);
 
                     youTubePlayer.loadVideo(vidId);
+                } else
+                {
+                    int i = 0;
                 }
             }
         });
-        youTubePlayerView.initialize(Config.DEVELOPER_KEY, this);
     }
 
     private void setPortretItems()
@@ -239,7 +242,6 @@ public class BookedActivity extends YouTubeBaseActivity implements
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -282,13 +284,14 @@ public class BookedActivity extends YouTubeBaseActivity implements
     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                         YouTubePlayer player, boolean wasRestored)
     {
+        youTubePlayer = player;
         if (!wasRestored)
         {
 
             // loadVideo() will auto play video
             // Use cueVideo() method, if you don't want to play it automatically
 
-            youTubePlayer = player;
+          //  youTubePlayer = player;
             // Hiding player controls
             player.setPlayerStyle(PlayerStyle.MINIMAL);
             if (!wasRestored)
