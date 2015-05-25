@@ -1,5 +1,7 @@
 package se.leanbit.sats.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SatsCenter
 {
     public Boolean availableForOnlineBooking;
@@ -8,7 +10,8 @@ public class SatsCenter
     public String id;
     public Boolean isElixia;
     public double lat;
-    public double Long;
+    @SerializedName("long")
+    public double lon;
     public String name;
     public String regionId;
     public String url;

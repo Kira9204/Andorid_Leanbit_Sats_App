@@ -16,11 +16,13 @@ import java.util.concurrent.ExecutionException;
 import se.leanbit.sats.models.SatsActivities;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.models.SatsCenters;
+import se.leanbit.sats.models.SatsSimpleCenter;
 import se.leanbit.sats.repositories.interfaces.SatsActivityInterface;
 
 public class SatsActivitiesService implements SatsActivityInterface
 {
     private static HashMap<String, String> centerMap = new HashMap<>();
+    private static HashMap<String, SatsSimpleCenter> fullCenterMap = new HashMap<>();
     private String fromDate;
     private String toDate;
 
@@ -95,8 +97,7 @@ public class SatsActivitiesService implements SatsActivityInterface
             try
             {
                 jsonResponse = webService.execute(url + activity.booking.centerId).get();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -109,16 +110,17 @@ public class SatsActivitiesService implements SatsActivityInterface
                 if (null != satsCenters)
                 {
                     centerMap.put(activity.booking.centerId, satsCenters.center.name);
+                    SatsSimpleCenter satsSimpleCenter = new SatsSimpleCenter(satsCenters.center.name, satsCenters.center.url,
+                            satsCenters.center.lat, satsCenters.center.lon);
+                    fullCenterMap.put(activity.booking.centerId, satsSimpleCenter);
                     return satsCenters.center.name;
                 }
 
                 return "";
-            }
-            catch (InterruptedException e)
+            } catch (InterruptedException e)
             {
                 e.printStackTrace();
-            }
-            catch (ExecutionException e)
+            } catch (ExecutionException e)
             {
                 e.printStackTrace();
             }
@@ -172,8 +174,7 @@ public class SatsActivitiesService implements SatsActivityInterface
         try
         {
             activityDate = dateFormat.parse(activity.date);
-        }
-        catch (ParseException e)
+        } catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -192,8 +193,7 @@ public class SatsActivitiesService implements SatsActivityInterface
             if (traningMap.containsKey(currentWeek))
             {
                 traningMap.put(currentWeek, traningMap.get(currentWeek) + 1);
-            }
-            else
+            } else
             {
                 traningMap.put(currentWeek, 1);
             }
@@ -212,8 +212,7 @@ public class SatsActivitiesService implements SatsActivityInterface
 
             endDate = simpleDateFormat.parse(toDate);
             endCal.setTime(endDate);
-        }
-        catch (ParseException e)
+        } catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -229,8 +228,7 @@ public class SatsActivitiesService implements SatsActivityInterface
             {
                 completeTraningMap.put(i, traningMap.get(i));
 
-            }
-            else
+            } else
             {
                 completeTraningMap.put(i, 0);
             }
@@ -276,6 +274,7 @@ public class SatsActivitiesService implements SatsActivityInterface
             return satsCenters;
         }
     }
+
     public int getTotalTranings(LinkedHashMap<Integer, Integer> traningMap)
     {
         int totTranings = 0;
@@ -285,6 +284,11 @@ public class SatsActivitiesService implements SatsActivityInterface
         }
 
         return totTranings;
+    }
+
+    public HashMap<String, SatsSimpleCenter> getFullCenterMap()
+    {
+        return fullCenterMap;
     }
 
 }
