@@ -1,5 +1,6 @@
-package se.leanbit.sats;
+package se.leanbit.sats.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,18 +14,17 @@ import android.util.DisplayMetrics;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import se.leanbit.sats.MapViewActivity;
+import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
-import se.leanbit.sats.adapters.DrawerListAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
-import se.leanbit.sats.fragments.ListFragment;
-
-import android.util.Log;
 
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
@@ -41,39 +41,136 @@ public class MainActivity extends ActionBarActivity
     private RelativeLayout mDrawerPane;
     private ImageView mToolbarRefreshIcon;
     private boolean mDrawerIsOpen;
+    private ArrayList<Integer> listOfWeeks;
+    private LinkedHashMap<Integer, Integer> weekMap;
+    private SatsTimeFormatService satsTimeFormatService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.main_container);
         final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
         final SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01", "2015-06-30");
-        final SatsTimeFormatService satsTimeFormatService = new SatsTimeFormatService();
-
+        satsTimeFormatService = new SatsTimeFormatService();
         final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
-        for (int i = 0; i < activities.length; i++)
-        {
-            listOfActivities.add(activities[i]);
-        }
+        final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
+        final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
+        makeListOfActivities(listOfActivities,activities);
+        populateListOfWeeks(satsActivitiesService,activities);
+        final Fragment mListFragment = new ListFragment();
+        final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService,satsTimeFormatService, activities, listOfWeeks, weekMap);
+        final ImageView leftShadow = (ImageView) findViewById(R.id.shadow_left);
+        final ImageView rightShadow = (ImageView) findViewById(R.id.shadow_right);
+        final ImageView markerLeft = (ImageView) findViewById(R.id.marker_left);
+        final ImageView markerRight = (ImageView) findViewById(R.id.marker_right);
+        final ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
+        final ListView drawerList = (ListView) findViewById(R.id.navList);
 
-        final ArrayList<Integer> listOfWeeks = new ArrayList<>();
-        final LinkedHashMap<Integer, Integer> weekMap = satsActivitiesService.getTraningMap(activities);
+        drawShadows(leftShadow,rightShadow);
+        makeViewPager(mViewPager, adapter,mListFragment,markerLeft,markerRight);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        mToolbarRefreshIcon = (ImageView) findViewById(R.id.action_bar_logo_refresh);
+        //      Set ToolBar as  ActionBar
+        setToolBar(toolbarSettingsIcon,toolbarSatsIcon);
+        toolbar.inflateMenu(R.menu.menu_main);
+        setDrawer(drawerList);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
+                .commit();
+    }
+
+    private void populateListOfWeeks(SatsActivitiesService satsActivitiesService, SatsActivity[] activities)
+    {
+        listOfWeeks = new ArrayList<>();
+        weekMap = satsActivitiesService.getTraningMap(activities);
         for (Integer item : weekMap.keySet())
         {
             listOfWeeks.add(item);
         }
+    }
 
-        setContentView(R.layout.main_container);
+    private void makeListOfActivities(ArrayList<SatsActivity> listOfActivities, SatsActivity[] activities)
+    {
+        for (int i = 0; i < activities.length; i++)
+        {
+            listOfActivities.add(activities[i]);
+        }
+    }
 
-        final Fragment mListFragment = new ListFragment();
-        final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService, satsTimeFormatService, activities, listOfWeeks, weekMap);
-        final ImageView leftShadow = (ImageView) findViewById(R.id.shadow_left);
-        final ImageView rightShadow = (ImageView) findViewById(R.id.shadow_right);
+    private void setToolBar(ImageView toolbarSettingsIcon, ImageView toolbarSatsIcon)
+    {
+        setSupportActionBar(toolbar);
+        mToolbarRefreshIcon.setOnClickListener(actionBarRefreshListener);
+        toolbarSettingsIcon.setOnClickListener(actionBarSettingsListener);
+        toolbarSatsIcon.setOnClickListener(actionBarSettingsListener);
+    }
 
-        final ImageView markerLeft = (ImageView) findViewById(R.id.marker_left);
-        final ImageView markerRight = (ImageView) findViewById(R.id.marker_right);
+    private void setDrawer(ListView drawerList)
+    {
+        mDrawerLayout.setScrimColor(Color.argb(100, 51, 51, 51));
+        //mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
+        String[] listForDrawer = makeMapList();
+        final ArrayAdapter<String> drawerListAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, listForDrawer);
+        drawerList.setAdapter(drawerListAdapter);
+        mDrawerIsOpen = false;
 
+
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3)
+            {
+                String value = (String)drawerListAdapter.getItem(position);
+
+                Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
+               // myIntent.putExtra("title_map_view", value); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+    }
+
+    private void makeViewPager(ViewPager mViewPager, CustomFragmentPagerAdapter adapter,
+                               final Fragment mListFragment,
+                               final ImageView markerLeft,
+                               final ImageView markerRight
+                               )
+    {
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+                PagerScrollListener listener = (PagerScrollListener) mListFragment;
+                position += 2;
+                int currentWeekPosition = listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum());
+                setMarkerPosition(position, positionOffset, currentWeekPosition, markerLeft, markerRight);
+                int cursorPosition = syncPosition(position);
+                listener.onPagePositionChanged(cursorPosition);
+                //Log.d("onPageScrolled", " " + position + " position" + cursorPosition + " cursorPosition " + positionOffset + " position offset " + " positionOffsetPixels" + positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+            }
+        });
+    }
+
+    private void drawShadows(ImageView leftShadow,ImageView rightShadow)
+    {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         float screenWidth = displaymetrics.widthPixels;
@@ -87,125 +184,63 @@ public class MainActivity extends ActionBarActivity
         lpLeft.setMargins((int) (screenWidth / 5 * 3), (int) getResources().getDimension(R.dimen.height_of_top_rectangle), 0, (int) getResources().getDimension(R.dimen.height_of_bottom_rectangle));
         leftShadow.setLayoutParams(lpLeft);
         rightShadow.setLayoutParams(lpRight);
+    }
 
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
-        mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+    private int syncPosition(int position)
+    {
+        int cursorPosition = 0;
+        int maxcursorPosition = 0;
+        for (Integer key : weekMap.keySet())
         {
+            maxcursorPosition += weekMap.get(key);
+        }
+        for (int i = 0; i < position; i++)
+        {
+            int weekNum = listOfWeeks.get(i);
+            int passThisWeek = weekMap.get(weekNum);
+            cursorPosition = cursorPosition + passThisWeek;
+        }
+        if (cursorPosition > maxcursorPosition - 1)
+        {
+            cursorPosition = maxcursorPosition - 1;
+        }
 
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+
+        return cursorPosition;
+    }
+
+
+    private void setMarkerPosition(int position, float positionOffset, int currentWeekPosition, ImageView markerLeft, ImageView markerRight)
+    {
+        if (position < currentWeekPosition + 3)
+        {
+            if (positionOffset < 0.4)
             {
-
-
-
-                PagerScrollListener listener = (PagerScrollListener) mListFragment;
-                position += 2;
-                int antalPass = 0;
-                int maxAntalPass = 0;
-
-                int currentWeekPosition = listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum());
-
-                if (position < currentWeekPosition + 3)
-                {
-                    if (positionOffset < 0.4)
-                    {
-                        markerLeft.setImageDrawable(null);
-                    }
-                }
-                if (position > currentWeekPosition + 1)
-                {
-                    if (positionOffset > 0.3)
-                    {
-                        markerLeft.setImageResource(R.drawable.back_to_now_left);
-                    }
-                }
-
-                if (position > currentWeekPosition - 4)
-                {
-                    if (positionOffset > 0.7)
-                    {
-                        markerRight.setImageDrawable(null);
-                    }
-                }
-                if (position < currentWeekPosition - 2)
-                {
-                    if (positionOffset < 0.7)
-                    {
-                        markerRight.setImageResource(R.drawable.forward_to_now);
-                    }
-                }
-
-
-                for (Integer key : weekMap.keySet())
-                {
-                    maxAntalPass += weekMap.get(key);
-                }
-                for (int i = 0; i < position; i++)
-                {
-                    int weekNum = listOfWeeks.get(i);
-                    int passThisWeek = weekMap.get(weekNum);
-                    antalPass = antalPass + passThisWeek;
-                }
-                if (antalPass > maxAntalPass - 1)
-                {
-                    antalPass = maxAntalPass - 1;
-                }
-                listener.onPagePositionChanged(antalPass);
-
-                //Log.d("onPageScrolled", " " + position + " position" + antalPass + " antalPass " + positionOffset + " position offset " + " positionOffsetPixels" + positionOffsetPixels);
+                markerLeft.setImageDrawable(null);
             }
-
-            @Override
-            public void onPageSelected(int position)
+        }
+        if (position > currentWeekPosition + 1)
+        {
+            if (positionOffset > 0.3)
             {
-                // Log.d("onPageSelected"," " +position +" position.............................");
+                markerLeft.setImageResource(R.drawable.back_to_now_left);
             }
+        }
 
-            @Override
-            public void onPageScrollStateChanged(int state)
+        if (position > currentWeekPosition - 4)
+        {
+            if (positionOffset > 0.7)
             {
-                // Log.d("onPageScrollStateCh"," " +state +" state............");
+                markerRight.setImageDrawable(null);
             }
-        });
-
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
-                .commit();
-
-
-//      Set ToolBar as  ActionBar
-        toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-
-        final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
-        final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
-        mToolbarRefreshIcon = (ImageView) findViewById(R.id.action_bar_logo_refresh);
-
-        // DrawerLayout
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerLayout.setScrimColor(Color.argb(100, 51, 51, 51));
-        //mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-
-        // Populate the Navigtion Drawer with options
-        String[] listForDrawer = makeMapList();
-        mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
-        ListView drawerList = (ListView) findViewById(R.id.navList);
-
-        ArrayAdapter<String> drawerListAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, listForDrawer);
-        drawerList.setAdapter(drawerListAdapter);
-        mDrawerIsOpen = false;
-
-
-        mToolbarRefreshIcon.setOnClickListener(actionBarRefreshListener);
-        toolbarSettingsIcon.setOnClickListener(actionBarSettingsListener);
-        toolbarSatsIcon.setOnClickListener(actionBarSettingsListener);
-
-        // Inflate a menu to be displayed in the toolbar
-        toolbar.inflateMenu(R.menu.menu_main);
+        }
+        if (position < currentWeekPosition - 2)
+        {
+            if (positionOffset < 0.7)
+            {
+                markerRight.setImageResource(R.drawable.forward_to_now);
+            }
+        }
     }
 
     private String[] makeMapList()
