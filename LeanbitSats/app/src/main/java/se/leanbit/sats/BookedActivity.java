@@ -101,6 +101,7 @@ public class BookedActivity extends YouTubeBaseActivity implements
     private TextView centerName;
     private TextView description;
     private TextView instructorName;
+    private TextView participationAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -145,10 +146,9 @@ public class BookedActivity extends YouTubeBaseActivity implements
 
         final ImageView play = (ImageView) findViewById(R.id.booked_class_play_button);
 
-        final YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.booked_class_youtubeplayerview);
+        final YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.booked_class_video_player);
         youTubePlayerView.setVisibility(youTubePlayerView.GONE);
-        youTubePlayerView.initialize(Config.DEVELOPER_KEY, this);
-        final YouTubeThumbnailView youTubeThumbnailView = (YouTubeThumbnailView) findViewById(R.id.booked_class_youtubethumbnailview);
+        final YouTubeThumbnailView youTubeThumbnailView = (YouTubeThumbnailView) findViewById(R.id.booked_class_video_thumbnail);
         youTubeThumbnailView.initialize(YOUTUBE_API_KEY, this);
 
         play.setOnClickListener(new View.OnClickListener()
@@ -165,23 +165,22 @@ public class BookedActivity extends YouTubeBaseActivity implements
                     youTubePlayerView.setVisibility(view.VISIBLE);
 
                     youTubePlayer.loadVideo(vidId);
-                } else
-                {
-                    int i = 0;
                 }
             }
         });
+        youTubePlayerView.initialize(Config.DEVELOPER_KEY, this);
     }
 
     private void setPortretItems()
     {
-        que = (TextView) findViewById(R.id.queue);
-        className = (TextView) findViewById(R.id.Class);
-        duration = (TextView) findViewById(R.id.duration);
-        dateText = (TextView) findViewById(R.id.booked_class_day);
-        centerName = (TextView) findViewById(R.id.booked_class_instructor);
+        que = (TextView) findViewById(R.id.booked_class_que_text);
+        className = (TextView) findViewById(R.id.booked_class_class_name);
+        duration = (TextView) findViewById(R.id.booked_class_class_duration);
+        dateText = (TextView) findViewById(R.id.booked_class_date_name);
+        centerName = (TextView) findViewById(R.id.booked_class_center_name);
         description = (TextView) findViewById(R.id.booked_class_description);
         instructorName = (TextView) findViewById(R.id.booked_class_instructor_name);
+        participationAmount = (TextView) findViewById(R.id.booked_class_review_num);
     }
 
     private void setPortretItemvalues(SatsActivity activity)
@@ -194,15 +193,17 @@ public class BookedActivity extends YouTubeBaseActivity implements
         dateText.setText(activity.date);
         centerName.setText(new SatsActivitiesService().getRegion(activity));
         instructorName.setText(activity.booking.clazz.instructorId);
+        participationAmount.setText(""+activity.booking.clazz.bookedPersonsCount+"st utav max "
+            +activity.booking.clazz.maxPersonsCount+" har anmält sig");
     }
 
     private void setProgressBars()
     {
-        cardioBar = (ProgressBar) findViewById(R.id.booked_class_fitness_progressbar);
-        strenghtBar = (ProgressBar) findViewById(R.id.booked_class_strength_progressbar);
-        flexibilityBar = (ProgressBar) findViewById(R.id.booked_class_flexibility_progressbar);
-        balanceBar = (ProgressBar) findViewById(R.id.booked_class_balance_progressbar);
-        resilienceBar = (ProgressBar) findViewById(R.id.booked_class_resilience_progressbar);
+        cardioBar = (ProgressBar) findViewById(R.id.booked_class_fitness_progress);
+        strenghtBar = (ProgressBar) findViewById(R.id.booked_class_strength_progress);
+        flexibilityBar = (ProgressBar) findViewById(R.id.booked_class_agility_progress);
+        balanceBar = (ProgressBar) findViewById(R.id.booked_class_balance_progress);
+        resilienceBar = (ProgressBar) findViewById(R.id.booked_class_resilience_progress);
         for (int i = 0; i < this.fct.classTypes[classIndex].profile.length; i++)
         {
             switch (this.fct.classTypes[classIndex].profile[i].id)
@@ -240,6 +241,7 @@ public class BookedActivity extends YouTubeBaseActivity implements
             }
         }
     }
+
 
 
     @Override
@@ -285,14 +287,9 @@ public class BookedActivity extends YouTubeBaseActivity implements
                                         YouTubePlayer player, boolean wasRestored)
     {
         youTubePlayer = player;
+
         if (!wasRestored)
         {
-
-            // loadVideo() will auto play video
-            // Use cueVideo() method, if you don't want to play it automatically
-
-          //  youTubePlayer = player;
-            // Hiding player controls
             player.setPlayerStyle(PlayerStyle.MINIMAL);
             if (!wasRestored)
             {

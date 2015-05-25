@@ -1,4 +1,4 @@
-package se.leanbit.sats.fragments;
+package se.leanbit.sats;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,6 +26,7 @@ import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
 
+import se.leanbit.sats.fragments.ListFragment;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
