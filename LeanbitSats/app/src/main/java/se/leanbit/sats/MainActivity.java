@@ -21,17 +21,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import se.leanbit.sats.MapViewActivity;
+//import se.leanbit.sats.MapViewActivity;
 import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
 
 import se.leanbit.sats.fragments.ListFragment;
 import se.leanbit.sats.models.SatsActivity;
+import se.leanbit.sats.models.SatsSimpleCenter;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -57,8 +59,12 @@ public class MainActivity extends ActionBarActivity
         final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
         final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
         final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
-        makeListOfActivities(listOfActivities,activities);
+        satsActivitiesService.setFullCenterMap();
+        makeListOfActivities(listOfActivities, activities);
         populateListOfWeeks(satsActivitiesService,activities);
+
+        HashMap<String, SatsSimpleCenter> simpleCenterMap = new HashMap<>();
+        simpleCenterMap = satsActivitiesService.getFullCenterMap();
         final Fragment mListFragment = new ListFragment();
         final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService,satsTimeFormatService, activities, listOfWeeks, weekMap);
         final ImageView leftShadow = (ImageView) findViewById(R.id.shadow_left);
@@ -129,9 +135,9 @@ public class MainActivity extends ActionBarActivity
             {
                 String value = (String)drawerListAdapter.getItem(position);
 
-                Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
+               // Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
                // myIntent.putExtra("title_map_view", value); //Optional parameters
-                MainActivity.this.startActivity(myIntent);
+              //  MainActivity.this.startActivity(myIntent);
             }
         });
     }

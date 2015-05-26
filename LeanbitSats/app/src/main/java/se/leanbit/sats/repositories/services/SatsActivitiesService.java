@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 import se.leanbit.sats.models.SatsActivities;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.models.SatsCenters;
+import se.leanbit.sats.models.SatsFullCenterModel;
+import se.leanbit.sats.models.SatsFullCenterRegion;
 import se.leanbit.sats.models.SatsSimpleCenter;
 import se.leanbit.sats.repositories.interfaces.SatsActivityInterface;
 
@@ -285,6 +287,42 @@ public class SatsActivitiesService implements SatsActivityInterface
 
         return totTranings;
     }
+
+    public void setFullCenterMap()
+    {
+
+        WebService webService = new WebService();
+        final String url = "https://api2.sats.com/v1.0/se/centers";
+
+        String jsonResponse = "";
+        try
+        {
+            jsonResponse = webService.execute(url).get();
+        } catch (Exception e)
+
+        {
+            e.printStackTrace();
+        }
+
+
+        Gson gson = new GsonBuilder().create();
+        SatsFullCenterModel satsCenters = gson.fromJson(jsonResponse, SatsFullCenterModel.class);
+
+        for (int i = 0; i < satsCenters.regions.length; i++)
+        {
+
+            for (int j = 0; j < satsCenters.regions[i].centers.length; j++)
+            {
+                String centerName = satsCenters.regions[i].centers[j].name;
+                String centerUrl = satsCenters.regions[i].centers[j].url;
+                double centerLat = satsCenters.regions[i].centers[j].lat;
+                double centerLong = satsCenters.regions[i].centers[j].lon;
+                SatsSimpleCenter satsSimpleCenter = new SatsSimpleCenter(centerName, centerUrl, centerLat, centerLong);
+                fullCenterMap.put(centerName, satsSimpleCenter);
+            }
+        }
+    }
+
 
     public HashMap<String, SatsSimpleCenter> getFullCenterMap()
     {
