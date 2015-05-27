@@ -117,11 +117,18 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, true);
         mLastLocation = locationManager.getLastKnownLocation(bestProvider);
-        if (mLastLocation != null) {
+        if (mLastLocation != null)
+        {
             onLocationChanged(mLastLocation);
         }
+        else
+        {
+            mLastLocation = new Location(bestProvider);
+            mLastLocation.setLatitude(59.293573D);
+            mLastLocation.setLongitude(18.083550D);
+        }
         locationManager.requestLocationUpdates(bestProvider, 60000, 0, (android.location.LocationListener) this);
-        Log.d("     ", "setupLocation fired ..............");
+        Log.d("location "+ mLastLocation, "setupLocation fired ..............");
     }
     private boolean isGooglePlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);

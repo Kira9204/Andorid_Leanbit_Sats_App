@@ -15,14 +15,11 @@ import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-//import se.leanbit.sats.MapViewActivity;
-import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
 import se.leanbit.sats.adapters.DrawerListAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
@@ -135,9 +132,9 @@ public class MainActivity extends ActionBarActivity
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
-               // Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
-               // myIntent.putExtra("title_map_view", value); //Optional parameters
-              //  MainActivity.this.startActivity(myIntent);
+               Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
+                //myIntent.putExtra("title_map_view", value); //Optional parameters
+               MainActivity.this.startActivity(myIntent);
             }
         });
     }
