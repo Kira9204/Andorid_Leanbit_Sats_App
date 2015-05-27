@@ -24,9 +24,11 @@ import android.widget.RelativeLayout;
 //import se.leanbit.sats.MapViewActivity;
 import se.leanbit.sats.R;
 import se.leanbit.sats.adapters.CustomFragmentPagerAdapter;
+import se.leanbit.sats.adapters.DrawerListAdapter;
 import se.leanbit.sats.adapters.interfaces.PagerScrollListener;
 
 import se.leanbit.sats.fragments.ListFragment;
+import se.leanbit.sats.models.DrawerItem;
 import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.models.SatsSimpleCenter;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
@@ -120,12 +122,12 @@ public class MainActivity extends ActionBarActivity
         mDrawerLayout.setScrimColor(Color.argb(100, 51, 51, 51));
         //mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
-        String[] listForDrawer = makeMapList();
-        final ArrayAdapter<String> drawerListAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, listForDrawer);
-        drawerList.setAdapter(drawerListAdapter);
-        mDrawerIsOpen = false;
 
+        ArrayList<DrawerItem> items = new ArrayList<>();
+        items.add(new DrawerItem(getResources().getDrawable(R.drawable.maps_icon),"Karta","Hitta ditt närmaste\nSATS center!"));
+
+        drawerList.setAdapter(new DrawerListAdapter(this, items));
+        mDrawerIsOpen = false;
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -133,8 +135,6 @@ public class MainActivity extends ActionBarActivity
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
-                String value = (String)drawerListAdapter.getItem(position);
-
                // Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
                // myIntent.putExtra("title_map_view", value); //Optional parameters
               //  MainActivity.this.startActivity(myIntent);
@@ -146,7 +146,7 @@ public class MainActivity extends ActionBarActivity
                                final Fragment mListFragment,
                                final ImageView markerLeft,
                                final ImageView markerRight
-                               )
+    )
     {
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
@@ -248,14 +248,6 @@ public class MainActivity extends ActionBarActivity
                 markerRight.setImageResource(R.drawable.forward_to_now);
             }
         }
-    }
-
-    private String[] makeMapList()
-    {
-        String[] values = new String[]{"Karta"
-
-        };
-        return values;
     }
 
     private View.OnClickListener actionBarRefreshListener = new View.OnClickListener()

@@ -29,8 +29,8 @@ import se.leanbit.sats.R;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 
 /**
-* Created by gina on 2015-05-22.
-*/
+ * Created by gina on 2015-05-22.
+ */
 public class MapViewActivity extends ActionBarActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnCameraChangeListener
 {
     private GoogleMap mMap = null;

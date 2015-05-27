@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:id="@+id/drawer_item_image"
+        android:src="@drawable/maps_icon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/drawer_item_title"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="TITLE"
+        android:layout_toRightOf="@+id/drawer_item_image"
+        android:layout_alignTop="@+id/drawer_item_image"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/drawer_item_description"
+        android:textSize="16dp"
+        android:textColor="@color/secondary_color"
+        android:text="DESCRIPTION"
+        android:layout_below="@+id/drawer_item_title"
+        android:layout_alignLeft="@+id/drawer_item_title"/>
+
 </RelativeLayout>
