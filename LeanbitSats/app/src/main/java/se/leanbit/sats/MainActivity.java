@@ -136,8 +136,9 @@ public class MainActivity extends ActionBarActivity
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
+               mDrawerLayout.closeDrawer(mDrawerPane);
+
                Intent myIntent = new Intent(MainActivity.this, MapViewActivity.class);
-                //myIntent.putExtra("title_map_view", value); //Optional parameters
                MainActivity.this.startActivity(myIntent);
             }
         });

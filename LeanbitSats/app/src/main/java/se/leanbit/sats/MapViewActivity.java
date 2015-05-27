@@ -78,8 +78,10 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                view.getContext().startActivity(intent);
+                //Intent intent = new Intent(view.getContext(), MainActivity.class);
+                //view.getContext().startActivity(intent);
+                finish();
+                //getActivity().onBackPressed();
             }
         });
     }
