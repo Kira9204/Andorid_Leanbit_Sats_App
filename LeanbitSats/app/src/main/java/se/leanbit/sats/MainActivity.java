@@ -73,6 +73,10 @@ public class MainActivity extends ActionBarActivity
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
         final ListView drawerList = (ListView) findViewById(R.id.navList);
 
+        markerLeft.setOnClickListener(markersActionListener);
+        markerRight.setOnClickListener(markersActionListener);
+
+
         drawShadows(leftShadow,rightShadow);
         makeViewPager(mViewPager, adapter,mListFragment,markerLeft,markerRight);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -271,6 +275,17 @@ public class MainActivity extends ActionBarActivity
             }
         }
     };
+
+    private View.OnClickListener markersActionListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            final ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
+            mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
+        }
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

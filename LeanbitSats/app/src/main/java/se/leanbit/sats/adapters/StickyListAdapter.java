@@ -2,6 +2,7 @@ package se.leanbit.sats.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
-
             }
             else
             {
@@ -262,12 +262,13 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         if (satsActivitiesService.isCompleted(mActivityList.get(position)))
         {
             pastHolder.textCompleted.setText("Avklarat!");
-            pastHolder.imageCheck.setImageResource(R.drawable.checkmark_icon);
+            pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_pressed_2);
         }
         else
         {
             pastHolder.textCompleted.setText("Avklarat?");
             pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_normal);
+
         }
         return pastHolder;
     }

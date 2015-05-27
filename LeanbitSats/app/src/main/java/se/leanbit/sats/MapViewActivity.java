@@ -118,8 +118,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, true);
         mLastLocation = locationManager.getLastKnownLocation(bestProvider);
-        if (mLastLocation != null)
-        {
+        if (mLastLocation != null) {
             onLocationChanged(mLastLocation);
         }else
         {
@@ -128,18 +127,8 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
             mLastLocation.setLongitude(18.083550D);
             mCameraPosition = new LatLng(59.293573D,18.083550D);
         }
-        else
-        {
-            mLastLocation = new Location(bestProvider);
-            mLastLocation.setLatitude(59.293573D);
-            mLastLocation.setLongitude(18.083550D);
-        }
         locationManager.requestLocationUpdates(bestProvider, 60000, 0, (android.location.LocationListener) this);
-<<<<<<< HEAD
         Log.d(mLastLocation + " location", "setupLocation fired ..............");
-=======
-        Log.d("location "+ mLastLocation, "setupLocation fired ..............");
->>>>>>> 6ce99d5b9ceabcddc6894d9942813ba13333e486
     }
     private boolean isGooglePlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
