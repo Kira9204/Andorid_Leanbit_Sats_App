@@ -110,7 +110,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
         }
         addMarkers();
         setInfoClickListener();
-        Log.d("     ", "onMapReady fired ..............");
+        //Log.d("     ", "onMapReady fired ..............");
     }
     private void setupLocation() {
         if (!isGooglePlayServicesAvailable()) {
@@ -130,7 +130,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
             mCameraPosition = new LatLng(59.293573D,18.083550D);
         }
         locationManager.requestLocationUpdates(bestProvider, 60000, 0, (android.location.LocationListener) this);
-        Log.d(mLastLocation + " location", "setupLocation fired ..............");
+        //Log.d(mLastLocation + " location", "setupLocation fired ..............");
     }
     private boolean isGooglePlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
@@ -147,13 +147,13 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         mCameraPosition = new LatLng(latitude, longitude);
-        Log.d(mCameraPosition.latitude +" lat " + mCameraPosition.longitude, "onLocationChanged fired ..............");
+        //Log.d(mCameraPosition.latitude +" lat " + mCameraPosition.longitude, "onLocationChanged fired ..............");
 
     }
     @Override
     public void onMapClick(LatLng latLng) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-        Log.d("onMapClick", "onMapClick fired ..............");
+        //Log.d("onMapClick", "onMapClick fired ..............");
     }
 
     private void addMarkers() {
@@ -168,7 +168,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
 
         }
 
-        Log.d("onAddMarkers", " allMarkerssize" + mAllSatsCenters.size() + " lat" + mMarkers.size() + " long " + mCameraPosition.longitude);
+        //Log.d("onAddMarkers", " allMarkerssize" + mAllSatsCenters.size() + " lat" + mMarkers.size() + " long " + mCameraPosition.longitude);
 
     }
 
@@ -196,7 +196,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
                 Intent intent = new Intent(MapViewActivity.this, SatsWebActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-                Log.d("setInfoClickListener " + url + " " + centerName, " onInfoClick fired ..............");
+                //Log.d("setInfoClickListener " + url + " " + centerName, " onInfoClick fired ..............");
             }
         });
     }

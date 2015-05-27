@@ -26,7 +26,8 @@
                 android:layout_weight="0.03"
 
                 android:clickable="true"
-                android:cropToPadding="true" />
+                android:cropToPadding="true"
+                android:layout_marginLeft="-10dp"/>
 
         <ImageView
             android:id="@+id/action_bar_logo_sats"
@@ -37,7 +38,7 @@
             android:src="@drawable/sats_logo"
             android:layout_margin="0dp"
             android:layout_weight="0.1"
-            android:clickable="false" />
+            android:clickable="true" />
 
         <TextView
             android:id="@+id/action_bar_text_training"

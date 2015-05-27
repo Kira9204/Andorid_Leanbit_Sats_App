@@ -44,8 +44,9 @@ public class SatsWebActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(view.getContext(), MapViewActivity.class);
-                view.getContext().startActivity(intent);
+                //Intent intent = new Intent(view.getContext(), MapViewActivity.class);
+                //view.getContext().startActivity(intent);
+                finish();
             }
         });
     }

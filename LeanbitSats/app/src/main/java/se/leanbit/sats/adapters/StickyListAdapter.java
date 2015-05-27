@@ -3,6 +3,7 @@ package se.leanbit.sats.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.*;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Text;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.leanbit.sats.R;
 import se.leanbit.sats.models.SatsActivity;
@@ -21,7 +23,7 @@ import se.leanbit.sats.BookedActivity;
 /**
  * Created by gina on 2015-04-22.
  */
-public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter, View.OnClickListener
+public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
     private static final int PAST_ACTIVITY = 0;
     private static final int CUSTOM_ACTIVITY = 1;
@@ -90,6 +92,28 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 pastHolder.textCompleted = (TextView) convertView.findViewById(R.id.past_activity_checkmark_text);
                 pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.past_activity_checkmark_image);
                 pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
+
+                convertView.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        ImageView image = (ImageView) view.findViewById(R.id.past_activity_checkmark_image);
+                        TextView text = (TextView) view.findViewById(R.id.past_activity_checkmark_text);
+                        if ((int) image.getTag() == 0)
+                        {
+                            image.setImageResource(R.drawable.done_icon);
+                            image.setTag(1);
+                            text.setText("Avklarat!");
+                        } else
+                        {
+                            image.setImageResource(R.drawable.checkmark_button_normal);
+                            image.setTag(0);
+                            text.setText("Avklarat?");
+                        }
+                    }
+                });
+
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
             }
@@ -262,12 +286,14 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         if (satsActivitiesService.isCompleted(mActivityList.get(position)))
         {
             pastHolder.textCompleted.setText("Avklarat!");
-            pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_pressed_2);
+            pastHolder.imageCheck.setImageResource(R.drawable.done_icon);
+            pastHolder.imageCheck.setTag(1);
         }
         else
         {
             pastHolder.textCompleted.setText("Avklarat?");
             pastHolder.imageCheck.setImageResource(R.drawable.checkmark_button_normal);
+            pastHolder.imageCheck.setTag(0);
 
         }
         return pastHolder;
@@ -384,15 +410,6 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         return 3;
     }
 
-
-    public void onClick(View v)
-    {
-        Intent intent = new Intent(v.getContext(), BookedActivity.class);
-        int i = v.getId();
-        SatsActivity activity = mActivityList.get(i);
-        intent.putExtra("Activity", activity);
-        v.getContext().startActivity(intent);
-    }
 
     class ViewHolderFuture
     {

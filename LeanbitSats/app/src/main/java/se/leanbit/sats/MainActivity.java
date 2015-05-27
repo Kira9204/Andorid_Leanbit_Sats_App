@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -77,7 +78,7 @@ public class MainActivity extends ActionBarActivity
         markerRight.setOnClickListener(markersActionListener);
 
 
-        drawShadows(leftShadow,rightShadow);
+        drawShadows(leftShadow, rightShadow);
         makeViewPager(mViewPager, adapter,mListFragment,markerLeft,markerRight);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -213,8 +214,6 @@ public class MainActivity extends ActionBarActivity
         {
             cursorPosition = maxcursorPosition - 1;
         }
-
-
         return cursorPosition;
     }
 
@@ -267,13 +266,8 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onClick(View v)
         {
-            if (!mDrawerIsOpen)
-            {
-                mDrawerLayout.openDrawer(mDrawerPane);
-            } else
-            {
-                mDrawerLayout.closeDrawer(mDrawerPane);
-            }
+            mDrawerLayout.openDrawer(mDrawerPane);
+            mDrawerIsOpen = true;
         }
     };
 
@@ -286,7 +280,6 @@ public class MainActivity extends ActionBarActivity
             mViewPager.setCurrentItem(listOfWeeks.indexOf(satsTimeFormatService.getCurrentWeekNum()) - 2);
         }
     };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -311,5 +304,26 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent keyEvent)
+    {
+        if(keyEvent.getAction() == KeyEvent.ACTION_DOWN
+            && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MENU)
+        {
+            if (!mDrawerIsOpen)
+            {
+                mDrawerLayout.openDrawer(mDrawerPane);
+                mDrawerIsOpen = true;
+            }
+            else
+            {
+                mDrawerLayout.closeDrawer(mDrawerPane);
+                mDrawerIsOpen = false;
+            }
+            return true;
+        }
+        return false;
     }
 }
