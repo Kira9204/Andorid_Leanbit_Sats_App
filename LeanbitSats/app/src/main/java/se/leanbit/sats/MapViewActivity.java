@@ -96,6 +96,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap map)
     {
+
         mMap = map;
         LatLng mLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         mMap.setMyLocationEnabled(true);
@@ -119,9 +120,15 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
         mLastLocation = locationManager.getLastKnownLocation(bestProvider);
         if (mLastLocation != null) {
             onLocationChanged(mLastLocation);
+        }else
+        {
+            mLastLocation = new Location(bestProvider);
+            mLastLocation.setLatitude(59.293573D);
+            mLastLocation.setLongitude(18.083550D);
+            mCameraPosition = new LatLng(59.293573D,18.083550D);
         }
         locationManager.requestLocationUpdates(bestProvider, 60000, 0, (android.location.LocationListener) this);
-        Log.d("     ", "setupLocation fired ..............");
+        Log.d(mLastLocation + " location", "setupLocation fired ..............");
     }
     private boolean isGooglePlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
@@ -159,10 +166,12 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
 
         }
 
-        Log.d("onAddMarkers", " allMarkerssize" + mAllSatsCenters.size() + " lat"+ mMarkers.size()+ " long "+mCameraPosition.longitude);
+        Log.d("onAddMarkers", " allMarkerssize" + mAllSatsCenters.size() + " lat" + mMarkers.size() + " long " + mCameraPosition.longitude);
 
     }
-    private void setInfoClickListener() {
+
+    private void setInfoClickListener()
+    {
         setCustomWindow();
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
         {
@@ -207,7 +216,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
             {
                 View popup=inflater.inflate(R.layout.custom_info_window, null);
 
-                TextView tv=(TextView)popup.findViewById(R.id.text_sats_center);
+                TextView tv=(TextView) popup.findViewById(R.id.text_sats_center);
                 tv.setText(marker.getTitle());
                 return(popup);
             }
