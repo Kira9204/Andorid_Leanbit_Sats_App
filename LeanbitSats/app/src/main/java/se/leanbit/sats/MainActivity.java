@@ -267,7 +267,6 @@ public class MainActivity extends ActionBarActivity
         public void onClick(View v)
         {
             mDrawerLayout.openDrawer(mDrawerPane);
-            mDrawerIsOpen = true;
         }
     };
 
