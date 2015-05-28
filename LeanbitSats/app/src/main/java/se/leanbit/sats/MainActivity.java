@@ -42,8 +42,6 @@ public class MainActivity extends ActionBarActivity
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mDrawerPane;
-    private ImageView mToolbarRefreshIcon;
-    private boolean mDrawerIsOpen;
     private ArrayList<Integer> listOfWeeks;
     private LinkedHashMap<Integer, Integer> weekMap;
     private SatsTimeFormatService satsTimeFormatService;
@@ -51,20 +49,35 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //Load state and set content view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_container);
+
+        //Initialize backend services and retrieve data
         final SatsActivitiesService satsActivitiesService = new SatsActivitiesService();
         final SatsActivity[] activities = satsActivitiesService.getActivitiesBetween("2015-03-01", "2015-06-30");
         satsTimeFormatService = new SatsTimeFormatService();
         final ArrayList<SatsActivity> listOfActivities = new ArrayList<>();
-        final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
-        final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
+
+        //Populate and format services data
         satsActivitiesService.setFullCenterMap();
         makeListOfActivities(listOfActivities, activities);
         populateListOfWeeks(satsActivitiesService,activities);
 
-        HashMap<String, SatsSimpleCenter> simpleCenterMap = new HashMap<>();
-        simpleCenterMap = satsActivitiesService.getFullCenterMap();
+        //Create the action bar (toolbar)
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        final ImageView toolbarSettingsIcon = (ImageView) findViewById(R.id.action_bar_logo_settings);
+        final ImageView toolbarSatsIcon = (ImageView) findViewById(R.id.action_bar_logo_sats);
+        final ImageView toolbarRefreshIcon = (ImageView) findViewById(R.id.action_bar_logo_refresh);
+        setToolBar(toolbarSettingsIcon,toolbarSatsIcon,toolbarRefreshIcon);
+        toolbar.inflateMenu(R.menu.menu_main);
+
+        //Create the menu (drawer)
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        final ListView drawerList = (ListView) findViewById(R.id.navList);
+        setDrawer(drawerList);
+
+        //Create the View pager and StickyList fragments
         final Fragment mListFragment = new ListFragment();
         final CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), this, listOfActivities, satsActivitiesService,satsTimeFormatService, activities, listOfWeeks, weekMap);
         final ImageView leftShadow = (ImageView) findViewById(R.id.shadow_left);
@@ -72,21 +85,13 @@ public class MainActivity extends ActionBarActivity
         final ImageView markerLeft = (ImageView) findViewById(R.id.marker_left);
         final ImageView markerRight = (ImageView) findViewById(R.id.marker_right);
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.horizontal_view_pager);
-        final ListView drawerList = (ListView) findViewById(R.id.navList);
 
         markerLeft.setOnClickListener(markersActionListener);
         markerRight.setOnClickListener(markersActionListener);
 
-
         drawShadows(leftShadow, rightShadow);
         makeViewPager(mViewPager, adapter,mListFragment,markerLeft,markerRight);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        mToolbarRefreshIcon = (ImageView) findViewById(R.id.action_bar_logo_refresh);
-        //      Set ToolBar as  ActionBar
-        setToolBar(toolbarSettingsIcon,toolbarSatsIcon);
-        toolbar.inflateMenu(R.menu.menu_main);
-        setDrawer(drawerList);
+
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.listfragment_container, mListFragment, "listFrag")
@@ -111,10 +116,10 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    private void setToolBar(ImageView toolbarSettingsIcon, ImageView toolbarSatsIcon)
+    private void setToolBar(ImageView toolbarSettingsIcon, ImageView toolbarSatsIcon, ImageView toolbarRefreshIcon)
     {
         setSupportActionBar(toolbar);
-        mToolbarRefreshIcon.setOnClickListener(actionBarRefreshListener);
+        toolbarRefreshIcon.setOnClickListener(actionBarRefreshListener);
         toolbarSettingsIcon.setOnClickListener(actionBarSettingsListener);
         toolbarSatsIcon.setOnClickListener(actionBarSettingsListener);
     }
@@ -129,7 +134,6 @@ public class MainActivity extends ActionBarActivity
         items.add(new DrawerItem(getResources().getDrawable(R.drawable.maps_icon),"Karta","Hitta ditt närmaste\nSATS center!"));
 
         drawerList.setAdapter(new DrawerListAdapter(this, items));
-        mDrawerIsOpen = false;
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -257,7 +261,9 @@ public class MainActivity extends ActionBarActivity
         public void onClick(View v)
         {
             Animation rotation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
-            mToolbarRefreshIcon.startAnimation(rotation);
+
+            ImageView toolbarRefreshIcon = (ImageView) v.findViewById(R.id.action_bar_logo_refresh);
+            toolbarRefreshIcon.startAnimation(rotation);
         }
     };
 
@@ -311,15 +317,13 @@ public class MainActivity extends ActionBarActivity
         if(keyEvent.getAction() == KeyEvent.ACTION_DOWN
             && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MENU)
         {
-            if (!mDrawerIsOpen)
+            if (!mDrawerLayout.isDrawerOpen(mDrawerPane))
             {
                 mDrawerLayout.openDrawer(mDrawerPane);
-                mDrawerIsOpen = true;
             }
             else
             {
                 mDrawerLayout.closeDrawer(mDrawerPane);
-                mDrawerIsOpen = false;
             }
             return true;
         }

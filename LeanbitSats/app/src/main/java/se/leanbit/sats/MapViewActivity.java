@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,16 +29,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.Inflater;
-
-import se.leanbit.sats.R;
-import se.leanbit.sats.models.SatsActivity;
 import se.leanbit.sats.models.SatsSimpleCenter;
 import se.leanbit.sats.repositories.services.SatsActivitiesService;
 
-/**
-* Created by gina on 2015-05-22.
-*/
 public class MapViewActivity extends ActionBarActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnCameraChangeListener
 {
     private GoogleMap mMap = null;
@@ -218,7 +210,7 @@ public class MapViewActivity extends ActionBarActivity implements OnMapReadyCall
             {
                 View popup=inflater.inflate(R.layout.custom_info_window, null);
 
-                TextView tv=(TextView) popup.findViewById(R.id.text_sats_center);
+                TextView tv=(TextView) popup.findViewById(R.id.custom_info_window_text);
                 tv.setText(marker.getTitle());
                 return(popup);
             }

@@ -1,8 +1,5 @@
 package se.leanbit.sats.models;
 
-/**
- * Created by sebastiangraveleij on 25/05/15.
- */
 public class SatsSimpleCenter
 {
     public String centerName;

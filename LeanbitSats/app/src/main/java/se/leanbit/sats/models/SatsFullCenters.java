@@ -2,9 +2,6 @@ package se.leanbit.sats.models;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sebastiangraveleij on 26/05/15.
- */
 public class SatsFullCenters
 {
     public Boolean availableForOnlineBooking;

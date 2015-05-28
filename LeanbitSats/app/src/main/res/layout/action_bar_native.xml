@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    This view was a replacement candidate to action_bar.xml.
+    Unlike action_bar.xml, it tries to replace the action bar provided by the
+    native theme directly instead of manually creating and inflating an action bar
+    in each activity xml.
+    This XML is currently not in use since it did not make it into the stable release.
+-->
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -11,11 +19,11 @@
     >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar_layout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="left|center_vertical"
-        android:id="@+id/toolbar_layout"
         android:weightSum="1">
 
 
@@ -30,9 +38,9 @@
             />
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:id="@+id/imageView"
             android:scaleType="centerInside"
             android:src="@drawable/sats_logo"
             android:padding="3dp"

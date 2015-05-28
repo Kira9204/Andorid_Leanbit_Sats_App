@@ -1,7 +1,5 @@
 package se.leanbit.sats;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import se.leanbit.sats.R;
 
-/**
- * Created by gina on 2015-05-26.
- */
 public class SatsWebActivity extends ActionBarActivity
 {
     @Override

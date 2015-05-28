@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#eeeeef"
+    android:background="@color/scroll_view_darkgrey"
     >
 
     <TextView
@@ -16,6 +16,6 @@
         android:layout_margin="2dp"
         android:layout_marginLeft="5dp"
         android:gravity="center"
-        android:text="HEJ"/>
+        android:text="Example text"/>
 
 </LinearLayout>

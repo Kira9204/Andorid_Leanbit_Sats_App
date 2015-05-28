@@ -19,10 +19,6 @@ import se.leanbit.sats.repositories.services.SatsActivitiesService;
 import se.leanbit.sats.repositories.services.SatsTimeFormatService;
 import se.leanbit.sats.BookedActivity;
 
-
-/**
- * Created by gina on 2015-04-22.
- */
 public class StickyListAdapter extends BaseAdapter implements StickyListHeadersAdapter
 {
     private static final int PAST_ACTIVITY = 0;
@@ -93,26 +89,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                 pastHolder.imageCheck = (ImageView) convertView.findViewById(R.id.past_activity_checkmark_image);
                 pastHolder.imageMan = (ImageView) convertView.findViewById(R.id.past_activity_image);
 
-                convertView.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        ImageView image = (ImageView) view.findViewById(R.id.past_activity_checkmark_image);
-                        TextView text = (TextView) view.findViewById(R.id.past_activity_checkmark_text);
-                        if ((int) image.getTag() == 0)
-                        {
-                            image.setImageResource(R.drawable.done_icon);
-                            image.setTag(1);
-                            text.setText("Avklarat!");
-                        } else
-                        {
-                            image.setImageResource(R.drawable.checkmark_button_normal);
-                            image.setTag(0);
-                            text.setText("Avklarat?");
-                        }
-                    }
-                });
+                convertView.setOnClickListener(pastActivityCheckboxAction);
 
                 pastHolder = setHolderText(pastHolder, position);
                 convertView.setTag(pastHolder);
@@ -173,22 +150,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
                     futureHolder.workOut = (ImageView) convertView.findViewById(R.id.future_activity_workout_image);
                     futureHolder.arrayIndex = (TextView) convertView.findViewById(R.id.future_activity_array_index);
 
-                    futureHolder.workOut.setOnClickListener(new View.OnClickListener()
-                    {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        Intent intent = new Intent(view.getContext(), BookedActivity.class);
-
-                        TextView tv = (TextView) view.getRootView().findViewById(R.id.future_activity_array_index);
-                        int index = Integer.parseInt((String) tv.getText());
-
-                        SatsActivity activity = mActivityList.get(index);
-                        intent.putExtra("Activity", activity);
-                        view.getContext().startActivity(intent);
-                        }
-                    });
-
+                    futureHolder.workOut.setOnClickListener(startBookedActivityAction);
 
                     convertView.setTag(futureHolder);
                     futureHolder = setFutureViewHolder(futureHolder, position);
@@ -411,7 +373,44 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
     }
 
 
-    class ViewHolderFuture
+    private View.OnClickListener pastActivityCheckboxAction = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            ImageView image = (ImageView) view.findViewById(R.id.past_activity_checkmark_image);
+            TextView text = (TextView) view.findViewById(R.id.past_activity_checkmark_text);
+            if ((int) image.getTag() == 0)
+            {
+                image.setImageResource(R.drawable.done_icon);
+                image.setTag(1);
+                text.setText("Avklarat!");
+            } else
+            {
+                image.setImageResource(R.drawable.checkmark_button_normal);
+                image.setTag(0);
+                text.setText("Avklarat?");
+            }
+        }
+    };
+
+    private View.OnClickListener startBookedActivityAction = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            Intent intent = new Intent(view.getContext(), BookedActivity.class);
+
+            TextView tv = (TextView) view.getRootView().findViewById(R.id.future_activity_array_index);
+            int index = Integer.parseInt((String) tv.getText());
+
+            SatsActivity activity = mActivityList.get(index);
+            intent.putExtra("Activity", activity);
+            view.getContext().startActivity(intent);
+        }
+    };
+
+    private class ViewHolderFuture
     {
         TextView textName;
         TextView textInstructor;
@@ -428,7 +427,7 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         ImageView workOut;
     }
 
-    class ViewHolderCustom
+    private class ViewHolderCustom
     {
         TextView textName;
         TextView textDuration;
@@ -438,12 +437,12 @@ public class StickyListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView textTrainingProgram;
     }
 
-    class HeaderViewHolder
+    private class HeaderViewHolder
     {
         TextView text;
     }
 
-    class ViewHolderPast
+    private class ViewHolderPast
     {
         TextView textName;
         TextView textDate;
